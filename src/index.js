@@ -14,11 +14,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import "./styles.css";
 
-const handleLogout = () => {
-  console.log("logout");
-  return logoutUser(app.auth.currentUser);
-};
-
 const Layout = styled.div`
   display: grid;
   grid-template-areas:
@@ -56,7 +51,7 @@ const Content = styled.div`
 function MyApp(props) {
   const { users, hasLoggedInUser } = useStitchAuth();
   const LogoutButton = () => (
-    <Button onClick={() => logoutUser(app.auth.currentUser)}>Log Out</Button>
+    <Button onClick={() => logoutUser(app.auth.user)}>Log Out</Button>
   );
   return (
     <Layout>
