@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import styled from "@emotion/styled";
-import { Router, Link } from "@reach/router";
+import { Router, Redirect, Match } from "@reach/router";
 import app, {
   useStitchAuth,
   loginEmailPasswordUser,
@@ -22,19 +22,25 @@ const Layout = styled.div`
   grid-template-rows: 40vh auto;
   grid-template-columns: 1fr auto 1fr;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   background: #1f2124;
 `;
 
-const Banner = styled.div`
-  grid-area: banner;
-  background: linear-gradient(0deg, #1f2124 0%, transparent),
-    url(https://images.unsplash.com/photo-1528728329032-2972f65dfb3f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1200&q=80)
-      no-repeat center;
-  // background: #1f2124;
-  background-size: cover;
-`;
-
+const Banner = props => {
+  const { photo } = props;
+  const photoId = photo || "1449748040579-354c191a7934";
+  const BannerContainer = styled.div`
+    grid-area: banner;
+    // background: #1f2124;
+    background: linear-gradient(0deg, #1f2124 0%, transparent),
+      url(https://images.unsplash.com/photo-${photoId}?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1200&q=80)
+        no-repeat center;
+    background-size: cover;
+  `;
+  return <BannerContainer {...props} />;
+};
+// https://images.unsplash.com/photo-1528728329032-2972f65dfb3f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1200&q=80
+// https://images.unsplash.com/photo-1449748040579-354c191a7934?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1200&q=80
 const Navbar = styled.div`
   height: 60px;
   padding: 10px 20px;
@@ -46,8 +52,12 @@ const Navbar = styled.div`
 const Content = styled.div`
   grid-area: content;
   position: relative;
-  top: -160px;
+  top: -360px;
 `;
+
+// const SearchBanner = props => (
+//   <Banner {...props} photo="1449748040579-354c191a7934" />
+// );
 
 function MyApp(props) {
   const { hasLoggedInUser } = useStitchAuth();

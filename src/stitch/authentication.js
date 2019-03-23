@@ -29,15 +29,15 @@ export function getAllUsers() {
   return app.auth.listUsers();
 }
 
-export function removeUserFromApp(stitchUser) {
-  // Remove a user from the app (and log them out automatically, if necessary)
-  return app.auth.removeUserWithId(stitchUser.id);
-}
+// export function removeUserFromApp(stitchUser) {
+//   // Remove a user from the app (and log them out automatically, if necessary)
+//   return app.auth.removeUserWithId(stitchUser.id);
+// }
 
-export function switchToUser(stitchUser) {
-  // Set another logged-in user as the active user
-  return app.auth.switchToUserWithId(stitchUser.id);
-}
+// export function switchToUser(stitchUser) {
+//   // Set another logged-in user as the active user
+//   return app.auth.switchToUserWithId(stitchUser.id);
+// }
 
 export function logoutUser(stitchUser) {
   // Log a user out of the app. Logged out users are still associated with
@@ -45,10 +45,10 @@ export function logoutUser(stitchUser) {
   return app.auth.logoutUserWithId(stitchUser.id);
 }
 
-export function isActiveUser(stitchUser) {
-  // Return true if the specified user is logged in and currently active
-  return app.auth.currentUser && app.auth.currentUser.id === stitchUser.id;
-}
+// export function isActiveUser(stitchUser) {
+//   // Return true if the specified user is logged in and currently active
+//   return app.auth.currentUser && app.auth.currentUser.id === stitchUser.id;
+// }
 
 export function useStitchAuth() {
   // We'll store the list of users in state
