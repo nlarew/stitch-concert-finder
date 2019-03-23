@@ -31,6 +31,7 @@ const Banner = styled.div`
   background: linear-gradient(0deg, #1f2124 0%, transparent),
     url(https://images.unsplash.com/photo-1528728329032-2972f65dfb3f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1200&q=80)
       no-repeat center;
+  // background: #1f2124;
   background-size: cover;
 `;
 
@@ -49,7 +50,7 @@ const Content = styled.div`
 `;
 
 function MyApp(props) {
-  const { users, hasLoggedInUser } = useStitchAuth();
+  const { hasLoggedInUser } = useStitchAuth();
   const LogoutButton = () => (
     <Button onClick={() => logoutUser(app.auth.user)}>Log Out</Button>
   );
