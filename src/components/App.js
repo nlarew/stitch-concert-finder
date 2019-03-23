@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { Router, Redirect } from "@reach/router";
-import { Card, CardBody, Button, InputGroup, Input, Table } from "reactstrap";
+import poweredBySongkick from "./../../powered-by-songkick-white.svg";
+import {
+  Card,
+  CardBody,
+  Button,
+  InputGroup,
+  Input,
+  InputGroupAddon,
+  Table,
+} from "reactstrap";
 // import app from "./../stitch";
 
 import { Map, TileLayer, Marker, Popup, Circle } from "react-leaflet";
@@ -54,15 +63,33 @@ function Leaf(props) {
   );
 }
 
-const SearchBar = styled(Input)`
-  width: 850px;
-  height: 70px;
+const SearchBarContainer = styled(InputGroup)``;
+const SearchBarButton = styled(InputGroupAddon)``;
+//  <InputGroupAddon addonType="prepend">@</InputGroupAddon>
+const SearchBarInput = styled(Input)`
+  width: 100%;
+  height: 70px !important;
   background-color: white;
   box-sizing: border-box;
   padding-left: 20px;
   padding-right: 20px;
-  border-radius: 0;
+  border-radius: 0px !important;
 `;
+const SearchBar = props => {
+  const { address, search } = props;
+  const handleSearch = () => {
+    console.log("yo");
+    search(address);
+  };
+  return (
+    <SearchBarContainer>
+      <SearchBarInput {...props} />
+      <InputGroupAddon addonType="append">
+        <Button onClick={handleSearch}>Get Events</Button>
+      </InputGroupAddon>
+    </SearchBarContainer>
+  );
+};
 
 // Date: start.date
 // Name: displayName
@@ -70,9 +97,12 @@ const SearchBar = styled(Input)`
 // Venue: venue.displayName
 // Time: start.time
 
+const EventsTableContainer = styled(Table)`
+  min-height: 400px;
+`;
+
 const EventsTable = props => {
   const { events } = props;
-  console.log(events);
   const renderEventRows = () => {
     return events.map(event => (
       <tr key={event.id}>
@@ -85,8 +115,18 @@ const EventsTable = props => {
     ));
   };
   return (
-    <Table dark>
+    <EventsTableContainer dark>
       <thead>
+        <tr>
+          <th colSpan="5">
+            <a href="https://www.songkick.com/">
+              <img
+                height="30px"
+                src="https://stitch-statichosting-prod.s3.amazonaws.com/5c95208750626e9adb7c1723/powered-by-songkick-white.svg"
+              />
+            </a>
+          </th>
+        </tr>
         <tr>
           <th>Date</th>
           <th>Event</th>
@@ -96,7 +136,7 @@ const EventsTable = props => {
         </tr>
       </thead>
       <tbody>{renderEventRows()}</tbody>
-    </Table>
+    </EventsTableContainer>
   );
 };
 
@@ -136,7 +176,7 @@ function useEventSearch(addr) {
 
   const [venues, setVenues] = useState([]);
   function groupEventsByVenue() {
-    let upcomingVenues = venues;
+    let upcomingVenues = [];
     events.forEach(event => {
       if (upcomingVenues.includes(event.venue)) {
         upcomingVenues = upcomingVenues.map(venue => {
@@ -170,19 +210,10 @@ const Search = props => {
         onChange={handleEventInputChange}
         value={address}
         placeholder="Enter your address..."
+        search={search}
       />
       <Leaf venues={venues} />
-      {events.length ? (
-        <EventsTable events={events} />
-      ) : (
-        <Button
-          onClick={() => {
-            search(address);
-          }}
-        >
-          Get Events
-        </Button>
-      )}
+      {events.length && <EventsTable events={events} />}
     </>
   );
 };

@@ -15,13 +15,12 @@ const LoginLayout = styled.div`
   display: grid;
   grid-template-areas:
     "banner banner banner"
-    "left card right"
-    "botleft bot botright";
-  grid-template-rows: 40vh auto 1fr;
+    "left content right";
+  grid-template-rows: 40vh auto;
   grid-template-columns: 1fr auto 1fr;
   width: 100vw;
-  height: 100vh;
-  background: #566270;
+  min-height: 100vh;
+  background: #1f2124;
 `;
 
 const LoginCard = styled(Card)`
@@ -37,7 +36,6 @@ const Banner = styled.div`
 `;
 
 export default function Login(props) {
-  return <LoginForm {...props} />;
   return (
     <LoginLayout>
       <Banner />
@@ -52,7 +50,7 @@ const ButtonRow = styled.div`
   justify-content: space-between;
 `;
 
-function LoginForm(props) {
+export function LoginForm(props) {
   const { loginEmailPasswordUser } = props;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

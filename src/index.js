@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import ReactDOM from "react-dom";
 import styled from "@emotion/styled";
 import { Router, Redirect, Match } from "@reach/router";
@@ -8,7 +8,7 @@ import app, {
   logoutUser,
 } from "./stitch";
 import { Button } from "reactstrap";
-import Login from "./components/Login";
+import { LoginForm } from "./components/Login";
 import App from "./components/App";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -52,31 +52,46 @@ const Navbar = styled.div`
 const Content = styled.div`
   grid-area: content;
   position: relative;
-  top: -360px;
+  top: -30vh;
 `;
 
-// const SearchBanner = props => (
-//   <Banner {...props} photo="1449748040579-354c191a7934" />
-// );
+const LoginLayout = styled.div`
+  display: grid;
+  grid-template-areas:
+    "banner banner banner"
+    "left content right";
+  grid-template-rows: 40vh auto;
+  grid-template-columns: 1fr auto 1fr;
+  width: 100vw;
+  min-height: 100vh;
+  background: #1f2124;
+`;
 
 function MyApp(props) {
   const { hasLoggedInUser } = useStitchAuth();
   const LogoutButton = () => (
     <Button onClick={() => logoutUser(app.auth.user)}>Log Out</Button>
   );
-  return (
-    <Layout>
+  return hasLoggedInUser ? (
+    <>
+      <Layout>
+        <Banner photo="1528728329032-2972f65dfb3f">
+          <Navbar>{hasLoggedInUser && <LogoutButton />}</Navbar>
+        </Banner>
+        <Content>
+          <App handleLogout={() => logoutUser(app.currentUser)} />
+        </Content>
+      </Layout>
+    </>
+  ) : (
+    <LoginLayout>
       <Banner>
-        <Navbar>{hasLoggedInUser && <LogoutButton />}</Navbar>
+        <Navbar />
       </Banner>
       <Content>
-        {hasLoggedInUser ? (
-          <App handleLogout={() => logoutUser(app.currentUser)} />
-        ) : (
-          <Login loginEmailPasswordUser={loginEmailPasswordUser} />
-        )}
+        <LoginForm loginEmailPasswordUser={loginEmailPasswordUser} />
       </Content>
-    </Layout>
+    </LoginLayout>
   );
 }
 

@@ -6,8 +6,9 @@ config();
 const APP_ID = process.env["APP_ID"];
 
 // Stitch App Client Setup
-const app = Stitch.hasAppClient(APP_ID)
-  ? Stitch.getAppClient(APP_ID)
-  : Stitch.initializeAppClient(APP_ID);
+if (!Stitch.hasAppClient(APP_ID)) {
+  Stitch.initializeAppClient(APP_ID);
+}
+const app = Stitch.getAppClient(APP_ID);
 
 export default app;
