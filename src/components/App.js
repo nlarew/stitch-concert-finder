@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
-import Search from "./Search";
-import Venue from "./Venue";
+import Search, { useEventSearch } from "./Search";
+import List from "./List";
+import Venue from "./VenueDetail";
+import Event from "./EventDetail";
 import Banner from "./Banner";
 import Navbar from "./Navbar";
 
@@ -18,19 +20,21 @@ const AppLayout = styled.div`
 `;
 
 export default function App(props) {
+  const eventSearch = useEventSearch();
+  const [currentEvent, setCurrentEvent] = useState(null);
   return (
     <AppLayout>
       <Banner>
         <Navbar />
       </Banner>
-      <Search {...props} />
-      <Venue />
+      <Search {...eventSearch} />
+      <List
+        events={eventSearch.events}
+        address={eventSearch.address}
+        currentEvent={currentEvent}
+        setCurrentEvent={setCurrentEvent}
+      />
+      {currentEvent && <Event event={currentEvent} />}
     </AppLayout>
   );
 }
-
-// <Router>
-//           <Search path="/search" />
-//           <Search path="/search/asdf" />
-//           <Redirect default from="/" to="/search" />
-//         </Router>

@@ -52,60 +52,7 @@ const SearchBar = props => {
   );
 };
 
-// Date: start.date
-// Name: displayName
-// Artist: performance[0].artist.displayName
-// Venue: venue.displayName
-// Time: start.time
-
-const EventsTable = styled(Table)`
-  flex-grow: 10;
-`;
-
-const EventsTableBody = styled.tbody`
-  overflow-y: scroll;
-`;
-
-const EventsList = props => {
-  const { events } = props;
-  const renderEventRows = () => {
-    return events.map(event => (
-      <tr key={event.id}>
-        <td>{event.start.date}</td>
-        <td>{event.displayName}</td>
-        <td>{event.performance[0].artist.displayName}</td>
-        <td>{event.venue.displayName}</td>
-        <td>{event.start.time}</td>
-      </tr>
-    ));
-  };
-  return (
-    <EventsTable dark>
-      <thead>
-        <tr>
-          <th colSpan="5">
-            <a href="https://www.songkick.com/">
-              <img
-                height="30px"
-                src="https://stitch-statichosting-prod.s3.amazonaws.com/5c95208750626e9adb7c1723/powered-by-songkick-white.svg"
-              />
-            </a>
-          </th>
-        </tr>
-        <tr>
-          <th>Date</th>
-          <th>Event</th>
-          <th>Artist</th>
-          <th>Venue</th>
-          <th>Time</th>
-        </tr>
-      </thead>
-      <EventsTableBody>{renderEventRows()}</EventsTableBody>
-    </EventsTable>
-  );
-};
-
-function useEventSearch(addr) {
+export function useEventSearch(addr) {
   const [address, setAddress] = useState(addr);
   const [events, setEvents] = useState([]);
   const [fetching, setFetching] = useState(false);
@@ -181,13 +128,7 @@ const ContentBody = styled(CardBody)`
 
 const Search = props => {
   // const [events, setEvents] = useState([]);
-  const {
-    events,
-    venues,
-    address,
-    search,
-    handleEventInputChange,
-  } = useEventSearch();
+  const { events, venues, address, search, handleEventInputChange } = props;
   return (
     <ContentCard inverse color="dark">
       <ErrorBoundary>
