@@ -16,6 +16,7 @@ const SearchBarInput = styled(Input)`
   box-sizing: border-box;
   padding-left: 20px;
   padding-right: 20px;
+  line-height: 40px;
 `;
 const SearchBar = props => {
   const { address, search } = props;
@@ -43,7 +44,7 @@ const SearchBar = props => {
 // Time: start.time
 
 const EventsTable = styled(Table)`
-  min-height: 400px;
+  flex-grow: 10;
 `;
 
 const EventsTableBody = styled.tbody`
@@ -166,7 +167,7 @@ const Search = props => {
         search={search}
       />
       <LeafMap venues={venues} />
-      {events.length && <EventsTable events={events} />}
+      {events.length && <EventsList events={events} />}
     </SearchLayout>
   );
 };

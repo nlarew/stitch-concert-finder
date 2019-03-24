@@ -31,7 +31,7 @@ export default function App(props) {
   return (
     <AppLayout>
       <SearchSectionLayout>
-        <Search />
+        <Search {...props} />
       </SearchSectionLayout>
       <ContentSectionLayout />
     </AppLayout>
