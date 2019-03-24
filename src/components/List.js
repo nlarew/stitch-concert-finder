@@ -34,7 +34,7 @@ const EventsTableBody = styled.tbody`
 `;
 
 const EventsTableRow = styled("tr")`
-  background-color: ${props => (props.isCurrent ? "#ff0000" : "#00ff00")};
+  background-color: ${props => (props.isCurrent ? "#16a2b8" : "#3e4348")};
 `;
 
 const EventsList = props => {

@@ -31,7 +31,12 @@ class Songkick {
         "Brixton Academy is an award winning music venue situated in the heart of Brixton, South London.",
     };
   }
-
+  // <Marker position={[51.5, -0.07]}>
+  //           <Popup>
+  //             A pretty CSS3 popup. <br /> Easily customizable.
+  //           </Popup>
+  //         </Marker>
+  //         <Marker position={[51.52, -0.08]} />
   async getUpcomingEventsForVenue(venue) {
     // Reference: https://www.songkick.com/developer/upcoming-events-for-venue
     return [
@@ -63,8 +68,8 @@ class Songkick {
         ],
         location: {
           city: "San Francisco, CA, US",
-          lng: -122.4332937,
-          lat: 37.7842398,
+          lat: 51.52,
+          lng: -0.1,
         },
         venue: {
           metroArea: {
@@ -87,6 +92,132 @@ class Songkick {
           uri:
             "http://www.songkick.com/venues/17522-o2-academy-brixton?utm_source=PARTNER_ID&utm_medium=partner",
           displayName: "O2 Academy Brixton",
+          street: "211 Stockwell Road",
+          id: 17522,
+          website: "http://www.brixton-academy.co.uk/",
+          phone: "020 7771 3000",
+          capacity: 4921,
+          description:
+            "Brixton Academy is an award winning music venue situated in the heart of Brixton, South London. The venue has played host to many notable shows and reunions, welcoming a wide variety of artists, from Bob Dylan to Eminem, to the stage. It attracts over half a million visitors per year, accommodating over one hundred events.\n\nBuilt in 1929, the site started life as one of the four state of the art\n Astoria Theaters, screening a variety of motion pictures and shows. In 1972 the venue was transformed into a rock venue and re-branded as The Sundown Centre. With limited success the venue closed it’s doors in 1974 and was not re-opened as a music venue again until 1983, when it became The Brixton Academy.\n\nFeaturing a beautiful Art Deco interior, the venue is now known as the 02 Academy Brixton, and hosts a diverse range of club nights and live performances, as well as seated events. The venue has an upstairs balcony as well as the main floor downstairs. There is disabled access and facilities, a bar and a cloakroom. Club night events are for over 18s, for live music under 14s must be accompanied by an adult.",
+        },
+        status: "ok",
+        popularity: 0.012763,
+      },
+      {
+        id: 11129129,
+        type: "Concert",
+        uri:
+          "http://www.songkick.com/concerts/11129128-wild-flag-at-fillmore?utm_source=PARTNER_ID&utm_medium=partner",
+        displayName: "Celtic Woman (April 18, 2012)",
+        start: {
+          time: "20:00:00",
+          date: "2012-04-18",
+          datetime: "2012-04-18T20:00:00-0800",
+        },
+        performance: [
+          {
+            artist: {
+              id: 29835,
+              uri:
+                "http://www.songkick.com/artists/29835-wild-flag?utm_source=PARTNER_ID&utm_medium=partner",
+              displayName: "Celtic Woman",
+              identifier: [],
+            },
+            id: 21579303,
+            displayName: "Celtic Woman",
+            billingIndex: 1,
+            billing: "headline",
+          },
+        ],
+        location: {
+          city: "London, UK",
+          lat: 51.5,
+          lng: -0.07,
+        },
+        venue: {
+          metroArea: {
+            uri:
+              "http://www.songkick.com/metro_areas/24426-uk-london?utm_source=PARTNER_ID&utm_medium=partner",
+            displayName: "London",
+            country: { displayName: "UK" },
+            id: 24426,
+          },
+          city: {
+            uri:
+              "http://www.songkick.com/metro_areas/24426-uk-london?utm_source=PARTNER_ID&utm_medium=partner",
+            displayName: "London",
+            country: { displayName: "UK" },
+            id: 24426,
+          },
+          zip: "SW9 9SL",
+          lat: 51.5,
+          lng: -0.07,
+          uri:
+            "http://www.songkick.com/venues/17522-o2-academy-brixton?utm_source=PARTNER_ID&utm_medium=partner",
+          displayName: "Cheshire Arena",
+          street: "211 Stockwell Road",
+          id: 17522,
+          website: "http://www.brixton-academy.co.uk/",
+          phone: "020 7771 3000",
+          capacity: 4921,
+          description:
+            "Brixton Academy is an award winning music venue situated in the heart of Brixton, South London. The venue has played host to many notable shows and reunions, welcoming a wide variety of artists, from Bob Dylan to Eminem, to the stage. It attracts over half a million visitors per year, accommodating over one hundred events.\n\nBuilt in 1929, the site started life as one of the four state of the art\n Astoria Theaters, screening a variety of motion pictures and shows. In 1972 the venue was transformed into a rock venue and re-branded as The Sundown Centre. With limited success the venue closed it’s doors in 1974 and was not re-opened as a music venue again until 1983, when it became The Brixton Academy.\n\nFeaturing a beautiful Art Deco interior, the venue is now known as the 02 Academy Brixton, and hosts a diverse range of club nights and live performances, as well as seated events. The venue has an upstairs balcony as well as the main floor downstairs. There is disabled access and facilities, a bar and a cloakroom. Club night events are for over 18s, for live music under 14s must be accompanied by an adult.",
+        },
+        status: "ok",
+        popularity: 0.012763,
+      },
+      {
+        id: 11129130,
+        type: "Concert",
+        uri:
+          "http://www.songkick.com/concerts/11129128-wild-flag-at-fillmore?utm_source=PARTNER_ID&utm_medium=partner",
+        displayName: "John Snowfield at The Rusty Bucket (April 19, 2012)",
+        start: {
+          time: "20:00:00",
+          date: "2012-04-19",
+          datetime: "2012-04-19T20:00:00-0800",
+        },
+        performance: [
+          {
+            artist: {
+              id: 29836,
+              uri:
+                "http://www.songkick.com/artists/29835-wild-flag?utm_source=PARTNER_ID&utm_medium=partner",
+              displayName: "John Snowfield",
+              identifier: [],
+            },
+            id: 21579303,
+            displayName: "John Snowfield",
+            billingIndex: 1,
+            billing: "headline",
+          },
+        ],
+        location: {
+          city: "London, UK",
+          lat: 51.52,
+          lng: -0.08,
+        },
+        venue: {
+          metroArea: {
+            uri:
+              "http://www.songkick.com/metro_areas/24426-uk-london?utm_source=PARTNER_ID&utm_medium=partner",
+            displayName: "London",
+            country: { displayName: "UK" },
+            id: 24426,
+          },
+          city: {
+            uri:
+              "http://www.songkick.com/metro_areas/24426-uk-london?utm_source=PARTNER_ID&utm_medium=partner",
+            displayName: "London",
+            country: { displayName: "UK" },
+            id: 24426,
+          },
+          zip: "SW9 9SL",
+          lat: 51.52,
+          lng: -0.08,
+          uri:
+            "http://www.songkick.com/venues/17522-o2-academy-brixton?utm_source=PARTNER_ID&utm_medium=partner",
+          displayName: "The Rusty Bucket",
           street: "211 Stockwell Road",
           id: 17522,
           website: "http://www.brixton-academy.co.uk/",

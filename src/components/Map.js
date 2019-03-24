@@ -40,13 +40,12 @@ export default function LeafMap(props) {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <Circle center={center} fillColor="blue" radius={radius} />
-        {renderEventMarkers()}
-        <Marker position={[51.5, -0.07]}>
+        <Marker position={center}>
           <Popup>
             A pretty CSS3 popup. <br /> Easily customizable.
           </Popup>
         </Marker>
-        <Marker position={[51.52, -0.08]} />
+        {renderEventMarkers()}
       </ConcertMap>
     </ConcertMapContainer>
   );
