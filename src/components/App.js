@@ -1,16 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "@emotion/styled";
-import { Router, Redirect } from "@reach/router";
 import Search from "./Search";
-import Banner from "./Banner";
-import Navbar from "./Navbar";
+import Venue from "./Venue";
 
 const AppLayout = styled.div`
   display: grid;
   grid-template-areas:
     "search content"
     "search content";
-  grid-template-columns: 40% 60%;
+  grid-template-columns: 60% 40%;
   width: 100vw;
   min-height: 100vh;
   background: #1f2124;
@@ -33,7 +31,9 @@ export default function App(props) {
       <SearchSectionLayout>
         <Search {...props} />
       </SearchSectionLayout>
-      <ContentSectionLayout />
+      <ContentSectionLayout>
+        <Venue />
+      </ContentSectionLayout>
     </AppLayout>
   );
 }

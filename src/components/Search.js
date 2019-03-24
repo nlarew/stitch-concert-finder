@@ -19,7 +19,7 @@ const SearchBarInput = styled(Input)`
   line-height: 40px;
 `;
 const SearchBar = props => {
-  const { address, search } = props;
+  const { address, search, onChange } = props;
   const handleSearch = () => {
     search(address);
   };
@@ -29,7 +29,12 @@ const SearchBar = props => {
   // search={search}
   return (
     <SearchBarContainer>
-      <SearchBarInput {...props} />
+      <SearchBarInput
+        onChange={onChange}
+        value={address}
+        placeholder="Enter your address..."
+        search={search}
+      />
       <InputGroupAddon addonType="append">
         <Button onClick={handleSearch}>Get Events</Button>
       </InputGroupAddon>

@@ -1,8 +1,10 @@
+import React from "react";
 import styled from "@emotion/styled";
 import app, { logoutUser } from "./../stitch";
 import { Button } from "reactstrap";
 
 const NavbarContainer = styled.div`
+  grid-area: navbar;
   height: 60px;
   padding: 10px 20px;
   line-height: 40px;

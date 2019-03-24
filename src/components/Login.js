@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
+import ErrorBoundary from "react-error-boundary";
 import {
   Card,
   CardBody,
@@ -36,12 +37,14 @@ const LoginContent = styled.div`
 
 export default function Login(props) {
   return (
-    <LoginLayout>
-      <Banner />
-      <LoginContent>
-        <LoginForm {...props} />
-      </LoginContent>
-    </LoginLayout>
+    <ErrorBoundary>
+      <LoginLayout>
+        <Banner />
+        <LoginContent>
+          <LoginForm {...props} />
+        </LoginContent>
+      </LoginLayout>
+    </ErrorBoundary>
   );
 }
 

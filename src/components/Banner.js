@@ -16,3 +16,4 @@ const Banner = props => {
   `;
   return <BannerContainer {...props} />;
 };
+export default Banner;
