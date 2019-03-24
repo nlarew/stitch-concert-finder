@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
-import { Button, InputGroup, Input, InputGroupAddon, Table } from "reactstrap";
+import ErrorBoundary from "react-error-boundary";
+import {
+  Button,
+  Card,
+  CardBody,
+  InputGroup,
+  Input,
+  InputGroupAddon,
+  Table,
+} from "reactstrap";
 import LeafMap from "./Map";
 
 import { Songkick } from "./../stitch";
@@ -11,7 +20,6 @@ const SearchBarContainer = styled(InputGroup)`
 const SearchBarButton = styled(InputGroupAddon)``;
 const SearchBarInput = styled(Input)`
   height: 70px !important;
-  border-radius: 0px !important;
   background-color: white;
   box-sizing: border-box;
   padding-left: 20px;
@@ -36,7 +44,9 @@ const SearchBar = props => {
         search={search}
       />
       <InputGroupAddon addonType="append">
-        <Button onClick={handleSearch}>Get Events</Button>
+        <Button color="info" onClick={handleSearch}>
+          Search Nearby Venues
+        </Button>
       </InputGroupAddon>
     </SearchBarContainer>
   );
@@ -154,6 +164,21 @@ const SearchLayout = styled.div`
   width: 100%;
 `;
 
+const ContentCard = styled(Card)`
+  grid-area: search;
+  margin: 10px;
+  background-color: #383a3f !important;
+  background-color: #3e4348 !important;
+  background-color: #1f2124 !important;
+  position: relative;
+  top: -70px;
+`;
+
+const ContentBody = styled(CardBody)`
+  display: flex;
+  flex-direction: column;
+`;
+
 const Search = props => {
   // const [events, setEvents] = useState([]);
   const {
@@ -164,16 +189,19 @@ const Search = props => {
     handleEventInputChange,
   } = useEventSearch();
   return (
-    <SearchLayout>
-      <SearchBar
-        onChange={handleEventInputChange}
-        address={address}
-        placeholder="Enter your address..."
-        search={search}
-      />
-      <LeafMap venues={venues} />
-      {events.length && <EventsList events={events} />}
-    </SearchLayout>
+    <ContentCard inverse color="dark">
+      <ErrorBoundary>
+        <CardBody>
+          <SearchBar
+            onChange={handleEventInputChange}
+            address={address}
+            placeholder="Enter your address..."
+            search={search}
+          />
+          <LeafMap venues={venues} />
+        </CardBody>
+      </ErrorBoundary>
+    </ContentCard>
   );
 };
 export default Search;

@@ -2,8 +2,15 @@ import React from "react";
 import styled from "@emotion/styled";
 import { Map, TileLayer, Marker, Popup, Circle } from "react-leaflet";
 
+const ConcertMapContainer = styled.div`
+  height: 100%;
+  width: 100%;
+  margin-top: 20px;
+`;
 const ConcertMap = styled(Map)`
-  height: 50%;
+  width: 100%;
+  height: calc(100% - 80px);
+  border-radius: 4px;
 `;
 
 export default function LeafMap(props) {
@@ -26,19 +33,21 @@ export default function LeafMap(props) {
   const center = [51.505, -0.09];
   const radius = 3 * 1000; // 3 kilometers
   return (
-    <ConcertMap center={center} zoom={13}>
-      <TileLayer
-        attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      <Circle center={center} fillColor="blue" radius={radius} />
-      {renderEventMarkers()}
-      <Marker position={[51.5, -0.07]}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
-      </Marker>
-      <Marker position={[51.52, -0.08]} />
-    </ConcertMap>
+    <ConcertMapContainer>
+      <ConcertMap center={center} zoom={12}>
+        <TileLayer
+          attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <Circle center={center} fillColor="blue" radius={radius} />
+        {renderEventMarkers()}
+        <Marker position={[51.5, -0.07]}>
+          <Popup>
+            A pretty CSS3 popup. <br /> Easily customizable.
+          </Popup>
+        </Marker>
+        <Marker position={[51.52, -0.08]} />
+      </ConcertMap>
+    </ConcertMapContainer>
   );
 }

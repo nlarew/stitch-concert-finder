@@ -27,6 +27,10 @@ const LoginLayout = styled.div`
 
 const LoginCard = styled(Card)`
   width: 400px;
+  background-color: #383a3f !important;
+  background-color: #3e4348 !important;
+  background-color: #1f2124 !important;
+  background-color: #011627 !important;
 `;
 
 const LoginContent = styled.div`
@@ -68,7 +72,7 @@ export function LoginForm(props) {
     });
   };
   return (
-    <LoginCard>
+    <LoginCard inverse color="dark">
       <CardBody>
         <Form>
           <FormGroup>
