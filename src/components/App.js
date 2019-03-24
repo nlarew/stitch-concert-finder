@@ -8,7 +8,7 @@ const AppLayout = styled.div`
   grid-template-areas:
     "search content"
     "search content";
-  grid-template-columns: 60% 40%;
+  grid-template-columns: 30% 70%;
   width: 100vw;
   min-height: 100vh;
   background: #1f2124;

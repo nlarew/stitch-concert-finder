@@ -17,14 +17,17 @@ const ContentCard = styled(Card)`
   margin: 10px;
   padding: 10px;
   background-color: #383a3f !important;
+  background-color: #1f2124 !important;
+  position: relative;
+  top: -30px;
 `;
 
 const VenueLayout = styled.div`
   display: grid;
   grid-template-areas:
-    "navbar"
+    "banner"
     "content";
-  grid-template-rows: 60px 1fr;
+  grid-template-rows: 140px 1fr;
   height: 100%;
   background: #1f2124;
 `;
@@ -33,14 +36,10 @@ function Venue(props) {
   return (
     <ErrorBoundary>
       <VenueLayout>
-        <Navbar />
+        <Banner>
+          <Navbar />
+        </Banner>
         <ContentCard inverse>
-          <CardImg
-            top
-            width="100%"
-            src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180"
-            alt="Card image cap"
-          />
           <CardBody>
             <CardTitle>
               <h1>MyVenue</h1>
