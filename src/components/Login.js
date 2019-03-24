@@ -10,6 +10,7 @@ import {
   Input,
   FormText,
 } from "reactstrap";
+import Banner from "./Banner";
 
 const LoginLayout = styled.div`
   display: grid;
@@ -27,19 +28,19 @@ const LoginCard = styled(Card)`
   width: 400px;
 `;
 
-const Banner = styled.div`
-  grid-area: banner;
-  background: linear-gradient(0deg, #566270 0%, transparent),
-    url(https://images.unsplash.com/photo-1528728329032-2972f65dfb3f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1200&q=80)
-      no-repeat center;
-  background-size: cover;
+const LoginContent = styled.div`
+  grid-area: content;
+  position: relative;
+  top: -30vh;
 `;
 
 export default function Login(props) {
   return (
     <LoginLayout>
       <Banner />
-      <LoginForm {...props} />
+      <LoginContent>
+        <LoginForm {...props} />
+      </LoginContent>
     </LoginLayout>
   );
 }
