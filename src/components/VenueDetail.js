@@ -23,19 +23,16 @@ const ContentCard = styled(Card)`
   top: -70px;
 `;
 
-function Venue(props) {
+function Venue({ venue }) {
   return (
     <ContentCard inverse>
       <ErrorBoundary>
         <CardBody>
           <CardTitle>
-            <h1>MyVenue</h1>
+            <h1>{venue.name}</h1>
           </CardTitle>
-          <CardSubtitle>Card subtitle</CardSubtitle>
-          <CardText>
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </CardText>
+          <h2>Description</h2>
+          {venue.description && <CardText>{venue.description}</CardText>}
           <Button color="info">Button</Button>
         </CardBody>
       </ErrorBoundary>

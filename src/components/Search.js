@@ -13,7 +13,7 @@ import {
 } from "reactstrap";
 import LeafMap from "./Map";
 
-import app, { getLocationForAddress } from "./../stitch";
+import app, { getLocationForAddress, searchNearAddress } from "./../stitch";
 import {
   getNearbyEvents,
   getNearbyVenues,
@@ -85,7 +85,6 @@ export function useEventSearch() {
   };
 
   function search(addr) {
-    setAddress(addressQuery);
     if (searching || fetchingEvents || fetchingVenues) {
       cancelCurrentSearch();
     }
@@ -99,18 +98,18 @@ export function useEventSearch() {
     setFetchingEvents(false);
     setFetchingVenues(false);
   }
-
-  async function getAddressLocation(address) {
-    if (searching) {
-      const location = await getLocationForAddress(address);
-      setAddressLocation(location);
-    }
-    setSearching(false);
-  }
+  // asdf
+  function formatAddress(location) {}
 
   useEffect(
-    () => {
-      getAddressLocation(address);
+    address => {
+      if (searching) {
+        getLocationForAddress(address).then(location => {
+          setAddressLocation(location);
+          setAddress(formatAddress(location));
+        });
+      }
+      setSearching(false);
     },
     [searching],
   );
