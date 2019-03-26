@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
   UserPasswordCredential,
   FacebookRedirectCredential,
+  GoogleRedirectCredential,
 } from "mongodb-stitch-browser-sdk";
 import app from "./app.js";
 
@@ -26,6 +27,15 @@ export function loginEmailPasswordUser({ email, password }) {
 export function loginFacebookUser() {
   return app.auth
     .loginWithRedirect(new FacebookRedirectCredential())
+    .then(stitchUser => {
+      console.log(`logged in as: ${stitchUser.id}`);
+      return stitchUser;
+    });
+}
+
+export function loginGoogleUser() {
+  return app.auth
+    .loginWithRedirect(new GoogleRedirectCredential())
     .then(stitchUser => {
       console.log(`logged in as: ${stitchUser.id}`);
       return stitchUser;

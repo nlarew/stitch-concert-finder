@@ -23,6 +23,7 @@
     "react-leaflet": "2.2.1",
     "react-scripts": "2.1.8",
     "react-social-login-buttons": "2.3.1",
+    "react-use": "6.1.0",
     "reactstrap": "7.1.0"
   },
   "devDependencies": {

@@ -4,6 +4,7 @@ import app, {
   useStitchAuth,
   loginEmailPasswordUser,
   loginFacebookUser,
+  loginGoogleUser,
   logoutUser,
   getLocationForAddress,
   handleOAuthRedirects,
@@ -24,6 +25,7 @@ function MyApp(props) {
     <Login
       loginEmailPasswordUser={loginEmailPasswordUser}
       loginFacebookUser={loginFacebookUser}
+      loginGoogleUser={loginGoogleUser}
     />
   );
 }

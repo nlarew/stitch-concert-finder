@@ -92,15 +92,9 @@ const ButtonRow = styled.div`
 `;
 
 export function LoginForm(props) {
-  const { loginEmailPasswordUser, loginFacebookUser } = props;
+  const { loginEmailPasswordUser, loginFacebookUser, loginGoogleUser } = props;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const handleLoginNick = () => {
-    loginEmailPasswordUser({
-      email: "nick.larew@mongodb.com",
-      password: "password",
-    });
-  };
   return (
     <LoginCard inverse color="dark">
       <CardBody>
@@ -132,7 +126,15 @@ export function LoginForm(props) {
             >
               Log In
             </Button>
-            <Button color="warning" onClick={handleLoginNick}>
+            <Button
+              color="warning"
+              onClick={() => {
+                loginEmailPasswordUser({
+                  email: "nick.larew@mongodb.com",
+                  password: "password",
+                });
+              }}
+            >
               Log In as Nick
             </Button>
           </ButtonRow>
@@ -145,7 +147,10 @@ export function LoginForm(props) {
             css={socialButtonStyle}
             onClick={() => loginFacebookUser()}
           />
-          <GoogleLoginButton css={socialButtonStyle} />
+          <GoogleLoginButton
+            css={socialButtonStyle}
+            onClick={() => loginGoogleUser()}
+          />
         </Form>
       </CardBody>
     </LoginCard>
