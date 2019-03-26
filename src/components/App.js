@@ -31,13 +31,16 @@ export default function App(props) {
         <Navbar />
       </Banner>
       <Search {...eventSearch} setCurrentVenue={setCurrentVenue} />
-      <List
-        listOf={searchFor}
-        venues={venues}
-        address={address}
-        currentVenue={currentVenue}
-        setCurrentVenue={setCurrentVenue}
-      />
+      {currentEvent && <Event event={currentEvent} />}
+      {venues.length > 0 && (
+        <List
+          listOf={searchFor}
+          venues={venues}
+          address={address}
+          currentVenue={currentVenue}
+          setCurrentVenue={setCurrentVenue}
+        />
+      )}
       {/*<List
         events={events}
         address={address}

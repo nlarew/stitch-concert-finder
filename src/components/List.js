@@ -128,9 +128,9 @@ const VenuesList = props => {
     <EventsTable dark>
       <thead>
         <tr>
-          <th>Date</th>
-          <th>Event</th>
           <th>Venue</th>
+          <th>Address</th>
+          <th>Upcoming Shows</th>
         </tr>
       </thead>
       <EventsTableBody>{renderVenueRows()}</EventsTableBody>

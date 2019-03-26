@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import styled from "@emotion/styled";
 import { Map, TileLayer, Marker, Popup, Circle } from "react-leaflet";
+import { Card } from "reactstrap";
 
 const ConcertMapContainer = styled.div`
   height: 100%;
@@ -30,7 +31,7 @@ export default function LeafMap(props) {
             onClick={setAsCurrent}
           >
             <Popup>
-              A pretty CSS3 popup. <br /> Easily customizable.
+              <h2>{venue.name}</h2>
             </Popup>
           </Marker>
         );
@@ -39,8 +40,8 @@ export default function LeafMap(props) {
   };
 
   const center = (props.center && [props.center.lat, props.center.lng]) || [
-    51.505,
-    -0.09,
+    40.7133111,
+    -73.9521927,
   ];
   const radius = 5 * 1000; // 5 kilometers
 
@@ -65,12 +66,18 @@ export default function LeafMap(props) {
           attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Circle center={center} fillColor="blue" radius={radius} />
-        <Marker position={center}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
+        {venues.length > 0 && (
+          <>
+            <Circle center={center} fillColor="blue" radius={radius} />
+            <Marker position={center}>
+              <Popup>
+                <strong>Your Address:</strong>
+                <br />
+                {center}
+              </Popup>
+            </Marker>
+          </>
+        )}
         {renderEventMarkers()}
       </ConcertMap>
     </ConcertMapContainer>

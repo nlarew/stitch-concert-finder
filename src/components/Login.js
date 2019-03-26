@@ -1,5 +1,7 @@
+/** @jsx jsx */
 import React, { useState } from "react";
 import styled from "@emotion/styled";
+import { jsx, css } from "@emotion/core";
 import ErrorBoundary from "react-error-boundary";
 import {
   Card,
@@ -11,7 +13,38 @@ import {
   Input,
   FormText,
 } from "reactstrap";
+import {
+  FacebookLoginButton,
+  GoogleLoginButton,
+  createSvgIcon,
+  createButton,
+} from "react-social-login-buttons";
 import Banner from "./Banner";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+const EnvelopeIcon = () => <FontAwesomeIcon icon={faEnvelope} />;
+
+const EmailPasswordLoginButton = createButton({
+  text: "Login with Email/Password",
+  icon: EnvelopeIcon,
+  style: { background: "#25a1b7" },
+  activeStyle: { background: "#108291" },
+});
+
+const socialButtonStyle = css`
+  border-radius: 4px !important;
+  padding: 0px 16px !important;
+  > div {
+    > div:last-child {
+      text-align: center !important;
+    }
+  }
+`;
+
+const LoginDivider = styled.hr`
+  background-color: gray;
+`;
 
 const LoginLayout = styled.div`
   display: grid;
@@ -96,9 +129,17 @@ export function LoginForm(props) {
             />
           </FormGroup>
           <ButtonRow>
-            <Button onClick={handleLogin}>Log In</Button>
-            <Button onClick={handleLoginNick}>Log In as Nick</Button>
+            <Button color="info" onClick={handleLogin}>
+              Log In
+            </Button>
+            <Button color="warning" onClick={handleLoginNick}>
+              Log In as Nick
+            </Button>
           </ButtonRow>
+          <LoginDivider />
+          <EmailPasswordLoginButton css={socialButtonStyle} />
+          <FacebookLoginButton css={socialButtonStyle} />
+          <GoogleLoginButton css={socialButtonStyle} />
         </Form>
       </CardBody>
     </LoginCard>
