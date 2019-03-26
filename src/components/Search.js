@@ -72,6 +72,7 @@ const SearchBar = React.memo(props => {
 });
 
 export function useEventSearch() {
+  const [addressQuery, setAddressQuery] = useState("");
   const [address, setAddress] = useState("");
   const [addressLocation, setAddressLocation] = useState(null);
   const [events, setEvents] = useState([]);
@@ -79,31 +80,29 @@ export function useEventSearch() {
   const [fetchingEvents, setFetchingEvents] = useState(false);
   const [fetchingVenues, setFetchingVenues] = useState(false);
 
-  const handleEventInputChange = e => {
-    setAddress(e.currentTarget.value);
+  const handleInputChange = e => {
+    setAddressQuery(e.currentTarget.value);
   };
 
   function search(addr) {
-    setSearching(true);
-    if (fetchingEvents || fetchingVenues) {
+    setAddress(addressQuery);
+    if (searching || fetchingEvents || fetchingVenues) {
       cancelCurrentSearch();
     }
+    setSearching(true);
     setFetchingEvents(true);
     setFetchingVenues(true);
   }
 
   function cancelCurrentSearch() {
+    setSearching(false);
     setFetchingEvents(false);
     setFetchingVenues(false);
   }
 
   async function getAddressLocation(address) {
-    console.log("address!", address);
     if (searching) {
-      const {
-        geometry: { location },
-      } = await getLocationForAddress(address);
-      console.log("location!", location);
+      const location = await getLocationForAddress(address);
       setAddressLocation(location);
     }
     setSearching(false);
@@ -149,9 +148,10 @@ export function useEventSearch() {
     events,
     venues,
     address,
+    addressQuery,
     addressLocation,
     search,
-    handleEventInputChange,
+    handleInputChange,
   };
 }
 
@@ -172,13 +172,14 @@ const ContentBody = styled(CardBody)`
 
 const Search = props => {
   const {
-    events,
     venues,
-    address,
+    addressQuery,
     addressLocation,
     search,
-    handleEventInputChange,
+    handleInputChange,
+    setCurrentVenue,
   } = props;
+  const coords = addressLocation && addressLocation.geometry.location;
   return (
     <ContentCard inverse color="dark">
       <ErrorBoundary>
@@ -187,12 +188,16 @@ const Search = props => {
             <h1>Search Nearby Venues</h1>
           </CardTitle>
           <SearchBar
-            onChange={handleEventInputChange}
-            address={address}
+            onChange={handleInputChange}
+            address={addressQuery}
             placeholder="Enter your address..."
             searchFor={search}
           />
-          <LeafMap venues={venues} addressLocation={addressLocation} />
+          <LeafMap
+            venues={venues}
+            center={coords}
+            setCurrentVenue={setCurrentVenue}
+          />
         </ContentBody>
       </ErrorBoundary>
     </ContentCard>

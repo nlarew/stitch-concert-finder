@@ -30,7 +30,7 @@ export default function App(props) {
       <Banner>
         <Navbar />
       </Banner>
-      <Search {...eventSearch} />
+      <Search {...eventSearch} setCurrentVenue={setCurrentVenue} />
       <List
         listOf={searchFor}
         venues={venues}

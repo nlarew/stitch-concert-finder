@@ -14,16 +14,20 @@ const ConcertMap = styled(Map)`
 `;
 
 export default function LeafMap(props) {
-  const { venues, addressLocation } = props;
+  const { venues, setCurrentVenue } = props;
 
   const renderEventMarkers = () => {
     return (
       venues &&
       venues.map(venue => {
+        const setAsCurrent = () => {
+          setCurrentVenue(venue);
+        };
         return (
           <Marker
             key={venue.id}
             position={[Number(venue.latitude), Number(venue.longitude)]}
+            onClick={setAsCurrent}
           >
             <Popup>
               A pretty CSS3 popup. <br /> Easily customizable.
@@ -34,15 +38,30 @@ export default function LeafMap(props) {
     );
   };
 
-  const center = (addressLocation && [
-    addressLocation.lat,
-    addressLocation.lng,
-  ]) || [51.505, -0.09];
+  const center = (props.center && [props.center.lat, props.center.lng]) || [
+    51.505,
+    -0.09,
+  ];
   const radius = 5 * 1000; // 5 kilometers
+
+  const StamenTonerTileLayer = () => (
+    <TileLayer
+      attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+      url="https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.png"
+    />
+  );
+
+  const DefaultTileLayer = () => (
+    <TileLayer
+      attribution='Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+    />
+  );
+
   return (
     <ConcertMapContainer>
       <ConcertMap center={center} zoom={12}>
-        <TileLayer
+        <StamenTonerTileLayer
           attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
