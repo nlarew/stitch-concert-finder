@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Stitch, UserPasswordCredential } from "mongodb-stitch-browser-sdk";
+import {
+  UserPasswordCredential,
+  FacebookRedirectCredential,
+} from "mongodb-stitch-browser-sdk";
 import app from "./app.js";
 
 /* ## Authentication Functions
@@ -18,6 +21,23 @@ export function loginEmailPasswordUser({ email, password }) {
       console.log(`logged in as: ${email}`);
       return stitchUser;
     });
+}
+
+export function loginFacebookUser() {
+  return app.auth
+    .loginWithRedirect(new FacebookRedirectCredential())
+    .then(stitchUser => {
+      console.log(`logged in as: ${stitchUser.id}`);
+      return stitchUser;
+    });
+}
+
+export function handleOAuthRedirects() {
+  if (app.auth.hasRedirectResult()) {
+    app.auth.handleRedirectResult().then(user => {
+      console.log(user);
+    });
+  }
 }
 
 export function hasLoggedInUser() {

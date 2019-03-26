@@ -2,6 +2,8 @@ import app from "./app";
 import { getLocationForAddress, searchNearAddress } from "./functions";
 import {
   loginEmailPasswordUser,
+  loginFacebookUser,
+  handleOAuthRedirects,
   hasLoggedInUser,
   getAllUsers,
   logoutUser,
@@ -13,6 +15,8 @@ import Spotify from "./services/spotify";
 export default app;
 export {
   loginEmailPasswordUser,
+  loginFacebookUser,
+  handleOAuthRedirects,
   hasLoggedInUser,
   getAllUsers,
   logoutUser,

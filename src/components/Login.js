@@ -92,12 +92,9 @@ const ButtonRow = styled.div`
 `;
 
 export function LoginForm(props) {
-  const { loginEmailPasswordUser } = props;
+  const { loginEmailPasswordUser, loginFacebookUser } = props;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const handleLogin = () => {
-    loginEmailPasswordUser({ email, password });
-  };
   const handleLoginNick = () => {
     loginEmailPasswordUser({
       email: "nick.larew@mongodb.com",
@@ -129,7 +126,10 @@ export function LoginForm(props) {
             />
           </FormGroup>
           <ButtonRow>
-            <Button color="info" onClick={handleLogin}>
+            <Button
+              color="info"
+              onClick={() => loginEmailPasswordUser({ email, password })}
+            >
               Log In
             </Button>
             <Button color="warning" onClick={handleLoginNick}>
@@ -137,8 +137,14 @@ export function LoginForm(props) {
             </Button>
           </ButtonRow>
           <LoginDivider />
-          <EmailPasswordLoginButton css={socialButtonStyle} />
-          <FacebookLoginButton css={socialButtonStyle} />
+          <EmailPasswordLoginButton
+            css={socialButtonStyle}
+            onClick={() => loginEmailPasswordUser({ email, password })}
+          />
+          <FacebookLoginButton
+            css={socialButtonStyle}
+            onClick={() => loginFacebookUser()}
+          />
           <GoogleLoginButton css={socialButtonStyle} />
         </Form>
       </CardBody>
