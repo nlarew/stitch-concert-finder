@@ -4,6 +4,7 @@ import app, {
   useStitchAuth,
   loginEmailPasswordUser,
   logoutUser,
+  getLocationForAddress,
 } from "./stitch";
 import Login from "./components/Login";
 import App from "./components/App";

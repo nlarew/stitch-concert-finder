@@ -5,6 +5,7 @@ import {
   Button,
   Card,
   CardBody,
+  CardTitle,
   InputGroup,
   Input,
   InputGroupAddon,
@@ -12,12 +13,35 @@ import {
 } from "reactstrap";
 import LeafMap from "./Map";
 
+import app, { getLocationForAddress } from "./../stitch";
+import {
+  getNearbyEvents,
+  getNearbyVenues,
+} from "./../stitch/services/eventful";
+
 import { Songkick } from "./../stitch";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+const SearchIcon = () => <FontAwesomeIcon icon={faSearch} />;
 
 const SearchBarContainer = styled(InputGroup)`
   width: 100%;
 `;
-const SearchBarButton = styled(InputGroupAddon)``;
+const SearchBarButton = props => {
+  const { handleSearch } = props;
+  const Text = styled.div`
+    margin-right: 8px;
+    margin-left: 8px;
+  `;
+  return (
+    <InputGroupAddon addonType="append">
+      <Button color="info" onClick={handleSearch}>
+        <Text>Search</Text>
+        <SearchIcon />
+      </Button>
+    </InputGroupAddon>
+  );
+};
 const SearchBarInput = styled(Input)`
   height: 70px !important;
   background-color: white;
@@ -26,10 +50,10 @@ const SearchBarInput = styled(Input)`
   padding-right: 20px;
   line-height: 40px;
 `;
-const SearchBar = props => {
-  const { address, search, onChange } = props;
+const SearchBar = React.memo(props => {
+  const { address, searchFor, onChange } = props;
   const handleSearch = () => {
-    search(address);
+    searchFor(address);
   };
   // onChange={handleEventInputChange}
   // value={address}
@@ -41,75 +65,95 @@ const SearchBar = props => {
         onChange={onChange}
         value={address}
         placeholder="Enter your address..."
-        search={search}
       />
-      <InputGroupAddon addonType="append">
-        <Button color="info" onClick={handleSearch}>
-          Search Nearby Venues
-        </Button>
-      </InputGroupAddon>
+      <SearchBarButton handleSearch={handleSearch} />
     </SearchBarContainer>
   );
-};
+});
 
-export function useEventSearch(addr) {
-  const [address, setAddress] = useState(addr);
+export function useEventSearch() {
+  const [address, setAddress] = useState("");
+  const [addressLocation, setAddressLocation] = useState(null);
   const [events, setEvents] = useState([]);
-  const [fetching, setFetching] = useState(false);
-  const [cancelling, setCancelling] = useState(false);
+  const [searching, setSearching] = useState(false);
+  const [fetchingEvents, setFetchingEvents] = useState(false);
+  const [fetchingVenues, setFetchingVenues] = useState(false);
 
   const handleEventInputChange = e => {
     setAddress(e.currentTarget.value);
   };
 
   function search(addr) {
-    if (fetching) {
+    setSearching(true);
+    if (fetchingEvents || fetchingVenues) {
       cancelCurrentSearch();
     }
-    setFetching(true);
+    setFetchingEvents(true);
+    setFetchingVenues(true);
   }
 
   function cancelCurrentSearch() {
-    setFetching(false);
+    setFetchingEvents(false);
+    setFetchingVenues(false);
   }
 
+  async function getAddressLocation(address) {
+    console.log("address!", address);
+    if (searching) {
+      const {
+        geometry: { location },
+      } = await getLocationForAddress(address);
+      console.log("location!", location);
+      setAddressLocation(location);
+    }
+    setSearching(false);
+  }
+
+  useEffect(
+    () => {
+      getAddressLocation(address);
+    },
+    [searching],
+  );
+
   function searchForEvents() {
-    if (fetching) {
-      const upcoming = Songkick.getUpcomingEventsForVenue("foobar lounge").then(
-        events => {
+    if (fetchingEvents) {
+      const upcoming = Promise.resolve(getNearbyEvents())
+        .then(result => result.events.event)
+        .then(events => {
+          console.log("events", events);
           setEvents(events);
-          setFetching(false);
-        },
-      );
+          setFetchingEvents(false);
+        });
       return () => upcoming.promiseStatus === "pending" && upcoming.reject();
     }
   }
-  useEffect(searchForEvents, [fetching]);
+  useEffect(searchForEvents, [fetchingEvents]);
 
   const [venues, setVenues] = useState([]);
-  function groupEventsByVenue() {
-    let upcomingVenues = [];
-    events.forEach(event => {
-      if (upcomingVenues.includes(event.venue)) {
-        upcomingVenues = upcomingVenues.map(venue => {
-          return event.venue.id === venue.id
-            ? { ...event.venue, events: [...event.venue.events, event] }
-            : event;
+  function searchForVenues() {
+    if (fetchingVenues) {
+      const upcoming = Promise.resolve(getNearbyVenues())
+        .then(result => result.venues.venue)
+        .then(venues => {
+          console.log("venues", venues);
+          setVenues(venues);
+          setFetchingVenues(false);
         });
-      } else {
-        upcomingVenues.push({ ...event.venue, events: [event] });
-      }
-    });
-    setVenues(upcomingVenues);
+      return () => upcoming.promiseStatus === "pending" && upcoming.reject();
+    }
   }
-  useEffect(groupEventsByVenue, [events]);
+  useEffect(searchForVenues, [fetchingVenues]);
 
-  return { events, venues, address, search, handleEventInputChange };
+  return {
+    events,
+    venues,
+    address,
+    addressLocation,
+    search,
+    handleEventInputChange,
+  };
 }
-
-const SearchLayout = styled.div`
-  width: 100%;
-`;
 
 const ContentCard = styled(Card)`
   grid-area: search;
@@ -127,20 +171,29 @@ const ContentBody = styled(CardBody)`
 `;
 
 const Search = props => {
-  // const [events, setEvents] = useState([]);
-  const { events, venues, address, search, handleEventInputChange } = props;
+  const {
+    events,
+    venues,
+    address,
+    addressLocation,
+    search,
+    handleEventInputChange,
+  } = props;
   return (
     <ContentCard inverse color="dark">
       <ErrorBoundary>
-        <CardBody>
+        <ContentBody>
+          <CardTitle>
+            <h1>Search Nearby Venues</h1>
+          </CardTitle>
           <SearchBar
             onChange={handleEventInputChange}
             address={address}
             placeholder="Enter your address..."
-            search={search}
+            searchFor={search}
           />
-          <LeafMap venues={venues} />
-        </CardBody>
+          <LeafMap venues={venues} addressLocation={addressLocation} />
+        </ContentBody>
       </ErrorBoundary>
     </ContentCard>
   );

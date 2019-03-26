@@ -21,7 +21,10 @@ const AppLayout = styled.div`
 
 export default function App(props) {
   const eventSearch = useEventSearch();
+  const { venues, address } = eventSearch;
   const [currentEvent, setCurrentEvent] = useState(null);
+  const [currentVenue, setCurrentVenue] = useState(null);
+  const searchFor = "venues";
   return (
     <AppLayout>
       <Banner>
@@ -29,12 +32,20 @@ export default function App(props) {
       </Banner>
       <Search {...eventSearch} />
       <List
-        events={eventSearch.events}
-        address={eventSearch.address}
+        listOf={searchFor}
+        venues={venues}
+        address={address}
+        currentVenue={currentVenue}
+        setCurrentVenue={setCurrentVenue}
+      />
+      {/*<List
+        events={events}
+        address={address}
         currentEvent={currentEvent}
         setCurrentEvent={setCurrentEvent}
-      />
+      />*/}
       {currentEvent && <Event event={currentEvent} />}
+      {currentVenue && <Venue venue={currentVenue} />}
     </AppLayout>
   );
 }

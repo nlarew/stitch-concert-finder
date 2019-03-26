@@ -37,12 +37,43 @@ const EventsTableRow = styled("tr")`
   background-color: ${props => (props.isCurrent ? "#16a2b8" : "#3e4348")};
 `;
 
+const date2time = dateString => {
+  const date = new Date(Date.parse(dateString));
+  const hours = date.getHours();
+  const minutes = String(date.getMinutes());
+
+  const month = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ][date.getMonth()];
+  const dayOfMonth = date.getDate();
+  const period = hours <= 11 ? "AM" : "PM";
+  const hour = period === "AM" ? hours : hours === 12 ? "12" : hours - 12;
+  const minute = minutes.length > 1 ? minutes : minutes + "0";
+
+  return `${month} ${dayOfMonth} ${hour}:${minute}${period}`;
+};
+
 const EventsList = props => {
   const { events, currentEvent, setCurrentEvent } = props;
   const rowClickHandler = event => e => {
     setCurrentEvent(event);
   };
   const renderEventRows = () => {
+    // <td>{event.start.date}</td>
+    // <td>{event.displayName}</td>
+    // <td>{event.performance[0].artist.displayName}</td>
+    // <td>{event.venue.displayName}</td>
+    // <td>{event.start.time}</td>
     return (
       events &&
       events.map(event => (
@@ -51,11 +82,9 @@ const EventsList = props => {
           onClick={rowClickHandler(event)}
           isCurrent={currentEvent && currentEvent.id === event.id}
         >
-          <td>{event.start.date}</td>
-          <td>{event.displayName}</td>
-          <td>{event.performance[0].artist.displayName}</td>
-          <td>{event.venue.displayName}</td>
-          <td>{event.start.time}</td>
+          <td>{date2time(event.start_time)}</td>
+          <td>{event.title}</td>
+          <td>{event.venue_name}</td>
         </EventsTableRow>
       ))
     );
@@ -66,9 +95,7 @@ const EventsList = props => {
         <tr>
           <th>Date</th>
           <th>Event</th>
-          <th>Artist</th>
           <th>Venue</th>
-          <th>Time</th>
         </tr>
       </thead>
       <EventsTableBody>{renderEventRows()}</EventsTableBody>
@@ -76,17 +103,47 @@ const EventsList = props => {
   );
 };
 
-const SongkickLogo = () => (
-  <a href="https://www.songkick.com/">
-    <img
-      height="30px"
-      src="https://stitch-statichosting-prod.s3.amazonaws.com/5c95208750626e9adb7c1723/powered-by-songkick-white.svg"
-    />
-  </a>
-);
+const VenuesList = props => {
+  const { venues, currentVenue, setCurrentVenue } = props;
+  const rowClickHandler = event => e => {
+    setCurrentVenue(event);
+  };
+  const renderVenueRows = () => {
+    return (
+      venues &&
+      venues.map(venue => (
+        <EventsTableRow
+          key={venue.id}
+          onClick={rowClickHandler(venue)}
+          isCurrent={currentVenue && currentVenue.id === venue.id}
+        >
+          <td>{venue.name}</td>
+          <td>{123}</td>
+          <td>{123}</td>
+        </EventsTableRow>
+      ))
+    );
+  };
+  return (
+    <EventsTable dark>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Event</th>
+          <th>Venue</th>
+        </tr>
+      </thead>
+      <EventsTableBody>{renderVenueRows()}</EventsTableBody>
+    </EventsTable>
+  );
+};
 
 function List(props) {
-  const address = props.address || "You";
+  const { address = "You", listOf } = props;
+  const Table = {
+    events: EventsList,
+    venues: VenuesList,
+  }[listOf];
   return (
     <ContentCard inverse>
       <ErrorBoundary>
@@ -94,11 +151,8 @@ function List(props) {
           <CardTitle>
             <h1>Events Near {address}</h1>
           </CardTitle>
-          <EventsList {...props} />
+          <Table {...props} />
         </CardBody>
-        <CardFooter>
-          <SongkickLogo />
-        </CardFooter>
       </ErrorBoundary>
     </ContentCard>
   );

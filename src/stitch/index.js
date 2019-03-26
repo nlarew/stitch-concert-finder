@@ -1,4 +1,5 @@
 import app from "./app";
+import { getLocationForAddress, searchNearAddress } from "./functions";
 import {
   loginEmailPasswordUser,
   hasLoggedInUser,
@@ -18,4 +19,6 @@ export {
   useStitchAuth,
   Songkick,
   Spotify,
+  getLocationForAddress,
+  searchNearAddress,
 };

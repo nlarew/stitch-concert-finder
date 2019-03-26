@@ -1,26 +1,30 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "@emotion/styled";
 import { Map, TileLayer, Marker, Popup, Circle } from "react-leaflet";
 
 const ConcertMapContainer = styled.div`
   height: 100%;
   width: 100%;
-  margin-top: 20px;
+  padding-top: 20px;
 `;
 const ConcertMap = styled(Map)`
   width: 100%;
-  height: calc(100% - 80px);
+  height: 100%;
   border-radius: 4px;
 `;
 
 export default function LeafMap(props) {
-  const { venues } = props;
+  const { venues, addressLocation } = props;
+
   const renderEventMarkers = () => {
     return (
       venues &&
       venues.map(venue => {
         return (
-          <Marker key={venue.id} position={[venue.lat, venue.lng]}>
+          <Marker
+            key={venue.id}
+            position={[Number(venue.latitude), Number(venue.longitude)]}
+          >
             <Popup>
               A pretty CSS3 popup. <br /> Easily customizable.
             </Popup>
@@ -30,8 +34,11 @@ export default function LeafMap(props) {
     );
   };
 
-  const center = [51.505, -0.09];
-  const radius = 3 * 1000; // 3 kilometers
+  const center = (addressLocation && [
+    addressLocation.lat,
+    addressLocation.lng,
+  ]) || [51.505, -0.09];
+  const radius = 5 * 1000; // 5 kilometers
   return (
     <ConcertMapContainer>
       <ConcertMap center={center} zoom={12}>
