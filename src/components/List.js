@@ -1,20 +1,20 @@
+/** @jsx jsx */
 import React from "react";
 import styled from "@emotion/styled";
+import { css, jsx } from "@emotion/core";
 import ErrorBoundary from "react-error-boundary";
-import {
-  Card,
-  CardImg,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-  CardHeader,
-  CardFooter,
-  CardText,
-  Button,
-  Table,
-} from "reactstrap";
-import Navbar from "./Navbar";
-import Banner from "./Banner";
+import { Card, CardBody, CardHeader, Table } from "reactstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+
+const StarIcon = () => (
+  <FontAwesomeIcon
+    css={css`
+      margin: auto 8px;
+    `}
+    icon={faStar}
+  />
+);
 
 const ContentCard = styled(Card)`
   grid-area: list;
@@ -116,17 +116,21 @@ const VenuesList = props => {
       venues &&
       venues
         .filter((v, i) => i < 20)
-        .map(venue => (
-          <EventsTableRow
-            key={venue.id}
-            onClick={rowClickHandler(venue)}
-            isCurrent={currentVenue && currentVenue.id === venue.id}
-          >
-            <td>{venue.name}</td>
-            <td>{123}</td>
-            <td>{123}</td>
-          </EventsTableRow>
-        ))
+        .map(venue => {
+          return (
+            <EventsTableRow
+              key={venue.id}
+              onClick={rowClickHandler(venue)}
+              isCurrent={currentVenue && currentVenue.id === venue.id}
+            >
+              <td>
+                <span>{venue.name}</span>
+                <StarIcon />
+              </td>
+              <td>{venue.upcomingEvents.length || 0}</td>
+            </EventsTableRow>
+          );
+        })
     );
   };
   return (
@@ -134,8 +138,7 @@ const VenuesList = props => {
       <thead>
         <tr>
           <th>Venue</th>
-          <th>Address</th>
-          <th>Upcoming Shows</th>
+          <th># Shows</th>
         </tr>
       </thead>
       <EventsTableBody>{renderVenueRows()}</EventsTableBody>
@@ -154,7 +157,8 @@ function List(props) {
       <ErrorBoundary>
         <CardBody>
           <CardHeader>
-            <h1>Events Near {address}</h1>
+            <h1>Venunes Near...</h1>
+            <h2>{address}</h2>
           </CardHeader>
           <Table {...props} />
         </CardBody>

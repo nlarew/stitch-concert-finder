@@ -1,4 +1,6 @@
+/** @jsx jsx */
 import React, { useState } from "react";
+import { css, jsx } from "@emotion/core";
 import styled from "@emotion/styled";
 import ErrorBoundary from "react-error-boundary";
 import {
@@ -12,6 +14,17 @@ import {
   Button,
 } from "reactstrap";
 import { EventsList } from "./List";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+
+const StarIcon = () => (
+  <FontAwesomeIcon
+    css={css`
+      margin: auto 8px;
+    `}
+    icon={faStar}
+  />
+);
 
 const ContentCard = styled(Card)`
   grid-area: detail;
@@ -23,22 +36,30 @@ const ContentCard = styled(Card)`
   top: -70px;
 `;
 
+const FavoriteButton = ({ isFavorite }) => {
+  const buttonStyle = css`
+    margin: auto 4px;
+  `;
+  return (
+    <Button css={buttonStyle} outline={isFavorite} color="warning">
+      <StarIcon />
+      <span>{isFavorite ? "Favorited" : "Add to Favorites"}</span>
+    </Button>
+  );
+};
+
 function Venue({ venue }) {
   const [selectedEvent, setSelectedEvent] = useState(null);
   return (
     <ContentCard inverse>
       <ErrorBoundary>
         <CardBody>
-          <CardTitle>
+          <CardHeader>
             <h1>{venue.name}</h1>
-          </CardTitle>
-          {venue.description && (
-            <>
-              <h2>Description</h2>
-              <CardText>{venue.description}</CardText>
-            </>
-          )}
-          <Button color="info">Button</Button>
+            <FavoriteButton />
+            <FavoriteButton isFavorite />
+          </CardHeader>
+          {venue.description && <CardText>{venue.description}</CardText>}
           {venue.upcomingEvents && (
             <EventsList
               events={venue.upcomingEvents}

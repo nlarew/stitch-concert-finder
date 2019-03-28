@@ -22,6 +22,9 @@ import * as R from "ramda";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
+import keapVenues from "./../stitch/services/stubs/487keapVenues.json";
+import keapLocation from "./../stitch/services/stubs/487keapLocation.json";
+
 const SearchIcon = () => <FontAwesomeIcon icon={faSearch} />;
 
 const SearchBarContainer = styled(InputGroup)`
@@ -57,7 +60,15 @@ const SearchBarInput = styled(Input)`
   line-height: 40px;
 `;
 const SearchBar = React.memo(props => {
-  const { address, searchFor, onChange, isSearching } = props;
+  const {
+    address,
+    searchFor,
+    onChange,
+    isSearching,
+    setVenues,
+    setAddressLocation,
+    setAddress,
+  } = props;
   const handleSearch = () => {
     searchFor(address);
   };
@@ -68,6 +79,15 @@ const SearchBar = React.memo(props => {
         value={address}
         placeholder="Enter your address..."
       />
+      <Button
+        onClick={() => {
+          setVenues(keapVenues);
+          setAddress(keapLocation.formatted_address);
+          setAddressLocation(keapLocation);
+        }}
+      >
+        Get Keap
+      </Button>
       <SearchBarButton handleSearch={handleSearch} isSearching={isSearching} />
     </SearchBarContainer>
   );
@@ -106,6 +126,9 @@ export function useEventSearch() {
   return {
     events,
     venues,
+    setVenues,
+    setAddress,
+    setAddressLocation,
     address,
     addressQuery,
     addressLocation,
@@ -133,14 +156,16 @@ const ContentBody = styled(CardBody)`
 const Search = props => {
   const {
     venues,
+    setVenues,
     addressQuery,
     addressLocation,
     search,
     searching,
     handleInputChange,
     setCurrentVenue,
+    setAddress,
+    setAddressLocation,
   } = props;
-  console.log("venues", venues);
   const coords = addressLocation && addressLocation.geometry.location;
   return (
     <ContentCard inverse color="dark">
@@ -148,14 +173,17 @@ const Search = props => {
         <ContentBody>
           <CardHeader>
             <h1>Search Nearby Venues</h1>
+            <SearchBar
+              onChange={handleInputChange}
+              address={addressQuery}
+              placeholder="Enter your address..."
+              searchFor={search}
+              isSearching={searching}
+              setVenues={setVenues}
+              setAddress={setAddress}
+              setAddressLocation={setAddressLocation}
+            />
           </CardHeader>
-          <SearchBar
-            onChange={handleInputChange}
-            address={addressQuery}
-            placeholder="Enter your address..."
-            searchFor={search}
-            isSearching={searching}
-          />
           <LeafMap
             venues={venues}
             center={coords}

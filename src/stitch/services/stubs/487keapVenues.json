@@ -1,0 +1,1166 @@
+[
+  {
+    "_id": "5c9c5f958b92ee959118b2e3",
+    "id": "V0-001-008500402-0",
+    "url": "//newyorkcity.eventful.com/venues/good-room-/V0-001-008500402-0?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+    "name": "Good Room",
+    "description": null,
+    "upcomingEvents": [
+      {
+        "id": "E0-001-124251031-4",
+        "url": "http://newyorkcity.eventful.com/events/3024-presents-special-request-martyn-shy-eyez-ume-/E0-001-124251031-4?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "3024 presents: Special Request, Martyn, Shy Eyez + U-ME-US",
+        "description": " 3024 presents: Special Request, Martyn, Shy Eyez + U-ME-US with Jaqi Sparro & Savile at Good Room on 04.06 from 10pm / +21 ",
+        "location": {
+          "lat": "40.7269376",
+          "lng": "-73.9529121"
+        }
+      },
+      {
+        "id": "E0-001-124588960-4",
+        "url": "http://newyorkcity.eventful.com/events/f2m-double-release-featuring-semma-girl-unit-king-/E0-001-124588960-4?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "F2M DOUBLE RELEASE featuring SEMMA, GIRL UNIT, & KINGDOM",
+        "description": " F2M DOUBLE RELEASE featuring SEMMA, GIRL UNIT, & KINGDOM ",
+        "location": {
+          "lat": "40.7269376",
+          "lng": "-73.9529121"
+        }
+      }
+    ],
+    "location": {
+      "lat": "40.7269376",
+      "lng": "-73.9529121"
+    }
+  },
+  {
+    "_id": "5c9c41f969f4765f2b84b83e",
+    "id": "V0-001-008755815-4",
+    "upcomingEvents": [
+      {
+        "id": "E0-001-117776385-0",
+        "url": "http://newyorkcity.eventful.com/events/nationalsawdust-joyce-didonato-sasha-cohen-/E0-001-117776385-0?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "NationalSawdust+: Joyce DiDonato & Sasha Cohen",
+        "description": " Doors at 6PMAdvance $25  |  At the Door $30 Opera diva Joyce DiDonato (starring in the Metropolitan Opera’s La Clemenza di Tito) and Olympic figure skater Sasha Cohen (2006 Olympic Silver Medalist) talk with NationalSawdust+ curator Elena Park about thriving in the virtuosic, exacting worlds of sports and performance in a conversation spanning topics such as training, improvisation, adapting to the moment, and being in the zone. Joyce DiDonato appears courtesy of the Metropolitan Opera About NationalSawdust+ NationalSawdust+ is a lively performance and conversation series in which luminaries from across disciplines share their passion for music and explore ideas, making surprising connections. Curated by Elena Park, the series taps artists and thinkers from theater, film and visual art, literature, science and beyond, to create insightful programs that reflect their own interests. Whether through live performances, conversations, or readings, each program has its own alchemy, engaging the audience in new and unexpected ways. Often topical, and always imaginative, NationalSawdust+ is an ideal space for those with curiosity, adventure, and vision.  National Sawdust ",
+        "location": {
+          "lat": "40.718954",
+          "lng": "-73.961316"
+        }
+      },
+      {
+        "id": "E0-001-122295154-0",
+        "url": "http://newyorkcity.eventful.com/events/lrain-/E0-001-122295154-0?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "L'Rain",
+        "description": " Doors at 6:30PM National Sawdust 2018–19 Artist-in-Residence L&#39;Rain melds the spiritual jazz of Alice Coltrane with hypnotic, shifting collages in her searing, personal style. Her live performances are “hypnotizing, a wonder of practice and refinement” with “uncommonly tight” orchestrations (Village Voice). In her first residency show, she pairs new material with songs from her eponymous debut, combining sound, found video, and spoken word to explore the complexity of grief and the audacity of joy that are fundamental components of the Black American emotional landscape. Before the day of the show, L’Rain encourages the public to contribute to a collaborative Spotify playlist of relevant songs which will play pre and post show. To add your song, click here: https://spoti.fi/2ujTQjR L’Rain performs with her band: Buz Donald (drums), Ben Katz (keys and sax), and Devin Starks (bass). She is joined by artistic collaborators Akeema Anthony-Zane and Joselia Hughes. National Sawdust ",
+        "location": {
+          "lat": "40.718954",
+          "lng": "-73.961316"
+        }
+      },
+      {
+        "id": "E0-001-123880709-1",
+        "url": "http://newyorkcity.eventful.com/events/music-academy-west-competition-/E0-001-123880709-1?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "Music Academy of the West Competition",
+        "description": " Doors at 7PM The winners of the Marilyn Horne Song Competition at Santa Barbara’s Music Academy of the West bring an evocative program of songs as part of an international recital tour. Mezzo-soprano Kelsey Lauritano and pianist Andrew Sun perform Schubert, Ravel, and more. National Sawdust ",
+        "location": {
+          "lat": "40.718954",
+          "lng": "-73.961316"
+        }
+      },
+      {
+        "id": "E0-001-124478945-9",
+        "url": "http://newyorkcity.eventful.com/events/nationalsawdust-and-array-present-theburialofkojo-/E0-001-124478945-9?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "NationalSawdust+ and ARRAY present: \"The Burial of Kojo\" + Blitz the Ambassador with the Embassy Ensemble",
+        "description": " Doors at 6PM NationalSawdust+ welcomes Ava DuVernay’s ARRAY back to the house! The dynamic grassroots collective co-presents a special evening showcasing the prodigious talents of Ghanaian-American artist Samuel “Blitz” Bazawule aka Blitz the Ambassador followed by a short Q&A with the filmmaker and National Book Award-winning author Jacqueline Woodson (Another Brooklyn, Brown Girl Dreaming). Blitz will close out the evening with a rousing hip-hop set featuring his six-piece band, the Embassy Ensemble. An essential human story of courage and survival, The Burial of Kojo chronicles the tale of two brothers through the gifted eyes of a young girl who transports the audience to the beautiful lands of Ghana and other worlds that exist between life and death. Directed by TED fellow, composer, and musician Bazawule, the film is told through a magical realist lens; it has been hailed as “an ambitious visual stunner” (Indiewire) and “an affirmation of the power of representation and a jolt in the culture of visual storytelling” (Africa is a Country). A 2019 Pan African Film Festival (PAFF) Official Selection and 2018 Urbanworld Film Festival Best Narrative Feature Winner, The Burial of Kojo marks Bazawule’s feature film debut. Founded in 2010 by filmmaker Ava DuVernay, ARRAY is a grassroots distribution, arts, and advocacy collective. Like National Sawdust, which was created to support a diversity of composers and musicians, ARRAY champions varied voices and images in cinema; it is dedicated to the amplification of independent films by people of color and female filmmakers globally. Last fall, NationalSawdust+ and ARRAY presented a screening of Akin Omotoso’s suspenseful coming-of-age drama Vaya, followed by a Q&A with Omotoso and DuVernay. NationalSawdust+, a lively performance and conversation series curated by Elena Park, brings together luminaries from across disciplines to share their passion for music and explore ideas, making surprising connections. The series taps artists and thinkers from theater, film, visual art, literature, science, and beyond to create insightful, often topical, programs. National Sawdust ",
+        "location": {
+          "lat": "40.718954",
+          "lng": "-73.961316"
+        }
+      },
+      {
+        "id": "E0-001-117270788-6",
+        "url": "http://newyorkcity.eventful.com/events/listening-totomtom-lucy-caplan-partnership-amoc-/E0-001-117270788-6?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "Listening to Tom-Tom: Lucy Caplan in partnership with AMOC",
+        "description": " Doors at 7PMAdvance $29  |  At the Door $34 Scholar Lucy Caplan, in partnership with AMOC, leads LISTENING TO TOM-TOM, a discussion of the 1932 opera by author, musicologist and composer Shirley Graham Du Bois. Following an introduction of excerpts from the work, Caplan and fellow panelists - including AMOC bass-baritone Davóne Tines, ethnomusicologist Fredara Hadley, and pianist Kyle Walker - will discuss the opera&#39;s complex representations of race, gender, and history, as well as the opportunities and challenges of presenting Tom-Tom today. National Sawdust ",
+        "location": {
+          "lat": "40.718954",
+          "lng": "-73.961316"
+        }
+      },
+      {
+        "id": "E0-001-122104874-2",
+        "url": "http://newyorkcity.eventful.com/events/chris-grymes-open-g-series-mark-dover-and-jeremy-a-/E0-001-122104874-2?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "Chris Grymes Open G Series: Mark Dover and Jeremy Ajani Jordan as Port Mande",
+        "description": " Doors at 6PM Adventurous clarinettist and new music aficionado Chris Grymes brings his Open G podcast and performance series to National Sawdust in a continuing exploration of the new avenues that digital technologies are opening up for creating and sharing high-caliber music. This installment will feature genre-hopping polystylic chamber duo Port Mande. Comprising clarinetist Mark Dover (of Imani Winds) and pianist/producer Jeremy Jordan, Port Mande’s mission is to bring all cultures and people together by embracing music of every genre. Dover and Jordan have extensive experience in classical, jazz, hip hop, gospel, pop, and more, and have collectively worked with everyone from Yo Yo Ma and Anthony McGill to The Temptations and Vulfpeck. Endlessly versatile and virtuosic, their performance is not one to be missed. National Sawdust ",
+        "location": {
+          "lat": "40.718954",
+          "lng": "-73.961316"
+        }
+      }
+    ],
+    "description": null,
+    "location": {
+      "lat": "40.718954",
+      "lng": "-73.961316"
+    },
+    "name": "National Sawdust",
+    "url": "//newyorkcity.eventful.com/venues/national-sawdust-/V0-001-008755815-4?utm_source=apis&utm_medium=apim&utm_campaign=apic"
+  },
+  {
+    "_id": "5c9c41f969f4765f2b84b83f",
+    "id": "V0-001-013172205-0",
+    "upcomingEvents": [
+      {
+        "id": "E0-001-124353065-2",
+        "url": "http://newyorkcity.eventful.com/events/panti-bliss-high-heels-low-places-/E0-001-124353065-2?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "PANTI BLISS: High Heels in Low Places",
+        "description": " PANTI BLISS: High Heels in Low Places ",
+        "location": {
+          "lat": "40.7084094",
+          "lng": "-73.9383118"
+        }
+      }
+    ],
+    "description": null,
+    "location": {
+      "lat": "40.7084094",
+      "lng": "-73.9383118"
+    },
+    "name": "3 Dollar BIll",
+    "url": "//newyorkcity.eventful.com/venues/3-dollar-bill-/V0-001-013172205-0?utm_source=apis&utm_medium=apim&utm_campaign=apic"
+  },
+  {
+    "_id": "5c9c41f969f4765f2b84b842",
+    "id": "V0-001-001438876-4",
+    "upcomingEvents": [
+      {
+        "id": "E0-001-122880847-1",
+        "url": "http://newyorkcity.eventful.com/events/synthicide-presents-plack-blague-blu-anxxiety-and-/E0-001-122880847-1?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "Synthicide presents: Plack Blague with Blu Anxxiety and Ces Cadavres",
+        "description": " Synthicide presents: | Plack Blague  || Blu Anxxiety   ||| Ces Cadavres  April 6th | Cellar | 11pm | $12 **No Refunds on ticket purchase** || See our full calendar here: https://bkbazaar.com/events/ || ",
+        "location": {
+          "lat": "40.7299355",
+          "lng": "-73.9546495"
+        }
+      },
+      {
+        "id": "E0-001-123371673-0",
+        "url": "http://newyorkcity.eventful.com/events/invertebrate-presents-slow-caves-new-myths-/E0-001-123371673-0?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "Invertebrate Presents: Slow Caves, New Myths",
+        "description": " ₪₪₪₪₪₪₪₪₪₪₪₪Invertebrate Presents: Slow Caves  New Myths7:00 PM // $10 - $12 // All Ages // G to GreenpointSubscribe To Invertebrate Events: goo.gl/YKaWhVSign Up For Our Mailing List: http://eepurl.com/bYz83D₪₪₪₪₪₪₪₪₪₪₪₪ ",
+        "location": {
+          "lat": "40.7299355",
+          "lng": "-73.9546495"
+        }
+      },
+      {
+        "id": "E0-001-122936475-2",
+        "url": "http://newyorkcity.eventful.com/events/remember-sports-joey-nebulous-youbet-/E0-001-122936475-2?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "Remember Sports, Joey Nebulous, Youbet",
+        "description": " Remember Sports, Joey Nebulous, Youbet ",
+        "location": {
+          "lat": "40.7299355",
+          "lng": "-73.9546495"
+        }
+      },
+      {
+        "id": "E0-001-124250473-9",
+        "url": "http://newyorkcity.eventful.com/events/little-mermen-nycs-favorite-disney-party-band-/E0-001-124250473-9?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "The Little Mermen - NYC's Favorite Disney Party Band",
+        "description": " Friday, April 5th The Little Mermen - NYC&#39;s Favorite Disney Party Band ",
+        "location": {
+          "lat": "40.7299355",
+          "lng": "-73.9546495"
+        }
+      }
+    ],
+    "description": null,
+    "location": {
+      "lat": "40.7299355",
+      "lng": "-73.9546495"
+    },
+    "name": "Brooklyn Bazaar",
+    "url": "//newyorkcity.eventful.com/venues/brooklyn-bazaar-/V0-001-001438876-4?utm_source=apis&utm_medium=apim&utm_campaign=apic"
+  },
+  {
+    "_id": "5c9c41f969f4765f2b84b838",
+    "id": "V0-001-012562653-3",
+    "upcomingEvents": [
+      {
+        "id": "E0-001-122951310-9",
+        "url": "http://newyorkcity.eventful.com/events/1000pm-joe-mccarthy-petes-candy-store-/E0-001-122951310-9?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "10:00pm Joe McCarthy @ Pete's Candy Store",
+        "description": " Joe McCarthy & the Faders are a roots rock band based in New York. Their debut album, Step On, was released in Nov 2018 available on Spotify and Bandcamp  ",
+        "location": {
+          "lat": "40.718099",
+          "lng": "-73.950193"
+        }
+      },
+      {
+        "id": "E0-001-124647815-9",
+        "url": "http://newyorkcity.eventful.com/events/900pm-rebecca-aaron-petes-candy-store-/E0-001-124647815-9?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "9:00pm Rebecca Aaron @ Pete's Candy Store",
+        "description": " Rebecca Aaron’s acoustic-driven folk-pop is reminiscent of her Southern California roots — with smooth strumming, soft yet powerful melodies, and lyrics as emotionally vulnerable as they are evocative. Her distinctively intimate storytelling, highlighted by subtle Americana flare, is as much meant for listening on a rainy day as it is for jamming out in the car. ",
+        "location": {
+          "lat": "40.718099",
+          "lng": "-73.950193"
+        }
+      },
+      {
+        "id": "E0-001-122694735-0",
+        "url": "http://newyorkcity.eventful.com/events/930pm-georgia-sackler-petes-candy-store-/E0-001-122694735-0?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "9:30pm Georgia Sackler @ Pete's Candy Store",
+        "description": " ",
+        "location": {
+          "lat": "40.718099",
+          "lng": "-73.950193"
+        }
+      },
+      {
+        "id": "E0-001-122694711-0",
+        "url": "http://newyorkcity.eventful.com/events/830pm-jess-clinton-petes-candy-store-/E0-001-122694711-0?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "8:30pm Jess Clinton @ Pete's Candy Store",
+        "description": " ",
+        "location": {
+          "lat": "40.718099",
+          "lng": "-73.950193"
+        }
+      },
+      {
+        "id": "E0-001-123944091-8",
+        "url": "http://newyorkcity.eventful.com/events/1000pm-claire-cushman-petes-candy-store-/E0-001-123944091-8?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "10:00pm Claire Cushman @ Pete's Candy Store",
+        "description": " A mix of covers and originals from teachers moonlighting as musicians. ",
+        "location": {
+          "lat": "40.718099",
+          "lng": "-73.950193"
+        }
+      },
+      {
+        "id": "E0-001-124139170-3",
+        "url": "http://newyorkcity.eventful.com/events/7pm-rally-petes-candy-store-/E0-001-124139170-3?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "7pm Rally @ Pete's Candy Store",
+        "description": " Writers put down their pens and pick up their mics for an evening that&#39;s as much about organizing as it is about words. Come see essayists perform their work—or submit and perform your own!—and then engage with the audience for questions, reactions, and conversations. Rally brings those who are passionate about experience and action together to find out what unites all of us—and how to wield that unity as best we can. ",
+        "location": {
+          "lat": "40.718099",
+          "lng": "-73.950193"
+        }
+      },
+      {
+        "id": "E0-001-123123756-7",
+        "url": "http://newyorkcity.eventful.com/events/1000pm-elska-petes-candy-store-/E0-001-123123756-7?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "10:00pm Elska @ Pete's Candy Store",
+        "description": " elska is the narrator of cinematic lullabies and creation of brooklyn-based composer laura boland. she represents love, optimism, imagination, conflict & awareness.  ",
+        "location": {
+          "lat": "40.718099",
+          "lng": "-73.950193"
+        }
+      },
+      {
+        "id": "E0-001-124921144-9",
+        "url": "http://newyorkcity.eventful.com/events/500pm-weyou-petes-candy-store-/E0-001-124921144-9?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "5:00pm Weyou @ Pete's Candy Store",
+        "description": " weyou is the duo band of Jesske Hume and Nate Wood. As a band, Hume and Wood incorporate their multi-instrumental abilities into indie, folk, and avant-garde songwriting. weyou&#39;s sound is often ambient and at times wildly experimental. ",
+        "location": {
+          "lat": "40.718099",
+          "lng": "-73.950193"
+        }
+      },
+      {
+        "id": "E0-001-124921114-8",
+        "url": "http://newyorkcity.eventful.com/events/400pm-jonathan-moritz-petes-candy-store-/E0-001-124921114-8?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "4:00pm Jonathan Moritz @ Pete's Candy Store",
+        "description": " Jonathan Moritz is a saxophonist, composer, improviser, and curator living in New York City. He has recorded with musicians among the likes of Eugene Chadbourne, Ben Gerstein, John McLellan, Sam Mickens, Eivind Opsvik, Mike Pride, Jason Stein, Nate Wooley and Jack Wright. ",
+        "location": {
+          "lat": "40.718099",
+          "lng": "-73.950193"
+        }
+      },
+      {
+        "id": "E0-001-122544426-3",
+        "url": "http://newyorkcity.eventful.com/events/900pm-foster-europe-band-petes-candy-store-/E0-001-122544426-3?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "9:00pm Foster Europe Band @ Pete's Candy Store",
+        "description": " ",
+        "location": {
+          "lat": "40.718099",
+          "lng": "-73.950193"
+        }
+      },
+      {
+        "id": "E0-001-123479383-3",
+        "url": "http://newyorkcity.eventful.com/events/900pm-dina-maccabee-petes-candy-store-/E0-001-123479383-3?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "9:00pm Dina Maccabee @ Pete's Candy Store",
+        "description": " ",
+        "location": {
+          "lat": "40.718099",
+          "lng": "-73.950193"
+        }
+      },
+      {
+        "id": "E0-001-123479346-2",
+        "url": "http://newyorkcity.eventful.com/events/1030pm-black-friday-stampede-feat-kevin-bents-p-/E0-001-123479346-2?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "10:30pm BLACK FRIDAY STAMPEDE feat. Kevin Bents @ Pete's Candy Store",
+        "description": " Music like your favorite artists used to make, only better! Kevin will be joined by the stellar line-up of Aaron Comess-drums, John Conte-bass, and Adam Minkoff-guitar and keys. ",
+        "location": {
+          "lat": "40.718099",
+          "lng": "-73.950193"
+        }
+      },
+      {
+        "id": "E0-001-122951300-2",
+        "url": "http://newyorkcity.eventful.com/events/1100pm-slush-special-acoustic-show-petes-candy-/E0-001-122951300-2?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "11:00pm Slush (Special Acoustic Show) @ Pete's Candy Store",
+        "description": " Like Hank Williams Sr., SLUSH was never born, only hatched. Rising from the ocean floor, the Brooklyn-based ontological collective returns with a strange and twisted full-length follow up to the protopunk, doom-blues swagger of their first American Demons LP (2016) . Lizard Skin is an epic 7-song struggle with the reptile within. blending elements of Howlin’ Wolf, Spacemen 3, Leonard Cohen, and avant-garde behemoths Swans. ",
+        "location": {
+          "lat": "40.718099",
+          "lng": "-73.950193"
+        }
+      },
+      {
+        "id": "E0-001-123017380-0",
+        "url": "http://newyorkcity.eventful.com/events/830pm-taylor-ashton-petes-candy-store-/E0-001-123017380-0?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "8:30pm Taylor Ashton @ Pete's Candy Store",
+        "description": " ",
+        "location": {
+          "lat": "40.718099",
+          "lng": "-73.950193"
+        }
+      },
+      {
+        "id": "E0-001-123565937-8",
+        "url": "http://newyorkcity.eventful.com/events/300pm-brooklyn-composers-collective-petes-candy-/E0-001-123565937-8?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "3:00pm Brooklyn Composers Collective @ Pete's Candy Store",
+        "description": " ",
+        "location": {
+          "lat": "40.718099",
+          "lng": "-73.950193"
+        }
+      },
+      {
+        "id": "E0-001-124139148-4",
+        "url": "http://newyorkcity.eventful.com/events/7pm-petes-comedy-open-mic-petes-candy-store-/E0-001-124139148-4?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "7pm Pete's Comedy Open Mic @ Pete's Candy Store",
+        "description": " Jokes? Bits? Gags? Punchlines? We want &#39;em! Try them out in this intimate and supportive space. Host Sam Zee will make you feel cozy if you&#39;re feeling cold, all for a one-drink minimum. Walk-ins welcome, but emailing petescomedymic@gmail.com secures you a spot and enters you in a raffle to win a half-price drink. ",
+        "location": {
+          "lat": "40.718099",
+          "lng": "-73.950193"
+        }
+      },
+      {
+        "id": "E0-001-120818111-8",
+        "url": "http://newyorkcity.eventful.com/events/830pm-ear-candy-petes-candy-store-/E0-001-120818111-8?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "8:30pm Ear Candy @ Pete's Candy Store",
+        "description": " ",
+        "location": {
+          "lat": "40.718099",
+          "lng": "-73.950193"
+        }
+      },
+      {
+        "id": "E0-001-124645922-4",
+        "url": "http://newyorkcity.eventful.com/events/800pm-patrick-collins-petes-candy-store-/E0-001-124645922-4?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "8:00pm Patrick Collins @ Pete's Candy Store",
+        "description": " Just released his 4 song ep called “got you now” on all platforms now ",
+        "location": {
+          "lat": "40.718099",
+          "lng": "-73.950193"
+        }
+      },
+      {
+        "id": "E0-001-124536206-4",
+        "url": "http://newyorkcity.eventful.com/events/1100pm-buck-and-quarter-quartet-petes-candy-sto-/E0-001-124536206-4?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "11:00pm Buck and A Quarter Quartet @ Pete's Candy Store",
+        "description": " ",
+        "location": {
+          "lat": "40.718099",
+          "lng": "-73.950193"
+        }
+      },
+      {
+        "id": "E0-001-124138993-9",
+        "url": "http://newyorkcity.eventful.com/events/10pm-funhouse-petes-candy-store-/E0-001-124138993-9?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "10pm Funhouse @ Pete's Candy Store",
+        "description": " Gabe Pacheco and Sameer Naseem have been putting on a dynamic indie comedy showcase with top shelf performers for over a year now. Every week they invite their favorites to Pete&#39;s Candy Store, in the heart of Williamsburg to entertain the locals in an intimate performance space. It&#39;s a great chance for comedy lovers to discover stand-up gems while enjoying delicious brews and starting their weekends on Wednesday. ",
+        "location": {
+          "lat": "40.718099",
+          "lng": "-73.950193"
+        }
+      },
+      {
+        "id": "E0-001-123809828-6",
+        "url": "http://newyorkcity.eventful.com/events/900pm-harlana-petes-candy-store-/E0-001-123809828-6?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "9:00pm A. Harlana @ Pete's Candy Store",
+        "description": " organic ambient pop music ",
+        "location": {
+          "lat": "40.718099",
+          "lng": "-73.950193"
+        }
+      }
+    ],
+    "description": null,
+    "location": {
+      "lat": "40.718099",
+      "lng": "-73.950193"
+    },
+    "name": "Pete's Candy Store",
+    "url": "//newyorkcity.eventful.com/venues/petes-candy-store-/V0-001-012562653-3?utm_source=apis&utm_medium=apim&utm_campaign=apic"
+  },
+  {
+    "_id": "5c9c5f958b92ee959118b2e4",
+    "id": "V0-001-010816714-9",
+    "url": "//newyorkcity.eventful.com/venues/sunnyvale-/V0-001-010816714-9?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+    "name": "Sunnyvale",
+    "description": null,
+    "upcomingEvents": [
+      {
+        "id": "E0-001-124141816-1",
+        "url": "http://newyorkcity.eventful.com/events/2019-mont-us-tour-willyoubemymint-/E0-001-124141816-1?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "2019 MONT US TOUR \"Will You Be My Mint?\"",
+        "description": " 2019 MONT US TOUR &quot;Will You Be My Mint?&quot; ",
+        "location": {
+          "lat": "40.7137586",
+          "lng": "-73.9339736"
+        }
+      },
+      {
+        "id": "E0-001-123080356-7",
+        "url": "http://newyorkcity.eventful.com/events/sean-nicholas-savage-/E0-001-123080356-7?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "Sean Nicholas Savage",
+        "description": " Sean Nicholas Savage is a Canadian singer-songwriter and musician. ",
+        "location": {
+          "lat": "40.7137586",
+          "lng": "-73.9339736"
+        }
+      }
+    ],
+    "location": {
+      "lat": "40.7137586",
+      "lng": "-73.9339736"
+    }
+  },
+  {
+    "_id": "5c9c60ab27156a0b09e3f3f4",
+    "id": "V0-001-007605547-5",
+    "url": "//newyorkcity.eventful.com/venues/mission-sound-/V0-001-007605547-5?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+    "name": "Mission Sound",
+    "description": null,
+    "upcomingEvents": [
+      {
+        "id": "E0-001-123996179-4",
+        "url": "http://newyorkcity.eventful.com/events/free-sonic-expos-audio-alchemist-and-ryan-west-/E0-001-123996179-4?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "Free sonic exposé with Audio Alchemist and Ryan West",
+        "description": " Dangerous Music, Phoenix Audio, Manley Labs, Eventide, Unity Audio & Alto Music Brooklyn invite you to an evening of Thai food and AudioSpeak with Audio Alchemist&#39;s marek stycos and special guest Ryan West: Eminem, Rihanna, Willie Nelson, Usher, Jay Z... at the legendary Mission Sound Studios. ",
+        "location": {
+          "lat": "40.7114671",
+          "lng": "-73.9506314"
+        }
+      }
+    ],
+    "location": {
+      "lat": "40.7114671",
+      "lng": "-73.9506314"
+    }
+  },
+  {
+    "_id": "5c9c5f958b92ee959118b2e5",
+    "id": "V0-001-010843541-1",
+    "url": "//newyorkcity.eventful.com/venues/brooklyn-steel-/V0-001-010843541-1?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+    "name": "Brooklyn Steel",
+    "description": null,
+    "upcomingEvents": [
+      {
+        "id": "E0-001-122052227-4",
+        "url": "http://newyorkcity.eventful.com/events/catfish-and-bottlemen-16-event-/E0-001-122052227-4?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "Catfish and the Bottlemen (16+ Event)",
+        "description": null,
+        "location": {
+          "lat": "40.7193578",
+          "lng": "-73.9387835"
+        }
+      },
+      {
+        "id": "E0-001-122648159-9",
+        "url": "http://newyorkcity.eventful.com/events/turkuaz-16-event-/E0-001-122648159-9?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "Turkuaz (16+ Event)",
+        "description": null,
+        "location": {
+          "lat": "40.7193578",
+          "lng": "-73.9387835"
+        }
+      },
+      {
+        "id": "E0-001-122021324-2",
+        "url": "http://newyorkcity.eventful.com/events/beats-antique-16-event-/E0-001-122021324-2?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "Beats Antique (16+ Event)",
+        "description": null,
+        "location": {
+          "lat": "40.7193578",
+          "lng": "-73.9387835"
+        }
+      }
+    ],
+    "location": {
+      "lat": "40.7193578",
+      "lng": "-73.9387835"
+    }
+  },
+  {
+    "_id": "5c9c60ab27156a0b09e3f3fb",
+    "id": "V0-001-007452994-9",
+    "url": "//newyorkcity.eventful.com/venues/rough-trade-nyc-/V0-001-007452994-9?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+    "name": "Rough Trade NYC",
+    "description": null,
+    "upcomingEvents": [
+      {
+        "id": "E0-001-123682541-9",
+        "url": "http://newyorkcity.eventful.com/events/open-mike-eagle-18-event-/E0-001-123682541-9?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "Open Mike Eagle (18+ Event)",
+        "description": null,
+        "location": {
+          "lat": "40.7207973",
+          "lng": "-73.9599521"
+        }
+      },
+      {
+        "id": "E0-001-123844527-1",
+        "url": "http://newyorkcity.eventful.com/events/robert-ellis-/E0-001-123844527-1?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "Robert Ellis",
+        "description": null,
+        "location": {
+          "lat": "40.7207973",
+          "lng": "-73.9599521"
+        }
+      },
+      {
+        "id": "E0-001-123852632-7",
+        "url": "http://newyorkcity.eventful.com/events/fatai-/E0-001-123852632-7?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "Fatai",
+        "description": null,
+        "location": {
+          "lat": "40.7207973",
+          "lng": "-73.9599521"
+        }
+      },
+      {
+        "id": "E0-001-121999550-8",
+        "url": "http://newyorkcity.eventful.com/events/prateek-kuhad-18-event-/E0-001-121999550-8?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "Prateek Kuhad (18+ Event)",
+        "description": null,
+        "location": {
+          "lat": "40.7207973",
+          "lng": "-73.9599521"
+        }
+      }
+    ],
+    "location": {
+      "lat": "40.7207973",
+      "lng": "-73.9599521"
+    }
+  },
+  {
+    "_id": "5c9c60ab27156a0b09e3f3f6",
+    "id": "V0-001-000965776-7",
+    "url": "//newyorkcity.eventful.com/venues/music-hall-of-williamsburg-/V0-001-000965776-7?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+    "name": "Music Hall of Williamsburg",
+    "description": "<p>The Music Hall of Williamsburg, formerly known as Northsix, is a live music venue from the Bowery Presents venue group, and is located in the North Side Williamsburg area of Brooklyn. With three levels, three bars, balcony seating and a curved wall for optimal acoustics, the Music Hall of Williamsburg is undoubtedly one of New York&#39;s finest small live music venues. The venue plays host to both local and national acts, and over the years, has become a popular spot for both fans and performers of indie rock.</p><p>Even with the fierce competition posed by other, similar venues in the city, the Music Hall of Williamsburg continues to play host to plenty of sold-out shows. Cake, Steve Earle, Eagles of Death Metal, Nicole Atkins, Longwave, Buckcherry and Glasvegas are just a few of those featured on the Music Hall of Williamsburg schedule in the past.</p><p>There&#39;s no better time to visit. For all the latest news and up-to-date information on what&#39;s on at the Music Hall of Williamsburg, make Eventful your source, and check out the schedule right here!<p></p></p>",
+    "upcomingEvents": [
+      {
+        "id": "E0-001-123559088-0",
+        "url": "http://newyorkcity.eventful.com/events/budos-band-18-event-/E0-001-123559088-0?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "The Budos Band (18+ Event)",
+        "description": null,
+        "location": {
+          "lat": "40.7191281",
+          "lng": "-73.9617399"
+        }
+      },
+      {
+        "id": "E0-001-122089678-0",
+        "url": "http://newyorkcity.eventful.com/events/haelos-/E0-001-122089678-0?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "Haelos",
+        "description": null,
+        "location": {
+          "lat": "40.7191281",
+          "lng": "-73.9617399"
+        }
+      },
+      {
+        "id": "E0-001-124506357-0",
+        "url": "http://newyorkcity.eventful.com/events/simple-creatures-16-event-/E0-001-124506357-0?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "Simple Creatures (16+ Event)",
+        "description": null,
+        "location": {
+          "lat": "40.7191281",
+          "lng": "-73.9617399"
+        }
+      },
+      {
+        "id": "E0-001-122906610-6",
+        "url": "http://newyorkcity.eventful.com/events/blaqk-audio-18-event-/E0-001-122906610-6?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "Blaqk Audio (18+ Event)",
+        "description": null,
+        "location": {
+          "lat": "40.7191281",
+          "lng": "-73.9617399"
+        }
+      }
+    ],
+    "location": {
+      "lat": "40.7191281",
+      "lng": "-73.9617399"
+    }
+  },
+  {
+    "_id": "5c9c5f958b92ee959118b2e2",
+    "id": "V0-001-012172557-1",
+    "url": "//newyorkcity.eventful.com/venues/avant-gardner-/V0-001-012172557-1?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+    "name": "Avant Gardner",
+    "description": null,
+    "upcomingEvents": [
+      {
+        "id": "E0-001-122281866-1",
+        "url": "http://newyorkcity.eventful.com/events/zomboy-/E0-001-122281866-1?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "Zomboy",
+        "description": null,
+        "location": {
+          "lat": "40.7106363",
+          "lng": "-73.9261791"
+        }
+      },
+      {
+        "id": "E0-001-124721839-6",
+        "url": "http://newyorkcity.eventful.com/events/black-nyc-2019-day-2-/E0-001-124721839-6?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "BLACK NYC - 2019 [DAY 2]",
+        "description": " ON APRIL 5th, BLACK RETURNS TO NEW YORK CITY.  UNIFYING CONTEMPORARY MUSIC AND VISUAL ART TRANSFORMING A NIGHT, CITY, AND SPACE INTO AN ORCHESTRATION OF FORM, SOUND AND CULTURE. INCITING, ALTERING, AND DISRUPTING, WE EXPLORE THE WORLD BETWEEN THE IMAGINED AND UNIMAGINED. SUBMERGED IN DARKNESS, WE SEEK TO FIND THE EDGE, WHERE BRILLIANT FLASHES OF LIGHT REMIND US OF THE REMARKABLE SHAPE OF OURSELVES. MUSIC GUY GERBER MANO LE TOUGH DJ SEINFELD MARIE DAVIDSON (LIVE) VAAL KEDR LIVANSKIY (LIVE) NOAH SOUDER-RUSSO HENRI MUSIC CHILDREN OF THE LIGHT PHILLIPS PRESENTS: DAATA EDITIONS FLORENCE TO GLENN KAINO SHOHEI FUJIMOTO FAQS ARE THERE ID OR MINIMUM AGE REQUIREMENTS TO ENTER THE EVENT? THIS IS A 21+ EVENT. WHAT ARE MY TRANSPORTATION/PARKING OPTIONS FOR GETTING TO AND FROM THE EVENT? TRAIN / UBER HOW CAN I CONTACT THE ORGANIZER WITH ANY QUESTIONS? INFO@MATTEPROJECTS.COM WHAT&#39;S THE REFUND POLICY? ALL TICKET PURCHASES ARE FINAL IS IT OK IF THE NAME ON MY TICKET OR REGISTRATION DOESN&#39;T MATCH THE PERSON WHO ATTENDS? YES CAN I USE A TICKET FOR BLACK ON APRIL 4 TO ATTEND BLACK ON APRIL 5? NO. TICKETS ARE NONTRANSFERRABLE. ONLY A TICKET FOR APRIL 5 CAN BE USED ON APRIL 5. ",
+        "location": {
+          "lat": "40.7106363",
+          "lng": "-73.9261791"
+        }
+      },
+      {
+        "id": "E0-001-124721840-2",
+        "url": "http://newyorkcity.eventful.com/events/black-ny-2019-day-1-/E0-001-124721840-2?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "BLACK NY - 2019 [DAY 1]",
+        "description": " ON APRIL 4th, BLACK RETURNS TO NEW YORK CITY.  UNIFYING CONTEMPORARY MUSIC AND VISUAL ART TRANSFORMING A NIGHT, CITY, AND SPACE INTO AN ORCHESTRATION OF FORM, SOUND AND CULTURE. INCITING, ALTERING, AND DISRUPTING, WE EXPLORE THE WORLD BETWEEN THE IMAGINED AND UNIMAGINED. SUBMERGED IN DARKNESS, WE SEEK TO FIND THE EDGE, WHERE BRILLIANT FLASHES OF LIGHT REMIND US OF THE REMARKABLE SHAPE OF OURSELVES. MUSIC THE BLAZE JACQUES GREENE OURI (LIVE) ART INSTALLATIONS CHILDREN OF THE LIGHT PHILLIPS PRESENTS: DAATA EDITIONS FLORENCE TO GLENN KAINO SHOHEI FUJIMOTO FAQS ARE THERE ID OR MINIMUM AGE REQUIREMENTS TO ENTER THE EVENT? THIS IS A 21+ EVENT. WHAT ARE MY TRANSPORTATION/PARKING OPTIONS FOR GETTING TO AND FROM THE EVENT? TRAIN / UBER HOW CAN I CONTACT THE ORGANIZER WITH ANY QUESTIONS? INFO@MATTEPROJECTS.COM WHAT&#39;S THE REFUND POLICY? ALL TICKET PURCHASES ARE FINAL IS IT OK IF THE NAME ON MY TICKET OR REGISTRATION DOESN&#39;T MATCH THE PERSON WHO ATTENDS? YES CAN I USE A TICKET FOR BLACK ON APRIL 5 TO ATTEND BLACK ON APRIL 4? NO. TICKETS ARE NONTRANSFERRABLE. ONLY A TICKET FOR APRIL 4 CAN BE USED ON APRIL 4 ",
+        "location": {
+          "lat": "40.7106363",
+          "lng": "-73.9261791"
+        }
+      }
+    ],
+    "location": {
+      "lat": "40.7106363",
+      "lng": "-73.9261791"
+    }
+  },
+  {
+    "_id": "5c9c602850626e9adbf57b6e",
+    "id": "V0-001-001149947-6",
+    "url": "//newyorkcity.eventful.com/venues/knitting-factory-/V0-001-001149947-6?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+    "name": "Knitting Factory",
+    "description": "<p>The Knitting Factory Brooklyn is one of 5 Knitting Factory Entertainment venues (other locations include Hollywood, Boise, Spokane and Reno).</p><p>\nThe Knitting Factory brand started in 1987 - the brainchild of Michael Dorf and Bob Appel. Originally, the location for the New York Knitting Factory was Manhattan. However, the decision was soon made to relocate it, and so, the Knitting Factory Brooklyn was born in 2008. In its early days, the Knitting Factory Brooklyn specialized in jazz and experimental music but now offers a variety of musical genres in its listings.</p><p>\nThe Knitting Factory Brooklyn schedule offers something for everyone; from rock to rap to comedy and everything in between. Just be sure to check the listings before making your visit, to avoid disappointment! </p><p>For all the latest news and up-to-date information on what&#39;s on at the Knitting Factory Brooklyn, make Eventful your source, and check out the Knitting Factory schedule above.</p>",
+    "upcomingEvents": [
+      {
+        "id": "E0-001-124320231-5",
+        "url": "http://newyorkcity.eventful.com/events/les-sans-culottes-/E0-001-124320231-5?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "Les Sans Culottes",
+        "description": null,
+        "location": {
+          "lat": "40.7142193",
+          "lng": "-73.9558328"
+        }
+      },
+      {
+        "id": "E0-001-122914368-1",
+        "url": "http://newyorkcity.eventful.com/events/plot-you-/E0-001-122914368-1?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "The Plot In You",
+        "description": null,
+        "location": {
+          "lat": "40.7142193",
+          "lng": "-73.9558328"
+        }
+      },
+      {
+        "id": "E0-001-120879378-2",
+        "url": "http://newyorkcity.eventful.com/events/pros-and-icons-/E0-001-120879378-2?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "Pros and iCons",
+        "description": null,
+        "location": {
+          "lat": "40.7142193",
+          "lng": "-73.9558328"
+        }
+      },
+      {
+        "id": "E0-001-124573798-5",
+        "url": "http://newyorkcity.eventful.com/events/levels-n-stuff-electro-house-edm-night-free-wrs-/E0-001-124573798-5?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "LEVELS 'N' STUFF - ELECTRO HOUSE & EDM NIGHT - FREE W/RSVP",
+        "description": " Levels &#39;N&#39; Stuff Friday April 5 at Knitting Factory BrooklynWe&#39;ve been looking forward to this one - a night of the best of electro house and EDM, utilizing Knitting Factory&#39;s amazing new soundsystem for maximum effect. We&#39;ll be playing the bangers, festival classics and hands-in-the-air anthems by the likes of Deadmau5, Avicii, Jack U, DJ Snake, Calvin Harris, Martin Garrix, Otto Knows, Swedish House Mafia, Duck Sauce, Afrojack, Chainsmokers, Major Lazer, Zedd, Madeon, Eric Prydz, Knife Party, Kaskade, Dada Life, Justice, Dillon Francis, Benny Benassi, Tiesto, Nicky Romero & Much More. With DJs We Chief, PR3FAB and Dave GhettoFREE BEFORE MIDNIGHT WITH RSVP - JUST HIT THE GREEN BUTTON & SIGN UP (Offer open to 21+ only. Admission subject to capacity. Please arrive early as there may be a line). ADVANCE TICKETS - CLICK HERE(Offer open to 18+. Recommended. Guaranteed admission all night. Express entry).Knitting Factory: 361 Metropolitan Ave. Williamsburg, Brooklyn.Doors 11.30pm. 18+ ",
+        "location": {
+          "lat": "40.7142193",
+          "lng": "-73.9558328"
+        }
+      }
+    ],
+    "location": {
+      "lat": "40.7142193",
+      "lng": "-73.9558328"
+    }
+  },
+  {
+    "_id": "5c9c41f869f4765f2b84b835",
+    "id": "V0-001-002426931-6",
+    "upcomingEvents": [
+      {
+        "id": "E0-001-124990874-9",
+        "url": "http://newyorkcity.eventful.com/events/bad-buka-ny-gypsy-all-stars-/E0-001-124990874-9?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "BAD BUKA- NY gypsy all stars",
+        "description": null,
+        "location": {
+          "lat": "40.7218943",
+          "lng": "-73.957392"
+        }
+      },
+      {
+        "id": "E0-001-120909992-0",
+        "url": "http://newyorkcity.eventful.com/events/lotus-friday-21-event-/E0-001-120909992-0?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "Lotus - Friday (21+ Event)",
+        "description": null,
+        "location": {
+          "lat": "40.7218943",
+          "lng": "-73.957392"
+        }
+      },
+      {
+        "id": "E0-001-124549687-5@2019033112",
+        "url": "http://newyorkcity.eventful.com/events/rock-and-roll-playhouse-/E0-001-124549687-5@2019033112?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "Rock and Roll Playhouse",
+        "description": null,
+        "location": {
+          "lat": "40.7218943",
+          "lng": "-73.957392"
+        }
+      },
+      {
+        "id": "E0-001-120904076-6",
+        "url": "http://newyorkcity.eventful.com/events/lotus-saturday-21-event-/E0-001-120904076-6?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "Lotus - Saturday (21+ Event)",
+        "description": null,
+        "location": {
+          "lat": "40.7218943",
+          "lng": "-73.957392"
+        }
+      },
+      {
+        "id": "E0-001-120909971-7",
+        "url": "http://newyorkcity.eventful.com/events/lotus-thursday-21-event-/E0-001-120909971-7?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "Lotus - Thursday (21+ Event)",
+        "description": null,
+        "location": {
+          "lat": "40.7218943",
+          "lng": "-73.957392"
+        }
+      },
+      {
+        "id": "E0-001-124988154-9",
+        "url": "http://newyorkcity.eventful.com/events/fay-victor-/E0-001-124988154-9?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "Fay Victor",
+        "description": " Benefit for Creative Music Studios!! Sick night w Billy Martin, Marc Ribot, Marshall Allen, yours truly and much much more.",
+        "location": {
+          "lat": "40.7218943",
+          "lng": "-73.957392"
+        }
+      }
+    ],
+    "description": null,
+    "location": {
+      "lat": "40.7218943",
+      "lng": "-73.957392"
+    },
+    "name": "Brooklyn Bowl",
+    "url": "//newyorkcity.eventful.com/venues/brooklyn-bowl-/V0-001-002426931-6?utm_source=apis&utm_medium=apim&utm_campaign=apic"
+  },
+  {
+    "_id": "5c9c60ab27156a0b09e3f3fa",
+    "id": "V0-001-006320133-9",
+    "url": "//newyorkcity.eventful.com/venues/muchmores-/V0-001-006320133-9?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+    "name": "Muchmore's",
+    "description": "(917) 515-5444",
+    "upcomingEvents": [
+      {
+        "id": "E0-001-123318736-3",
+        "url": "http://newyorkcity.eventful.com/events/animate-earth-waking-dream-nyc-dark-reverence-cito-/E0-001-123318736-3?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "Animate Earth- Waking Dream (Nyc)- Dark Reverence- Citoletium",
+        "description": " (The Dark Art Experiments) 9pm-1am Occult Psychedelia, Gothic Rock, Dark Wave, Gothic Industrial, Black Metal, Death Metal. Animate Earth 9pm Waking Dream 10pm Dark Reverence 11pm Citoletium 12am $10 cover at the door 21+",
+        "location": {
+          "lat": "40.716508",
+          "lng": "-73.952842"
+        }
+      }
+    ],
+    "location": {
+      "lat": "40.716508",
+      "lng": "-73.952842"
+    }
+  },
+  {
+    "_id": "5c9c6435792960541c305557",
+    "id": "V0-001-013458240-8",
+    "url": "//newyorkcity.eventful.com/venues/3-dollar-bill-/V0-001-013458240-8?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+    "name": "3 Dollar Bill",
+    "description": null,
+    "upcomingEvents": [
+      {
+        "id": "E0-001-123910730-5",
+        "url": "http://newyorkcity.eventful.com/events/lil-kim-live-grand-opening-3db-djs-carry-natio-/E0-001-123910730-5?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "LIL KIM LIVE! - Grand Opening of 3DB - DJS The Carry Nation Hosted by DETOX",
+        "description": " LIL KIM LIVE! - The Grand Opening of 3DB w/ DJS The Carry Nation - Hosted by DETOX! ",
+        "location": {
+          "lat": "40.7084094",
+          "lng": "-73.9383118"
+        }
+      }
+    ],
+    "location": {
+      "lat": "40.7084094",
+      "lng": "-73.9383118"
+    }
+  },
+  {
+    "_id": "5c9c41f969f4765f2b84b840",
+    "id": "V0-001-010943117-5",
+    "upcomingEvents": [
+      {
+        "id": "E0-001-123394889-8",
+        "url": "http://newyorkcity.eventful.com/events/canned-heat-jamiroquai-party-/E0-001-123394889-8?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "Canned Heat - A Jamiroquai Party",
+        "description": " CANNED HEAT A Jamiroquai Party Thursday April 4th 21+ ",
+        "location": {
+          "lat": "40.7221209",
+          "lng": "-73.9588711"
+        }
+      }
+    ],
+    "description": null,
+    "location": {
+      "lat": "40.7221209",
+      "lng": "-73.9588711"
+    },
+    "name": "Schimanski",
+    "url": "//newyorkcity.eventful.com/venues/schimanski-/V0-001-010943117-5?utm_source=apis&utm_medium=apim&utm_campaign=apic"
+  },
+  {
+    "_id": "5c9c60ab27156a0b09e3f3ff",
+    "id": "V0-001-012370149-6",
+    "url": "//newyorkcity.eventful.com/venues/villain-/V0-001-012370149-6?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+    "name": "Villain",
+    "description": null,
+    "upcomingEvents": [
+      {
+        "id": "E0-001-123754406-1",
+        "url": "http://newyorkcity.eventful.com/events/lupe-fiasco-/E0-001-123754406-1?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "Lupe Fiasco",
+        "description": " Lupe Fiasco in Brooklyn! ",
+        "location": {
+          "lat": "40.714075",
+          "lng": "-73.9667107"
+        }
+      }
+    ],
+    "location": {
+      "lat": "40.714075",
+      "lng": "-73.9667107"
+    }
+  },
+  {
+    "_id": "5c9c60ab27156a0b09e3f3f9",
+    "id": "V0-001-012317879-5",
+    "url": "//newyorkcity.eventful.com/venues/the-paper-box-/V0-001-012317879-5?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+    "name": "The Paper Box",
+    "description": null,
+    "upcomingEvents": [
+      {
+        "id": "E0-001-124730263-1@2019040319",
+        "url": "http://newyorkcity.eventful.com/events/majorstage-presents-live-/E0-001-124730263-1@2019040319?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "MajorStage Presents: Live Hip-Hop @ The Paper Box (EARLY SHOW)",
+        "description": " Come out to the Paper Box on March 21st for live local Hip-Hop at the Paper Box!  21+ w/ valid ID to attend.  ",
+        "location": {
+          "lat": "40.710973",
+          "lng": "-73.9363036"
+        }
+      },
+      {
+        "id": "E0-001-124727558-6",
+        "url": "http://newyorkcity.eventful.com/events/majorstage-presents-red-autumn-live-paper-box-l-/E0-001-124727558-6?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "MajorStage Presents: Red Autumn Live @ The Paper Box (Late Show)",
+        "description": " Come out to the Paper Box on April 3rd to catch Red Autumn + more live in concert!  21+ w/ valid ID to attend.  ",
+        "location": {
+          "lat": "40.710973",
+          "lng": "-73.9363036"
+        }
+      }
+    ],
+    "location": {
+      "lat": "40.710973",
+      "lng": "-73.9363036"
+    }
+  },
+  {
+    "_id": "5c9c41f969f4765f2b84b837",
+    "id": "V0-001-012012225-4",
+    "upcomingEvents": [
+      {
+        "id": "E0-001-124304424-3@2019040419",
+        "url": "http://newyorkcity.eventful.com/events/bemb%C9%AE%EF%B8%8F-prese-/E0-001-124304424-3@2019040419?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "BEMBɮ️ Presents ... TOQUE THURSDAYS !",
+        "description": " TOQUE THURSDAYS at BEMBÉ is a WEEKLY FREE EVENT that is all about bringing people together to Dance to Salsa, Merengue, Kompa, Soca, Reggaeton & Afrobeats along side the talented Jimi Lopez on Live Percussion. This is a night that is all about the classics and dance dance dance. Come share an Evening with us... #toquethursdays #bembetoque #bembe #afrobeat #afrobeats #soca #kompa #salsa #merengue #balifunk #samba #bachata #reggae #reggaeton #bembe #bembebrooklyn #bembenyc #bembeparty #bembeglobal #bembeevents #bembefestival #djembe #brazil #cuba #puertorico #jamaica #trinidad #africa #ghana #senegal #nigeria #africanmusic #afropop #angola #southafrica #kompa #soca #calypso #zouk #tanzania #gambia #kenya #cameroon #westafrica #ivorycoast #rdcongo #zimbabwe #kalimba #ngoni #bougarabou #rhythm #botswana #congo #uganda #membranophones #chordophones #aerophones #idiophones #percussion #makossa #galala #assiko #etighi #pantsula #kuduro #sabar #bembe #bembebrooklyn #williamsburgbrooklyn #southside #brooklyn #nyc things to do #tonight #musicistherapy ",
+        "location": {
+          "lat": "40.711067",
+          "lng": "-73.965125"
+        }
+      },
+      {
+        "id": "E0-001-124333681-6@2019040321",
+        "url": "http://newyorkcity.eventful.com/events/bemb%C9%AE%EF%B8%8F-prese-/E0-001-124333681-6@2019040321?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "BEMBɮ️ Presents.... AFROBEATS ~Live~ Every Wednesday!",
+        "description": " BEMBÉ is ...GLOBAL MUSIC. Come down EVERY WEDNESDAY Evening to Dance and Groove along side Dj NENIM & the BEMBÉ Family as we showcase only the best of AFROBEATS and GLOBAL RHYTHMS. Come dance and sing with us along side Live percussion all night long from 9p-4am. .... FREE! 21+ #bembeafrobeats .................................................................................................................................................................................. #afrobeat #afrobeats #soca #kompa #salsa #merengue #balifunk #samba #bachata #reggae #reggaeton #bembe #bembebrooklyn #bembenyc #bembeparty #bembeglobal #bembeevents #bembefestival #djembe #brazil #cuba #puertorico #jamaica #trinidad #africa #ghana #senegal #nigeria #africanmusic #afropop #angola #southafrica #kompa #soca #calypso #zouk #tanzania #gambia #kenya #cameroon #westafrica #ivorycoast #rdcongo #zimbabwe #kalimba #ngoni #bougarabou #rhythm #botswana #congo #uganda #membranophones #chordophones #aerophones #idiophones #percussion #makossa #galala #assiko #etighi #pantsula #kuduro #sabar #bembe #bembebrooklyn #williamsburgbrooklyn #southside #brooklyn #nyc things to do #tonight #musicistherapy ",
+        "location": {
+          "lat": "40.711067",
+          "lng": "-73.965125"
+        }
+      }
+    ],
+    "description": null,
+    "location": {
+      "lat": "40.711067",
+      "lng": "-73.965125"
+    },
+    "name": "Bembe",
+    "url": "//newyorkcity.eventful.com/venues/bembe-/V0-001-012012225-4?utm_source=apis&utm_medium=apim&utm_campaign=apic"
+  },
+  {
+    "_id": "5c9c41f969f4765f2b84b841",
+    "id": "V0-001-001124930-3",
+    "upcomingEvents": [
+      {
+        "id": "E0-001-124844240-4",
+        "url": "http://newyorkcity.eventful.com/events/megg-farrell-album-release-/E0-001-124844240-4?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "MEGG FARRELL ALBUM RELEASE",
+        "description": "Megg Farrell & Friends will be performing a set of complete original music to celebrate the release of their first album.\n\nThe band will include\nPete Matthiessen\nKells Nollenberger\nChris Gelb\n\nANNNND\nSeth Kessel will be joining as well\n\nANNNNNNNND\nThere will be a two-step lesson before the live music starts!\n\nABOUT MEGG FARRELL\nMegg Farrell is quickly establishing herself as a voice to be heard in the Americana music scene. After paying her dues in the highly competitive New York City jazz world, she has cultivated a vocal style that is both moving and masterfully proficient. Taking cues from Emmylou Harris and The Hot Band, she has put together a group of musicians whose technical prowess is sure to excite any audience, without resorting to cheap tricks and flashy pyrotechnics. Equally impressive as the musicians she surrounds herself with, Farrell’s original compositions truly shine. Her songwriting has been described as “the essence of folk storytelling and organic musicianship.”",
+        "location": {
+          "lat": "40.7149676",
+          "lng": "-73.9515128"
+        }
+      },
+      {
+        "id": "E0-001-123105227-6",
+        "url": "http://newyorkcity.eventful.com/events/patio-record-release-b-boys-and-obstacle-formerly-/E0-001-123105227-6?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "Patio (Record Release) with B Boys and Obstacle (formerly Krill)",
+        "description": " Patio (Record Release) with B Boys and Obstacle (formerly Krill) DJ Set by Heather Strange ",
+        "location": {
+          "lat": "40.7149676",
+          "lng": "-73.9515128"
+        }
+      }
+    ],
+    "description": null,
+    "location": {
+      "lat": "40.7149676",
+      "lng": "-73.9515128"
+    },
+    "name": "Union Pool",
+    "url": "//newyorkcity.eventful.com/venues/union-pool-/V0-001-001124930-3?utm_source=apis&utm_medium=apim&utm_campaign=apic"
+  },
+  {
+    "_id": "5c9c41f969f4765f2b84b839",
+    "id": "V0-001-012398951-7",
+    "upcomingEvents": [
+      {
+        "id": "E0-001-124837733-1",
+        "url": "http://newyorkcity.eventful.com/events/1030pm-caroline-kuhn-pine-box-rock-shop-/E0-001-124837733-1?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "10:30pm Caroline Kuhn @ Pine Box Rock Shop",
+        "description": " Caroline is a recent graduate of the New England Conservatory of Music. Since returning to her native city, she has been performing her solo project around town. Her songwriting is influenced by folk and jazz, with interesting melodies accompanied by rhythmic fingerpicking on guitar and tenor banjo. ",
+        "location": {
+          "lat": "40.7052743",
+          "lng": "-73.9326757"
+        }
+      }
+    ],
+    "description": null,
+    "location": {
+      "lat": "40.7052743",
+      "lng": "-73.9326757"
+    },
+    "name": "Pine Box Rock Shop",
+    "url": "//newyorkcity.eventful.com/venues/pine-box-rock-shop-/V0-001-012398951-7?utm_source=apis&utm_medium=apim&utm_campaign=apic"
+  },
+  {
+    "_id": "5c9c602850626e9adbf57b70",
+    "id": "V0-001-000229394-0",
+    "url": "//newyorkcity.eventful.com/venues/warsaw-/V0-001-000229394-0?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+    "name": "Warsaw",
+    "description": "The Warsaw is located in the Polish National Home and has a capacity of 800. It   s about time Brooklyn got a decent size club so they can lure the likes of Will Oldham, Derek Trucks, and Luna to play. The venue is a turn of the century, baroque ballroom that has an Eastern European bar   lounge and a Polish bistro.",
+    "upcomingEvents": [
+      {
+        "id": "E0-001-122293502-9",
+        "url": "http://newyorkcity.eventful.com/events/balance-and-composure-/E0-001-122293502-9?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "Balance and Composure",
+        "description": null,
+        "location": {
+          "lat": "40.7224421",
+          "lng": "-73.9485191"
+        }
+      }
+    ],
+    "location": {
+      "lat": "40.7224421",
+      "lng": "-73.9485191"
+    }
+  },
+  {
+    "_id": "5c9c60ab27156a0b09e3f3f7",
+    "id": "V0-001-013123468-9",
+    "url": "//newyorkcity.eventful.com/venues/the-park-church-coop-/V0-001-013123468-9?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+    "name": "The Park Church Co-op",
+    "description": null,
+    "upcomingEvents": [
+      {
+        "id": "E0-001-123213319-8",
+        "url": "http://newyorkcity.eventful.com/events/spencer-radcliffe-yohuna-skirts-wished-bone-/E0-001-123213319-8?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "Spencer Radcliffe, Yohuna, Skirts, Wished Bone",
+        "description": " Spencer Radcliffe, Yohuna, Skirts, Wished Bone ",
+        "location": {
+          "lat": "40.7248143",
+          "lng": "-73.9446936"
+        }
+      }
+    ],
+    "location": {
+      "lat": "40.7248143",
+      "lng": "-73.9446936"
+    }
+  },
+  {
+    "_id": "5c9c41f969f4765f2b84b83a",
+    "id": "V0-001-008951263-3",
+    "upcomingEvents": [
+      {
+        "id": "E0-001-122338763-6@2019040320",
+        "url": "http://newyorkcity.eventful.com/events/dervisi-homeboy-steve-/E0-001-122338763-6@2019040320?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "Dervisi - Homeboy Steve",
+        "description": " Dervisi Bittersweet melodies of passion and hashish from the old-time Greek Rembetika underworld 1st Wednesday of every month Troost 1011 Manhattan Avenue btwn Huron & Green Brooklyn, NY 11222 tel: 347-889-6761 8:30pm http://troostnyc.com/ https://www.facebook.com/DervisiBand https://www.facebook.com/events/528322944319452/",
+        "location": {
+          "lat": "40.7334897",
+          "lng": "-73.9549652"
+        }
+      }
+    ],
+    "description": null,
+    "location": {
+      "lat": "40.7334897",
+      "lng": "-73.9549652"
+    },
+    "name": "Troost",
+    "url": "//newyorkcity.eventful.com/venues/troost-/V0-001-008951263-3?utm_source=apis&utm_medium=apim&utm_campaign=apic"
+  },
+  {
+    "_id": "5c9c41f869f4765f2b84b834",
+    "id": "V0-001-012556829-3",
+    "upcomingEvents": [
+      {
+        "id": "E0-001-115156932-4@2019033122",
+        "url": "http://newyorkcity.eventful.com/events/trends-friends-privatepa-/E0-001-115156932-4@2019033122?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "TRENDS & FRIENDS PRIVATEPARTY SUNDAYS",
+        "description": " TRENDS&FRIENDS PRIVATE PARTY SUNDAYS 291 HOOPER STREET BROOKLYN NEWYORK 10PM-4AMFREE ADMISSION RSVP NOW ",
+        "location": {
+          "lat": "40.7072999",
+          "lng": "-73.9540525"
+        }
+      }
+    ],
+    "description": null,
+    "location": {
+      "lat": "40.7072999",
+      "lng": "-73.9540525"
+    },
+    "name": "291 Hooper St",
+    "url": "//newyorkcity.eventful.com/venues/291-hooper-st-/V0-001-012556829-3?utm_source=apis&utm_medium=apim&utm_campaign=apic"
+  },
+  {
+    "_id": "5c9cf0b13c6a424f0f752193",
+    "id": "V0-001-013658448-2",
+    "url": "//newyorkcity.eventful.com/venues/bar-schimmi-/V0-001-013658448-2?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+    "name": "Bar Schimmi",
+    "description": null,
+    "upcomingEvents": [
+      {
+        "id": "E0-001-124999619-7",
+        "url": "http://newyorkcity.eventful.com/events/select-fridays-/E0-001-124999619-7?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "Select Fridays",
+        "description": " SELECTED FRIDAYS Free admission w/ RSVP ",
+        "location": {
+          "lat": "40.721918",
+          "lng": "-73.958669"
+        }
+      }
+    ],
+    "location": {
+      "lat": "40.721918",
+      "lng": "-73.958669"
+    }
+  },
+  {
+    "_id": "5c9c41f969f4765f2b84b83d",
+    "id": "V0-001-000524493-6",
+    "upcomingEvents": [
+      {
+        "id": "E0-001-124910772-0",
+        "url": "http://newyorkcity.eventful.com/events/emily-duff-/E0-001-124910772-0?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "Emily Duff",
+        "description": " 9pm till 11:30pm",
+        "location": {
+          "lat": "40.7212806",
+          "lng": "-73.9573545"
+        }
+      },
+      {
+        "id": "E0-001-124891013-6",
+        "url": "http://newyorkcity.eventful.com/events/jamie-thomas-/E0-001-124891013-6?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "Jamie Thomas",
+        "description": null,
+        "location": {
+          "lat": "40.7212806",
+          "lng": "-73.9573545"
+        }
+      }
+    ],
+    "description": null,
+    "location": {
+      "lat": "40.7212806",
+      "lng": "-73.9573545"
+    },
+    "name": "The Eleventh Street Bar",
+    "url": "//newyorkcity.eventful.com/venues/the-eleventh-street-bar-/V0-001-000524493-6?utm_source=apis&utm_medium=apim&utm_campaign=apic"
+  },
+  {
+    "_id": "5c9c41f869f4765f2b84b836",
+    "id": "V0-001-012839142-5",
+    "upcomingEvents": [
+      {
+        "id": "E0-001-124080812-7",
+        "url": "http://baltimore.eventful.com/events/french-enrichment-thursday-music-movement-/E0-001-124080812-7?utm_source=apis&utm_medium=apim&utm_campaign=apic",
+        "name": "French Enrichment (Thursday) Music & Movement",
+        "description": null,
+        "location": {
+          "lat": "40.723192",
+          "lng": "-73.952991"
+        }
+      }
+    ],
+    "description": null,
+    "location": {
+      "lat": "40.723192",
+      "lng": "-73.952991"
+    },
+    "name": "PLAY Greenpoint",
+    "url": "//baltimore.eventful.com/venues/play-greenpoint-/V0-001-012839142-5?utm_source=apis&utm_medium=apim&utm_campaign=apic"
+  }
+]
