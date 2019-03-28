@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 import ErrorBoundary from "react-error-boundary";
 import {
@@ -6,12 +6,12 @@ import {
   CardImg,
   CardBody,
   CardTitle,
+  CardHeader,
   CardSubtitle,
   CardText,
   Button,
 } from "reactstrap";
-import Navbar from "./Navbar";
-import Banner from "./Banner";
+import { EventsList } from "./List";
 
 const ContentCard = styled(Card)`
   grid-area: detail;
@@ -24,6 +24,7 @@ const ContentCard = styled(Card)`
 `;
 
 function Venue({ venue }) {
+  const [selectedEvent, setSelectedEvent] = useState(null);
   return (
     <ContentCard inverse>
       <ErrorBoundary>
@@ -31,9 +32,20 @@ function Venue({ venue }) {
           <CardTitle>
             <h1>{venue.name}</h1>
           </CardTitle>
-          <h2>Description</h2>
-          {venue.description && <CardText>{venue.description}</CardText>}
+          {venue.description && (
+            <>
+              <h2>Description</h2>
+              <CardText>{venue.description}</CardText>
+            </>
+          )}
           <Button color="info">Button</Button>
+          {venue.upcomingEvents && (
+            <EventsList
+              events={venue.upcomingEvents}
+              currentEvent={selectedEvent}
+              setCurrentEvent={setSelectedEvent}
+            />
+          )}
         </CardBody>
       </ErrorBoundary>
     </ContentCard>

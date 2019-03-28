@@ -28,7 +28,7 @@ export default React.memo(function LeafMap(props) {
         return (
           <Marker
             key={venue.id}
-            position={[Number(venue.latitude), Number(venue.longitude)]}
+            position={[Number(venue.location.lat), Number(venue.location.lng)]}
             onClick={setAsCurrent}
           >
             <Popup>

@@ -7,6 +7,7 @@ import {
   CardBody,
   CardTitle,
   CardSubtitle,
+  CardHeader,
   CardFooter,
   CardText,
   Button,
@@ -84,9 +85,9 @@ const EventsList = props => {
             onClick={rowClickHandler(event)}
             isCurrent={currentEvent && currentEvent.id === event.id}
           >
-            <td>{date2time(event.start_time)}</td>
-            <td>{event.title}</td>
-            <td>{event.venue_name}</td>
+            <td>{event.id}</td>
+            <td>{event.name}</td>
+            <td>{event.url}</td>
           </EventsTableRow>
         ))
     );
@@ -114,7 +115,7 @@ const VenuesList = props => {
     return (
       venues &&
       venues
-        .filter((v, i) => i < 3)
+        .filter((v, i) => i < 20)
         .map(venue => (
           <EventsTableRow
             key={venue.id}
@@ -152,9 +153,9 @@ function List(props) {
     <ContentCard inverse>
       <ErrorBoundary>
         <CardBody>
-          <CardTitle>
+          <CardHeader>
             <h1>Events Near {address}</h1>
-          </CardTitle>
+          </CardHeader>
           <Table {...props} />
         </CardBody>
       </ErrorBoundary>
@@ -162,3 +163,4 @@ function List(props) {
   );
 }
 export default List;
+export { EventsList };

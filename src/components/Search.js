@@ -6,6 +6,7 @@ import {
   Card,
   CardBody,
   CardTitle,
+  CardHeader,
   InputGroup,
   Input,
   InputGroupAddon,
@@ -20,13 +21,14 @@ import {
 import * as R from "ramda";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+
 const SearchIcon = () => <FontAwesomeIcon icon={faSearch} />;
 
 const SearchBarContainer = styled(InputGroup)`
   width: 100%;
 `;
 const SearchBarButton = props => {
-  const { handleSearch } = props;
+  const { handleSearch, isSearching } = props;
   const Text = styled.div`
     margin-right: 8px;
     margin-left: 8px;
@@ -34,8 +36,14 @@ const SearchBarButton = props => {
   return (
     <InputGroupAddon addonType="append">
       <Button color="info" onClick={handleSearch}>
-        <Text>Search</Text>
-        <SearchIcon />
+        {isSearching ? (
+          <Text>Searching</Text>
+        ) : (
+          <>
+            <Text>Search</Text>
+            <SearchIcon />
+          </>
+        )}
       </Button>
     </InputGroupAddon>
   );
@@ -49,7 +57,7 @@ const SearchBarInput = styled(Input)`
   line-height: 40px;
 `;
 const SearchBar = React.memo(props => {
-  const { address, searchFor, onChange } = props;
+  const { address, searchFor, onChange, isSearching } = props;
   const handleSearch = () => {
     searchFor(address);
   };
@@ -60,7 +68,7 @@ const SearchBar = React.memo(props => {
         value={address}
         placeholder="Enter your address..."
       />
-      <SearchBarButton handleSearch={handleSearch} />
+      <SearchBarButton handleSearch={handleSearch} isSearching={isSearching} />
     </SearchBarContainer>
   );
 });
@@ -71,75 +79,29 @@ export function useEventSearch() {
   const [addressLocation, setAddressLocation] = useState(null);
   const [searching, setSearching] = useState(false);
   const [events, setEvents] = useState([]);
-  const [fetchingEvents, setFetchingEvents] = useState(false);
   const [venues, setVenues] = useState([]);
-  const [fetchingVenues, setFetchingVenues] = useState(false);
 
   const handleInputChange = e => {
     setAddressQuery(e.currentTarget.value);
   };
 
-  function search(addr) {
-    if (searching || fetchingEvents || fetchingVenues) {
-      cancelCurrentSearch();
-    }
-    setSearching(true);
-    setFetchingEvents(true);
-    setFetchingVenues(true);
-  }
-
-  function cancelCurrentSearch() {
-    setSearching(false);
-    setFetchingEvents(false);
-    setFetchingVenues(false);
-  }
-
-  useEffect(
-    () => {
-      if (searching && !(fetchingEvents || fetchingVenues)) {
-        setSearching(false);
-      }
-    },
-    [searching, fetchingEvents, fetchingVenues],
-  );
-
-  async function geolocateAddress() {
+  const search = () => !searching && setSearching(true);
+  async function handleSearch() {
     if (searching) {
-      const location = await getLocationForAddress(addressQuery);
-      setAddressLocation(location);
-      setAddress(location.formatted_address);
+      const result = await searchNearAddress(addressQuery);
+      setAddress(result.location.formatted_address);
+      setAddressLocation(result.location);
+      setVenues(result.venues);
+      setEvents(result.events);
+      setSearching(false);
     }
   }
   useEffect(
     () => {
-      geolocateAddress();
+      handleSearch();
     },
     [searching],
   );
-
-  function searchForEvents() {
-    if (fetchingEvents) {
-      Promise.resolve(getNearbyEvents())
-        .then(result => result.events.event)
-        .then(events => {
-          setEvents(events);
-          setFetchingEvents(false);
-        });
-    }
-  }
-  useEffect(searchForEvents, [fetchingEvents]);
-
-  function searchForVenues() {
-    if (fetchingVenues) {
-      console.log(addressQuery);
-      searchNearAddress(addressQuery).then(venues => {
-        console.log("venues", venues);
-        setVenues(venues);
-        setFetchingVenues(false);
-      });
-    }
-  }
-  useEffect(searchForVenues, [fetchingVenues]);
 
   return {
     events,
@@ -178,19 +140,21 @@ const Search = props => {
     handleInputChange,
     setCurrentVenue,
   } = props;
+  console.log("venues", venues);
   const coords = addressLocation && addressLocation.geometry.location;
   return (
     <ContentCard inverse color="dark">
       <ErrorBoundary>
         <ContentBody>
-          <CardTitle>
+          <CardHeader>
             <h1>Search Nearby Venues</h1>
-          </CardTitle>
+          </CardHeader>
           <SearchBar
             onChange={handleInputChange}
             address={addressQuery}
             placeholder="Enter your address..."
             searchFor={search}
+            isSearching={searching}
           />
           <LeafMap
             venues={venues}
