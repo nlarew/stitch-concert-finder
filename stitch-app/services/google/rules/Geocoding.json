@@ -1,0 +1,10 @@
+{
+    "name": "Geocoding",
+    "actions": [
+        "get"
+    ],
+    "when": {
+        "%%args.url.host": "maps.googleapis.com",
+        "%%args.url.path": "/maps/api/geocode/json"
+    }
+}

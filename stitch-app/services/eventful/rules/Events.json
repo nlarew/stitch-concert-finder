@@ -1,0 +1,15 @@
+{
+    "name": "Events",
+    "actions": [
+        "get"
+    ],
+    "when": {
+        "%%args.url.host": "api.eventful.com",
+        "%%args.url.path": {
+            "%in": [
+                "/json/events/search",
+                "/json/events/get"
+            ]
+        }
+    }
+}

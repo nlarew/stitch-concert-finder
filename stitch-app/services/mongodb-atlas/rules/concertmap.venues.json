@@ -1,0 +1,21 @@
+{
+    "database": "concertmap",
+    "collection": "venues",
+    "roles": [
+        {
+            "name": "user",
+            "apply_when": {},
+            "write": true,
+            "insert": true,
+            "delete": true,
+            "additional_fields": {}
+        }
+    ],
+    "schema": {
+        "properties": {
+            "_id": {
+                "bsonType": "objectId"
+            }
+        }
+    }
+}

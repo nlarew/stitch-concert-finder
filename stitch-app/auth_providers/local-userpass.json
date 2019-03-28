@@ -1,0 +1,11 @@
+{
+    "name": "local-userpass",
+    "type": "local-userpass",
+    "config": {
+        "confirmEmailSubject": "nick.larew@10gen.com",
+        "emailConfirmationUrl": "https://shows.nlarew.com/admin/confirmEmail",
+        "resetPasswordSubject": "Reset Your Password",
+        "resetPasswordUrl": "https://shows.nlarew.com/admin/resetPassword"
+    },
+    "disabled": false
+}
