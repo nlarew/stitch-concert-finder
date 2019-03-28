@@ -11,12 +11,10 @@ import {
   FormGroup,
   Label,
   Input,
-  FormText,
 } from "reactstrap";
 import {
   FacebookLoginButton,
   GoogleLoginButton,
-  createSvgIcon,
   createButton,
 } from "react-social-login-buttons";
 import Banner from "./Banner";

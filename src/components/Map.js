@@ -14,11 +14,12 @@ const ConcertMap = styled(Map)`
   border-radius: 4px;
 `;
 
-export default function LeafMap(props) {
-  const { venues, setCurrentVenue } = props;
+export default React.memo(function LeafMap(props) {
+  const { venues, setCurrentVenue, searching } = props;
 
-  const renderEventMarkers = () => {
+  const renderEventMarkers = center => {
     return (
+      center &&
       venues &&
       venues.map(venue => {
         const setAsCurrent = () => {
@@ -43,7 +44,7 @@ export default function LeafMap(props) {
     40.7133111,
     -73.9521927,
   ];
-  const radius = 5 * 1000; // 5 kilometers
+  const radius = 2 * 1000; // 5 kilometers
 
   const StamenTonerTileLayer = () => (
     <TileLayer
@@ -62,11 +63,8 @@ export default function LeafMap(props) {
   return (
     <ConcertMapContainer>
       <ConcertMap center={center} zoom={12}>
-        <StamenTonerTileLayer
-          attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        {venues.length > 0 && (
+        <StamenTonerTileLayer />
+        {props.center && venues.length > 0 && (
           <>
             <Circle center={center} fillColor="blue" radius={radius} />
             <Marker position={center}>
@@ -78,8 +76,8 @@ export default function LeafMap(props) {
             </Marker>
           </>
         )}
-        {renderEventMarkers()}
+        {renderEventMarkers(props.center)}
       </ConcertMap>
     </ConcertMapContainer>
   );
-}
+});

@@ -76,17 +76,19 @@ const EventsList = props => {
     // <td>{event.start.time}</td>
     return (
       events &&
-      events.map(event => (
-        <EventsTableRow
-          key={event.id}
-          onClick={rowClickHandler(event)}
-          isCurrent={currentEvent && currentEvent.id === event.id}
-        >
-          <td>{date2time(event.start_time)}</td>
-          <td>{event.title}</td>
-          <td>{event.venue_name}</td>
-        </EventsTableRow>
-      ))
+      events
+        .filter((e, i) => i < 3)
+        .map(event => (
+          <EventsTableRow
+            key={event.id}
+            onClick={rowClickHandler(event)}
+            isCurrent={currentEvent && currentEvent.id === event.id}
+          >
+            <td>{date2time(event.start_time)}</td>
+            <td>{event.title}</td>
+            <td>{event.venue_name}</td>
+          </EventsTableRow>
+        ))
     );
   };
   return (
@@ -111,17 +113,19 @@ const VenuesList = props => {
   const renderVenueRows = () => {
     return (
       venues &&
-      venues.map(venue => (
-        <EventsTableRow
-          key={venue.id}
-          onClick={rowClickHandler(venue)}
-          isCurrent={currentVenue && currentVenue.id === venue.id}
-        >
-          <td>{venue.name}</td>
-          <td>{123}</td>
-          <td>{123}</td>
-        </EventsTableRow>
-      ))
+      venues
+        .filter((v, i) => i < 3)
+        .map(venue => (
+          <EventsTableRow
+            key={venue.id}
+            onClick={rowClickHandler(venue)}
+            isCurrent={currentVenue && currentVenue.id === venue.id}
+          >
+            <td>{venue.name}</td>
+            <td>{123}</td>
+            <td>{123}</td>
+          </EventsTableRow>
+        ))
     );
   };
   return (

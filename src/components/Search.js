@@ -12,14 +12,12 @@ import {
   Table,
 } from "reactstrap";
 import LeafMap from "./Map";
-
 import app, { getLocationForAddress, searchNearAddress } from "./../stitch";
 import {
   getNearbyEvents,
   getNearbyVenues,
 } from "./../stitch/services/eventful";
-
-import { Songkick } from "./../stitch";
+import * as R from "ramda";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 const SearchIcon = () => <FontAwesomeIcon icon={faSearch} />;
@@ -55,10 +53,6 @@ const SearchBar = React.memo(props => {
   const handleSearch = () => {
     searchFor(address);
   };
-  // onChange={handleEventInputChange}
-  // value={address}
-  // placeholder="Enter your address..."
-  // search={search}
   return (
     <SearchBarContainer>
       <SearchBarInput
@@ -72,12 +66,13 @@ const SearchBar = React.memo(props => {
 });
 
 export function useEventSearch() {
-  const [addressQuery, setAddressQuery] = useState("");
   const [address, setAddress] = useState("");
+  const [addressQuery, setAddressQuery] = useState("");
   const [addressLocation, setAddressLocation] = useState(null);
-  const [events, setEvents] = useState([]);
   const [searching, setSearching] = useState(false);
+  const [events, setEvents] = useState([]);
   const [fetchingEvents, setFetchingEvents] = useState(false);
+  const [venues, setVenues] = useState([]);
   const [fetchingVenues, setFetchingVenues] = useState(false);
 
   const handleInputChange = e => {
@@ -98,47 +93,50 @@ export function useEventSearch() {
     setFetchingEvents(false);
     setFetchingVenues(false);
   }
-  // asdf
-  function formatAddress(location) {}
 
   useEffect(
-    address => {
-      if (searching) {
-        getLocationForAddress(address).then(location => {
-          setAddressLocation(location);
-          setAddress(formatAddress(location));
-        });
+    () => {
+      if (searching && !(fetchingEvents || fetchingVenues)) {
+        setSearching(false);
       }
-      setSearching(false);
+    },
+    [searching, fetchingEvents, fetchingVenues],
+  );
+
+  async function geolocateAddress() {
+    if (searching) {
+      const location = await getLocationForAddress(addressQuery);
+      setAddressLocation(location);
+      setAddress(location.formatted_address);
+    }
+  }
+  useEffect(
+    () => {
+      geolocateAddress();
     },
     [searching],
   );
 
   function searchForEvents() {
     if (fetchingEvents) {
-      const upcoming = Promise.resolve(getNearbyEvents())
+      Promise.resolve(getNearbyEvents())
         .then(result => result.events.event)
         .then(events => {
-          console.log("events", events);
           setEvents(events);
           setFetchingEvents(false);
         });
-      return () => upcoming.promiseStatus === "pending" && upcoming.reject();
     }
   }
   useEffect(searchForEvents, [fetchingEvents]);
 
-  const [venues, setVenues] = useState([]);
   function searchForVenues() {
     if (fetchingVenues) {
-      const upcoming = Promise.resolve(getNearbyVenues())
-        .then(result => result.venues.venue)
-        .then(venues => {
-          console.log("venues", venues);
-          setVenues(venues);
-          setFetchingVenues(false);
-        });
-      return () => upcoming.promiseStatus === "pending" && upcoming.reject();
+      console.log(addressQuery);
+      searchNearAddress(addressQuery).then(venues => {
+        console.log("venues", venues);
+        setVenues(venues);
+        setFetchingVenues(false);
+      });
     }
   }
   useEffect(searchForVenues, [fetchingVenues]);
@@ -150,6 +148,7 @@ export function useEventSearch() {
     addressQuery,
     addressLocation,
     search,
+    searching,
     handleInputChange,
   };
 }
@@ -175,6 +174,7 @@ const Search = props => {
     addressQuery,
     addressLocation,
     search,
+    searching,
     handleInputChange,
     setCurrentVenue,
   } = props;
@@ -196,6 +196,7 @@ const Search = props => {
             venues={venues}
             center={coords}
             setCurrentVenue={setCurrentVenue}
+            searching={searching}
           />
         </ContentBody>
       </ErrorBoundary>
