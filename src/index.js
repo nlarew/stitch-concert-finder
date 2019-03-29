@@ -6,13 +6,11 @@ import app, {
   loginFacebookUser,
   loginGoogleUser,
   logoutUser,
-  getLocationForAddress,
   handleOAuthRedirects,
 } from "./stitch";
 import Login from "./components/Login";
 import App from "./components/App";
 import "bootstrap/dist/css/bootstrap.min.css";
-
 import "./styles.css";
 
 handleOAuthRedirects();
