@@ -1,0 +1,14 @@
+{
+    "name": "onNewUserCreation",
+    "type": "AUTHENTICATION",
+    "config": {
+        "operation_type": "CREATE",
+        "providers": [
+            "oauth2-facebook",
+            "oauth2-google",
+            "local-userpass"
+        ]
+    },
+    "function_name": "handleNewUserCreation",
+    "disabled": false
+}

@@ -1,0 +1,53 @@
+{
+    "database": "concertmap",
+    "collection": "users",
+    "roles": [
+        {
+            "name": "isThisUser",
+            "apply_when": {
+                "id": "%%user.id"
+            },
+            "fields": {
+                "displayName": {},
+                "favoriteVenues": {}
+            },
+            "write": true,
+            "insert": true,
+            "delete": true,
+            "additional_fields": {}
+        },
+        {
+            "name": "isOtherUser",
+            "apply_when": {},
+            "fields": {
+                "displayName": {
+                    "read": true
+                },
+                "favoriteVenues": {
+                    "read": true
+                }
+            },
+            "insert": false,
+            "delete": false,
+            "additional_fields": {}
+        },
+        {
+            "name": "isGuestUser",
+            "apply_when": {},
+            "fields": {
+                "displayName": {},
+                "favoriteVenues": {}
+            },
+            "insert": false,
+            "delete": false,
+            "additional_fields": {}
+        }
+    ],
+    "schema": {
+        "properties": {
+            "_id": {
+                "bsonType": "objectId"
+            }
+        }
+    }
+}

@@ -3,9 +3,13 @@ exports = async function(address){
   const eventful = new (context.functions.execute("service__Eventful"))();
   
   const location = await google.getLocationForAddress(address);
+  console.log("location", location)
+  console.log(JSON.stringify(location))
   const events = await eventful.getEventsNearLocation(getCoords(location), { limit: 80 });
+  console.log("events", events)
   const venues = await getVenuesForEvents(events, eventful);
-  
+  console.log("venues", venues)
+
   return { location, venues, events }
 };
 
@@ -14,24 +18,24 @@ function getCoords(location) {
   return `${lat},${lng}`;
 }
 
-function getVenuesForEvents(events, eventful) {
+async function getVenuesForEvents(events, eventful) {
   const mongodb = context.services.get("mongodb-atlas");
   const eventsByVenue = groupBy(events, "venue_id");
-  const venue_ids = Object.keys(eventsByVenue)
+  const venue_ids = Object.keys(eventsByVenue);
   const venuePromises = venue_ids.map((venue_id) => {
-    const upcomingEvents = eventsByVenue[venue_id].map(e => new Event(e).toJson())
+    const upcomingEvents = eventsByVenue[venue_id].map(e => new Event(e).toJson());
     return eventful
       .getVenueDetails(venue_id)
-      .then(venueDetail => new Venue(venueDetail, upcomingEvents).toJson())
-  })
-  return Promise.all(venuePromises).then(venues => {
+      .then(venueDetail => new Venue(venueDetail, upcomingEvents).toJson());
+  });
+  return await Promise.all(venuePromises).then(async venues => {
     const venuesCollection = mongodb.db("concertmap").collection("venues");
-    return venues.map(venue => venuesCollection.findOneAndUpdate(
+    return await Promise.all(venues.map(venue => venuesCollection.findOneAndUpdate(
       { id: venue.id },
       { $set: venue },
       { upsert: true, returnNewDocument: true }
-    ))
-  })
+    )));
+  });
 }
 
 class Event {
@@ -40,6 +44,10 @@ class Event {
     this.url = eventfulEvent.url
     this.name = eventfulEvent.title
     this.description = eventfulEvent.description
+    this.time = {
+      start: eventfulEvent.start_time,
+      stop: eventfulEvent.stop_time
+    }
     this.location = {
       lat: eventfulEvent.latitude,
       lng: eventfulEvent.longitude,
@@ -47,8 +55,8 @@ class Event {
   }
   
   toJson() {
-    const  { id, url, name, description, location } = this
-    return { id, url, name, description, location }
+    const  { id, url, name, description, location, time } = this
+    return { id, url, name, description, location, time }
   }
 }
 
