@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
-import Search, { useEventSearch } from "./Search";
+import Search, { useVenues } from "./Search";
 import List from "./List";
 import Venue from "./VenueDetail";
 import Event from "./EventDetail";
@@ -20,8 +20,8 @@ const AppLayout = styled.div`
 `;
 
 export default function App(props) {
-  const eventSearch = useEventSearch();
-  const { venues, address } = eventSearch;
+  const venueSearch = useVenues();
+  const { venues, address } = venueSearch;
   const [currentEvent, setCurrentEvent] = useState(null);
   const [currentVenue, setCurrentVenue] = useState(null);
   const searchFor = "venues";
@@ -30,8 +30,7 @@ export default function App(props) {
       <Banner>
         <Navbar />
       </Banner>
-      <Search {...eventSearch} setCurrentVenue={setCurrentVenue} />
-      {currentEvent && <Event event={currentEvent} />}
+      <Search {...venueSearch} setCurrentVenue={setCurrentVenue} />
       {venues.length > 0 && (
         <List
           listOf={searchFor}
@@ -41,12 +40,6 @@ export default function App(props) {
           setCurrentVenue={setCurrentVenue}
         />
       )}
-      {/*<List
-        events={events}
-        address={address}
-        currentEvent={currentEvent}
-        setCurrentEvent={setCurrentEvent}
-      />*/}
       {currentEvent && <Event event={currentEvent} />}
       {currentVenue && <Venue venue={currentVenue} />}
     </AppLayout>

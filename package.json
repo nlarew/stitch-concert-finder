@@ -22,6 +22,8 @@
     "react-dom": "16.8.3",
     "react-error-boundary": "1.2.3",
     "react-leaflet": "2.2.1",
+    "react-leaflet-control": "2.1.1",
+    "react-leaflet-div-icon": "1.1.0",
     "react-scripts": "2.1.8",
     "react-social-login-buttons": "2.3.1",
     "react-use": "6.1.0",
