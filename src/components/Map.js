@@ -1,23 +1,17 @@
-/** @jsx jsx */
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import styled from "@emotion/styled";
-import { css, jsx } from "@emotion/core";
 import {
   Map,
   TileLayer,
   Marker,
   Popup,
   Circle,
-  Pane,
-  Rectangle,
 } from "react-leaflet";
-import { Card, CardTitle, CardText, CardFooter } from "reactstrap";
-import Control from "react-leaflet-control";
+// import { Card, CardTitle, CardText, CardFooter } from "reactstrap";
+// import Control from "react-leaflet-control";
 import DivIcon from "react-leaflet-div-icon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faHome } from "@fortawesome/free-solid-svg-icons";
-import Event from "./EventDetail";
-// <FontAwesomeIcon icon={faHome} />
 const HomeMarker = ({ position }) => (
   <DivIcon position={position}>
     <svg
@@ -33,17 +27,14 @@ const HomeMarker = ({ position }) => (
 
 const ConcertMapContainer = styled.div`
   height: 100%;
-  width: 100%;
-  padding-top: 20px;
 `;
 const ConcertMap = styled(Map)`
-  width: 100%;
   height: 100%;
   border-radius: 4px;
 `;
 
 export default React.memo(function LeafMap(props) {
-  const { venues, setCurrentVenue, searching } = props;
+  const { venues, setCurrentVenue } = props;
   const mapRef = useRef();
 
   const renderEventMarkers = center => {
@@ -96,24 +87,26 @@ export default React.memo(function LeafMap(props) {
         {props.center && venues.length > 0 && (
           <>
             <Circle center={center} fillColor="blue" radius={radius + 260} />
-            <HomeMarker position={{ lat: center[0], lng: center[1] }}>
-              <Popup>
-                <strong>Your Address:</strong>
-                <br />
-                {center}
-              </Popup>
-            </HomeMarker>
           </>
         )}
         {renderEventMarkers(props.center)}
-        <Control position="bottomright">
-          <Card inverse color="dark">
-            <CardTitle>My Card</CardTitle>
-            <CardText>This is some text on my card,</CardText>
-            <CardFooter>This is the footer</CardFooter>
-          </Card>
-        </Control>
       </ConcertMap>
     </ConcertMapContainer>
   );
 });
+
+// <Control position="bottomright">
+//   <Card inverse color="dark">
+//     <CardTitle>My Card</CardTitle>
+//     <CardText>This is some text on my card,</CardText>
+//     <CardFooter>This is the footer</CardFooter>
+//   </Card>
+// </Control>
+
+// <HomeMarker position={{ lat: center[0], lng: center[1] }}>
+//   <Popup>
+//     <strong>Your Address:</strong>
+//     <br />
+//     {center}
+//   </Popup>
+// </HomeMarker>

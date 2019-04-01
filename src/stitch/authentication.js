@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   UserPasswordCredential,
   FacebookRedirectCredential,
   GoogleRedirectCredential,
 } from "mongodb-stitch-browser-sdk";
-import app from "./app.js";
+import app from "./app";
+import { getUserProfile } from "./mongodb";
 
 /* ## Authentication Functions
  *
@@ -83,6 +84,18 @@ export function logoutUser(stitchUser) {
 export function useStitchAuth() {
   // We'll store the list of users in state
   const [users, setUsers] = useState([]);
+  const [currentUserProfile, setCurrentUserProfile] = useState(null)
+  async function updateCurrentUserProfile(userProfile) {
+    if (userProfile) {
+      setCurrentUserProfile(userProfile)
+    } else {
+      const profile = app.auth.user ? await getUserProfile(app.auth.user.id) : null
+      setCurrentUserProfile(profile)
+    }
+  }
+  useEffect(() => {
+    updateCurrentUserProfile()
+  }, [app.auth.user])
   // Whenever some authentication event happens, we want to update our list of users in state.
   // We'll use a Stitch auth listener to call our update function whenever any type of auth event
   // is emitted. We only want to add this listener once (when the component first loads) so we pass
@@ -91,6 +104,7 @@ export function useStitchAuth() {
     // We'll get a current list of users and update our state with a function
     const appUsers = getAllUsers();
     setUsers(appUsers);
+    updateCurrentUserProfile()
   };
   useEffect(() => {
     const listener = {
@@ -116,5 +130,5 @@ export function useStitchAuth() {
   };
   useEffect(checkForLoggedInUser);
 
-  return { users, hasLoggedInUser };
+  return { users, hasLoggedInUser, currentUserProfile, updateCurrentUserProfile };
 }

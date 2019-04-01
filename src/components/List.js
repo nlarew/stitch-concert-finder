@@ -70,24 +70,16 @@ const EventsList = props => {
     setCurrentEvent(event);
   };
   const renderEventRows = () => {
-    // <td>{event.start.date}</td>
-    // <td>{event.displayName}</td>
-    // <td>{event.performance[0].artist.displayName}</td>
-    // <td>{event.venue.displayName}</td>
-    // <td>{event.start.time}</td>
     return (
       events &&
       events
-        .filter((e, i) => i < 3)
         .map(event => (
           <EventsTableRow
             key={event.id}
             onClick={rowClickHandler(event)}
             isCurrent={currentEvent && currentEvent.id === event.id}
           >
-            <td>{event.id}</td>
-            <td>{event.name}</td>
-            <td>{event.url}</td>
+            <td><a href={event.url}>{event.name}</a></td>
           </EventsTableRow>
         ))
     );
@@ -96,9 +88,7 @@ const EventsList = props => {
     <EventsTable dark>
       <thead>
         <tr>
-          <th>Date</th>
           <th>Event</th>
-          <th>Venue</th>
         </tr>
       </thead>
       <EventsTableBody>{renderEventRows()}</EventsTableBody>
@@ -107,7 +97,7 @@ const EventsList = props => {
 };
 
 const VenuesList = props => {
-  const { venues, currentVenue, setCurrentVenue } = props;
+  const { venues, currentVenue, setCurrentVenue, currentUserProfile } = props;
   const rowClickHandler = event => e => {
     setCurrentVenue(event);
   };
@@ -117,6 +107,8 @@ const VenuesList = props => {
       venues
         .filter((v, i) => i < 20)
         .map(venue => {
+          console.log('venue', venue.upcomingEvents.length, venue.upcomingEvents, venue)
+          const isFavorite = currentUserProfile && currentUserProfile.favoriteVenues.includes(venue.id)
           return (
             <EventsTableRow
               key={venue.id}
@@ -124,8 +116,10 @@ const VenuesList = props => {
               isCurrent={currentVenue && currentVenue.id === venue.id}
             >
               <td>
+                {isFavorite && <StarIcon />}
+              </td>
+              <td>
                 <span>{venue.name}</span>
-                <StarIcon />
               </td>
               <td>{venue.upcomingEvents.length || 0}</td>
             </EventsTableRow>
@@ -137,6 +131,7 @@ const VenuesList = props => {
     <EventsTable dark>
       <thead>
         <tr>
+          <th></th>
           <th>Venue</th>
           <th># Shows</th>
         </tr>
@@ -146,21 +141,21 @@ const VenuesList = props => {
   );
 };
 
+const headerStyle = css`
+  min-height: 165px;
+`
+
 function List(props) {
-  const { address = "You", listOf } = props;
-  const Table = {
-    events: EventsList,
-    venues: VenuesList,
-  }[listOf];
+  const { address = "You", currentUserProfile } = props;
   return (
     <ContentCard inverse>
       <ErrorBoundary>
         <CardBody>
-          <CardHeader>
-            <h1>Venunes Near...</h1>
+          <CardHeader css={headerStyle}>
+            <h1>Venues Near...</h1>
             <h2>{address}</h2>
           </CardHeader>
-          <Table {...props} />
+          <VenuesList {...props} currentUserProfile={currentUserProfile} />
         </CardBody>
       </ErrorBoundary>
     </ContentCard>

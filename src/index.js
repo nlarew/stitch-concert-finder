@@ -16,9 +16,13 @@ import "./styles.css";
 handleOAuthRedirects();
 
 function MyApp(props) {
-  const { hasLoggedInUser } = useStitchAuth();
+  const { hasLoggedInUser, currentUserProfile, updateCurrentUserProfile } = useStitchAuth();
   return hasLoggedInUser ? (
-    <App handleLogout={() => logoutUser(app.currentUser)} />
+    <App
+      handleLogout={() => logoutUser(app.currentUser)}
+      currentUserProfile={currentUserProfile}
+      updateCurrentUserProfile={updateCurrentUserProfile}
+    />
   ) : (
     <Login
       loginEmailPasswordUser={loginEmailPasswordUser}

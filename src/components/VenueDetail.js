@@ -5,11 +5,8 @@ import styled from "@emotion/styled";
 import ErrorBoundary from "react-error-boundary";
 import {
   Card,
-  CardImg,
   CardBody,
-  CardTitle,
   CardHeader,
-  CardSubtitle,
   CardText,
   Button,
 } from "reactstrap";
@@ -36,28 +33,47 @@ const ContentCard = styled(Card)`
   top: -70px;
 `;
 
-const FavoriteButton = ({ isFavorite }) => {
+const FavoriteButton = ({ isFavorite, handleButtonClick }) => {
   const buttonStyle = css`
     margin: auto 4px;
   `;
   return (
-    <Button css={buttonStyle} outline={isFavorite} color="warning">
+    <Button
+      css={buttonStyle}
+      outline={!isFavorite}
+      color="warning"
+      onClick={handleButtonClick}
+    >
       <StarIcon />
       <span>{isFavorite ? "Favorited" : "Add to Favorites"}</span>
     </Button>
   );
 };
 
-function Venue({ venue }) {
+const headerStyle = css`
+  min-height: 165px;
+`
+
+function Venue({ venue, currentUserProfile, actions }) {
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const [settingFavorite, setSettingFavorite] = useState(false);
+  const isFavorite = currentUserProfile.favoriteVenues.includes(venue.id)
   return (
     <ContentCard inverse>
       <ErrorBoundary>
         <CardBody>
-          <CardHeader>
+          <CardHeader css={headerStyle}>
             <h1>{venue.name}</h1>
-            <FavoriteButton />
-            <FavoriteButton isFavorite />
+            <FavoriteButton
+              isFavorite={isFavorite}
+              disabled={settingFavorite}
+              handleButtonClick={() => {
+                setSettingFavorite(true)
+                const { addFavoriteVenue, removeFavoriteVenue } = actions
+                const handle = isFavorite ? removeFavoriteVenue : addFavoriteVenue
+                handle(venue.id).then(() => setSettingFavorite(!settingFavorite))
+              }}
+            />
           </CardHeader>
           {venue.description && <CardText>{venue.description}</CardText>}
           {venue.upcomingEvents && (

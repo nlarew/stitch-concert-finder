@@ -10,8 +10,6 @@ import {
   logoutUser,
   useStitchAuth,
 } from "./authentication";
-import Songkick from "./services/songkick";
-import Spotify from "./services/spotify";
 
 export default app;
 export {
@@ -23,8 +21,6 @@ export {
   getAllUsers,
   logoutUser,
   useStitchAuth,
-  Songkick,
-  Spotify,
   getLocationForAddress,
   searchNearAddress,
 };

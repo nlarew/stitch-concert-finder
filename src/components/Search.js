@@ -1,30 +1,39 @@
+/** @jsx jsx */
 import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
+import { jsx, css } from "@emotion/core";
 import ErrorBoundary from "react-error-boundary";
 import {
   Button,
   Card,
   CardBody,
-  CardTitle,
   CardHeader,
   InputGroup,
   Input,
   InputGroupAddon,
 } from "reactstrap";
 import LeafMap from "./Map";
-import app, { getLocationForAddress, searchNearAddress } from "./../stitch";
-import {
-  getNearbyEvents,
-  getNearbyVenues,
-} from "./../stitch/services/eventful";
-import * as R from "ramda";
+import { searchNearAddress } from "./../stitch";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 import keapVenues from "./../stitch/services/stubs/487keapVenues.json";
 import keapLocation from "./../stitch/services/stubs/487keapLocation.json";
 
-const SearchIcon = () => <FontAwesomeIcon icon={faSearch} />;
+const SearchIcon = () => (
+  <FontAwesomeIcon
+    icon={faSearch}
+    css={css`margin: auto 4px;`}
+  />
+);
+
+const SpinnerIcon = () => (
+  <FontAwesomeIcon
+    spin
+    icon={faSpinner}
+    css={css`margin: auto 4px;`}
+  />
+);
 
 const SearchBarContainer = styled(InputGroup)`
   width: 100%;
@@ -39,11 +48,10 @@ const SearchBarButton = props => {
     <InputGroupAddon addonType="append">
       <Button color="info" onClick={handleSearch}>
         {isSearching ? (
-          <Text>Searching</Text>
+          <Text>Searching <SpinnerIcon /></Text>
         ) : (
           <>
-            <Text>Search</Text>
-            <SearchIcon />
+              <Text>Search <SearchIcon /></Text>
           </>
         )}
       </Button>
@@ -152,6 +160,10 @@ const ContentBody = styled(CardBody)`
   flex-direction: column;
 `;
 
+const headerStyle = css`
+  min-height: 165px;
+`
+
 const Search = props => {
   const {
     venues,
@@ -170,7 +182,7 @@ const Search = props => {
     <ContentCard inverse color="dark">
       <ErrorBoundary>
         <ContentBody>
-          <CardHeader>
+          <CardHeader css={headerStyle}>
             <h1>Search Nearby Venues</h1>
             <SearchBar
               onChange={handleInputChange}
