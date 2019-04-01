@@ -10,7 +10,6 @@ import {
   InputGroup,
   Input,
   InputGroupAddon,
-  Table,
 } from "reactstrap";
 import LeafMap from "./Map";
 import app, { getLocationForAddress, searchNearAddress } from "./../stitch";
@@ -93,7 +92,7 @@ const SearchBar = React.memo(props => {
   );
 });
 
-export function useEventSearch() {
+export function useVenues() {
   const [address, setAddress] = useState("");
   const [addressQuery, setAddressQuery] = useState("");
   const [addressLocation, setAddressLocation] = useState(null);

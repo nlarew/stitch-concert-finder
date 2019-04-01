@@ -21,6 +21,7 @@ import Banner from "./Banner";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+
 const EnvelopeIcon = () => <FontAwesomeIcon icon={faEnvelope} />;
 
 const EmailPasswordLoginButton = createButton({

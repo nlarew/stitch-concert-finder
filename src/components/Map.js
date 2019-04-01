@@ -1,7 +1,35 @@
+/** @jsx jsx */
 import React, { useEffect, useRef } from "react";
 import styled from "@emotion/styled";
-import { Map, TileLayer, Marker, Popup, Circle } from "react-leaflet";
-import { Card } from "reactstrap";
+import { css, jsx } from "@emotion/core";
+import {
+  Map,
+  TileLayer,
+  Marker,
+  Popup,
+  Circle,
+  Pane,
+  Rectangle,
+} from "react-leaflet";
+import { Card, CardTitle, CardText, CardFooter } from "reactstrap";
+import Control from "react-leaflet-control";
+import DivIcon from "react-leaflet-div-icon";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar, faHome } from "@fortawesome/free-solid-svg-icons";
+import Event from "./EventDetail";
+// <FontAwesomeIcon icon={faHome} />
+const HomeMarker = ({ position }) => (
+  <DivIcon position={position}>
+    <svg
+      className="user-location"
+      viewBox="0 0 120 120"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle cx="60" cy="60" r="50" />
+    </svg>
+  </DivIcon>
+);
 
 const ConcertMapContainer = styled.div`
   height: 100%;
@@ -16,6 +44,7 @@ const ConcertMap = styled(Map)`
 
 export default React.memo(function LeafMap(props) {
   const { venues, setCurrentVenue, searching } = props;
+  const mapRef = useRef();
 
   const renderEventMarkers = center => {
     return (
@@ -62,21 +91,28 @@ export default React.memo(function LeafMap(props) {
 
   return (
     <ConcertMapContainer>
-      <ConcertMap center={center} zoom={12}>
+      <ConcertMap center={center} zoom={12} ref={mapRef}>
         <StamenTonerTileLayer />
         {props.center && venues.length > 0 && (
           <>
-            <Circle center={center} fillColor="blue" radius={radius} />
-            <Marker position={center}>
+            <Circle center={center} fillColor="blue" radius={radius + 260} />
+            <HomeMarker position={{ lat: center[0], lng: center[1] }}>
               <Popup>
                 <strong>Your Address:</strong>
                 <br />
                 {center}
               </Popup>
-            </Marker>
+            </HomeMarker>
           </>
         )}
         {renderEventMarkers(props.center)}
+        <Control position="bottomright">
+          <Card inverse color="dark">
+            <CardTitle>My Card</CardTitle>
+            <CardText>This is some text on my card,</CardText>
+            <CardFooter>This is the footer</CardFooter>
+          </Card>
+        </Control>
       </ConcertMap>
     </ConcertMapContainer>
   );
