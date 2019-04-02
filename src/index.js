@@ -16,10 +16,6 @@ import "./styles.css";
 
 handleOAuthRedirects();
 
-function NotFound() {
-  return <div>NOT FOUND</div>;
-}
-
 function AppRouter() {
   const {
     hasLoggedInUser,
@@ -37,17 +33,15 @@ function AppRouter() {
       />
       <ConfirmEmail path="/admin/confirmEmail" />
       <ResetPassword path="/admin/resetPassword" />
-      {hasLoggedInUser ? (
+      {hasLoggedInUser && (
         <App
           path="/app"
           handleLogout={() => logoutUser(app.currentUser)}
           currentUserProfile={currentUserProfile}
           updateCurrentUserProfile={updateCurrentUserProfile}
         />
-      ) : (
-        <Redirect from="/app" to="/login" noThrow />
       )}
-      <NotFound default />
+      <Redirect from="*" to="/login" noThrow default />
     </Router>
   )
 }
