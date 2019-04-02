@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useState, useEffect } from "react";
 import {
   UserPasswordCredential,
@@ -18,37 +19,20 @@ export function loginEmailPasswordUser({ email, password }) {
   // Log in a user with the specified email and password
   // Note: The user must already be registered with the Stitch app.
   // See https://docs.mongodb.com/stitch/authentication/userpass/#create-a-new-user-account
-  return app.auth
-    .loginWithCredential(new UserPasswordCredential(email, password))
-    .then(stitchUser => {
-      console.log(`logged in as: ${email}`);
-      return stitchUser;
-    });
+  return app.auth.loginWithCredential(new UserPasswordCredential(email, password))
 }
 
 export function loginFacebookUser() {
-  return app.auth
-    .loginWithRedirect(new FacebookRedirectCredential())
-    .then(stitchUser => {
-      console.log(`logged in as: ${stitchUser.id}`);
-      return stitchUser;
-    });
+  return app.auth.loginWithRedirect(new FacebookRedirectCredential())
 }
 
 export function loginGoogleUser() {
-  return app.auth
-    .loginWithRedirect(new GoogleRedirectCredential())
-    .then(stitchUser => {
-      console.log(`logged in as: ${stitchUser.id}`);
-      return stitchUser;
-    });
+  return app.auth.loginWithRedirect(new GoogleRedirectCredential())
 }
 
 export function handleOAuthRedirects() {
   if (app.auth.hasRedirectResult()) {
-    app.auth.handleRedirectResult().then(user => {
-      console.log(user);
-    });
+    app.auth.handleRedirectResult()
   }
 }
 
@@ -140,7 +124,26 @@ function parseToken() {
   const params = new URLSearchParams(url);
   const token = params.get('token');
   const tokenId = params.get('tokenId');
+  console.log("t", token, tokenId, window.location);
   return { token, tokenId }
+}
+
+export function registerNewEmailUser(email, password) {
+  // Register a new email/password user and send them a confirmation email
+  const emailProvider = app.auth.getProviderClient(UserPasswordAuthProviderClient.factory)
+  return emailProvider
+    .registerWithEmail(email, password)
+    .catch(e => {
+      if (
+        e.name === "StitchServiceError" &&
+        e.message === "name already in use"
+      ) {
+        console.log("StitchServiceError ~owo~ name already in use", e);
+        return emailProvider.resendConfirmationEmail(email);
+      } else {
+        console.error("Error sending password reset email:", e);
+      }
+    });
 }
 
 export function confirmEmail() {
@@ -148,7 +151,9 @@ export function confirmEmail() {
   const { token, tokenId } = parseToken()
   return app.auth
     .getProviderClient(UserPasswordAuthProviderClient.factory)
-    .confirmUser(token, tokenId);
+    .confirmUser(token, tokenId)
+    .then(() => console.log('confirmed!'))
+    .catch(() => console.log('not so confirmed!'))
 }
 
 export function sendPasswordResetEmail(emailAddress) {
@@ -156,7 +161,7 @@ export function sendPasswordResetEmail(emailAddress) {
   return app.auth
     .getProviderClient(UserPasswordAuthProviderClient.factory)
     .sendResetPasswordEmail(emailAddress)
-    .catch(e => { console.error("Error sending password reset email:", e) })
+    .catch(e => console.error("Error sending password reset email:", e));
 }
 
 export function handlePasswordReset(newPassword) {

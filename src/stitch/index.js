@@ -1,32 +1,34 @@
 import app from "./app";
 import { getLocationForAddress, searchNearAddress } from "./functions";
 import {
+  confirmEmail,
+  getAllUsers,
+  handleOAuthRedirects,
+  handlePasswordReset,
+  hasLoggedInUser,
   loginEmailPasswordUser,
   loginFacebookUser,
   loginGoogleUser,
-  handleOAuthRedirects,
-  hasLoggedInUser,
-  getAllUsers,
   logoutUser,
-  useStitchAuth,
-  confirmEmail,
+  registerNewEmailUser,
   sendPasswordResetEmail,
-  handlePasswordReset,
+  useStitchAuth,
 } from "./authentication";
 
 export default app;
 export {
+  confirmEmail,
+  getAllUsers,
+  getLocationForAddress,
+  handleOAuthRedirects,
+  handlePasswordReset,
+  hasLoggedInUser,
   loginEmailPasswordUser,
   loginFacebookUser,
   loginGoogleUser,
-  handleOAuthRedirects,
-  hasLoggedInUser,
-  getAllUsers,
   logoutUser,
-  useStitchAuth,
-  getLocationForAddress,
+  registerNewEmailUser,
   searchNearAddress,
-  confirmEmail,
   sendPasswordResetEmail,
-  handlePasswordReset,
+  useStitchAuth,
 };

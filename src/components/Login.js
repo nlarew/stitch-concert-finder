@@ -6,6 +6,7 @@ import ErrorBoundary from "react-error-boundary";
 import {
   Card,
   CardBody,
+  CardFooter,
   Button,
   Form,
   FormGroup,
@@ -15,35 +16,59 @@ import {
 import {
   FacebookLoginButton,
   GoogleLoginButton,
-  createButton,
+  createButton
 } from "react-social-login-buttons";
 import Banner from "./Banner";
-import { Redirect } from "@reach/router"
+import { Redirect } from "@reach/router";
 import {
   confirmEmail,
+  registerNewEmailUser,
   sendPasswordResetEmail,
   handlePasswordReset
-} from './../stitch'
-import { navigate } from "@reach/router"
+} from "./../stitch";
+import { navigate } from "@reach/router";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEnvelope,
+  faUserPlus,
+  faRedo,
+  faGuitar,
+  faMusic
+} from "@fortawesome/free-solid-svg-icons";
 
 const EnvelopeIcon = () => <FontAwesomeIcon icon={faEnvelope} />;
 const UserPlusIcon = () => <FontAwesomeIcon icon={faUserPlus} />;
+const RedoIcon = () => <FontAwesomeIcon icon={faRedo} flip="horizontal" />;
+const GuitarIcon = () => <FontAwesomeIcon icon={faGuitar} />;
+const MusicIcon = () => <FontAwesomeIcon icon={faMusic} />;
 
 const EmailPasswordLoginButton = createButton({
   text: "Login with Email/Password",
   icon: EnvelopeIcon,
   style: { background: "#25a1b7" },
-  activeStyle: { background: "#108291" },
+  activeStyle: { background: "#108291" }
+});
+
+const ResetPasswordButton = createButton({
+  text: "Reset Your Password",
+  icon: RedoIcon,
+  style: { background: "#596267" },
+  activeStyle: { background: "#108291" }
+});
+
+const EmailPasswordLoginActionButton = createButton({
+  text: "Log In",
+  icon: MusicIcon,
+  style: { background: "#596267" },
+  activeStyle: { background: "#108291" }
 });
 
 const EmailPasswordRegisterButton = createButton({
   text: "Sign Up",
   icon: UserPlusIcon,
-  style: { background: "#25a1b7" },
-  activeStyle: { background: "#108291" },
+  style: { background: "#596267" },
+  activeStyle: { background: "#108291" }
 });
 
 const socialButtonStyle = css`
@@ -87,25 +112,8 @@ const LoginContent = styled.div`
   top: -30vh;
 `;
 
-export default function Login(props) {
-  return (
-    !props.isLoggedIn ? (
-      <ErrorBoundary>
-        <LoginLayout>
-          <Banner />
-          <LoginContent>
-            <LoginForm {...props} />
-          </LoginContent>
-        </LoginLayout>
-      </ErrorBoundary>
-    ) : (
-      <Redirect to="/app" noThrow />
-    )
-  );
-}
-
 export function ResetPassword() {
-  const [newPassword, setNewPassword] = React.useState("")
+  const [newPassword, setNewPassword] = React.useState("");
   return (
     <ErrorBoundary>
       <LoginLayout>
@@ -124,27 +132,30 @@ export function ResetPassword() {
                     onChange={e => setNewPassword(e.currentTarget.value)}
                   />
                 </FormGroup>
-                <Button onClick={() => handlePasswordReset(newPassword)}>Reset Password</Button>
+                <Button onClick={() => handlePasswordReset(newPassword)}>
+                  Reset Password
+                </Button>
               </Form>
             </CardBody>
           </LoginCard>
         </LoginContent>
       </LoginLayout>
     </ErrorBoundary>
-  )
+  );
 }
 
 export function ConfirmEmail() {
-  const [confirming, setConfirming] = React.useState(true)
-  const [isConfirmed, setIsConfirmed] = React.useState(false)
-
+  const [isConfirming, setIsConfirming] = React.useState(true);
+  const [isConfirmed, setIsConfirmed] = React.useState(false);
   useEffect(() => {
     confirmEmail().then(() => {
-      setConfirming(false)
-      setIsConfirmed(true)
-      navigate("/login")
-    })
-  }, [])
+      setIsConfirming(false);
+      setIsConfirmed(true);
+      navigate("/login");
+    });
+  }, []);
+
+  return isConfirming ? "confirming" : <Redirect to="/login" noThrow />;
 }
 
 const ButtonRow = styled.div`
@@ -157,40 +168,131 @@ const ButtonRow = styled.div`
 function EmailPasswordForm(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [currentFormAction, setCurrentFormAction] = useState("login");
+  const [registrationEmail, setRegistrationEmail] = useState("");
+  const [registrationPassword, setRegistrationPassword] = useState("");
+  const [resetEmail, setResetEmail] = useState("");
   return (
     <>
-      <Form>
-        <FormGroup>
-          <Label for="loginEmail">Email</Label>
-          <Input
-            type="email"
-            name="email"
-            id="loginEmail"
-            placeholder="you@example.com"
-            onChange={e => setEmail(e.currentTarget.value)}
+      <CardBody>
+        {currentFormAction === "login" && (
+          <Form>
+            <h1>Log In</h1>
+            <FormGroup>
+              <Label for="loginEmail">Email</Label>
+              <Input
+                type="email"
+                name="email"
+                id="loginEmail"
+                placeholder="you@example.com"
+                onChange={e => setEmail(e.currentTarget.value)}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="loginPassword">Password</Label>
+              <Input
+                type="password"
+                name="password"
+                id="loginPassword"
+                placeholder="Passw0rd"
+                onChange={e => setPassword(e.currentTarget.value)}
+              />
+            </FormGroup>
+            <Button
+              block
+              color="info"
+              onClick={() => props.loginEmailPasswordUser({ email, password })}
+            >
+              Log In
+            </Button>
+          </Form>
+        )}
+        {currentFormAction === "register" && (
+          <Form>
+            <h1>Create an Account</h1>
+            <FormGroup>
+              <Label for="registerEmail">Email</Label>
+              <Input
+                type="email"
+                name="email"
+                id="registerEmail"
+                placeholder="you@example.com"
+                onChange={e => setRegistrationEmail(e.currentTarget.value)}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="registerPassword">Password</Label>
+              <Input
+                type="password"
+                name="password"
+                id="registerPassword"
+                placeholder="Passw0rd"
+                onChange={e => setRegistrationPassword(e.currentTarget.value)}
+              />
+            </FormGroup>
+            <Button
+              block
+              color="info"
+              onClick={() =>
+                registerNewEmailUser(registrationEmail, registrationPassword)
+              }
+            >
+              Sign Up
+            </Button>
+          </Form>
+        )}
+        {currentFormAction === "resetPassword" && (
+          <Form>
+            <h1>Reset Your Password</h1>
+            <FormGroup>
+              <Label for="resetEmail">Email</Label>
+              <Input
+                type="email"
+                name="email"
+                id="resetEmail"
+                placeholder="you@example.com"
+                onChange={e => setResetEmail(e.currentTarget.value)}
+              />
+            </FormGroup>
+            <Button
+              block
+              color="info"
+              onClick={() => sendPasswordResetEmail(resetEmail)}
+            >
+              Email New Password
+            </Button>
+          </Form>
+        )}
+        <LoginDivider />
+        {currentFormAction !== "login" && (
+          <EmailPasswordLoginActionButton
+            css={socialButtonStyle}
+            onClick={() => setCurrentFormAction("login")}
           />
-        </FormGroup>
-        <FormGroup>
-          <Label for="loginPassword">Password</Label>
-          <Input
-            type="password"
-            name="password"
-            id="loginPassword"
-            placeholder="Passw0rd"
-            onChange={e => setPassword(e.currentTarget.value)}
-          />
-        </FormGroup>
-        <ButtonRow>
-          <Button onClick={() => props.setIsEmailPassword(false)}>{"< Back"}</Button>
+        )}
+        {currentFormAction !== "register" && (
           <EmailPasswordRegisterButton
             css={socialButtonStyle}
-            onClick={() => props.loginEmailPasswordUser({ email, password })}
+            onClick={() => setCurrentFormAction("register")}
           />
-        </ButtonRow>
-      </Form>
-      <LoginDivider />
+        )}
+        {currentFormAction !== "resetPassword" && (
+          <ResetPasswordButton
+            css={socialButtonStyle}
+            onClick={() => setCurrentFormAction("resetPassword")}
+          />
+        )}
+      </CardBody>
+      <CardFooter>
+        <Button
+          onClick={() => props.setIsEmailPassword(false)}
+          color="secondary"
+        >
+          {"< Back"}
+        </Button>
+      </CardFooter>
     </>
-  )
+  );
 }
 
 function LoginButtons(props) {
@@ -209,28 +311,43 @@ function LoginButtons(props) {
         onClick={() => props.loginGoogleUser()}
       />
     </>
-  )
+  );
 }
 
 export function LoginForm(props) {
   const { loginEmailPasswordUser, loginFacebookUser, loginGoogleUser } = props;
-  const [isEmailPassword, setIsEmailPassword] = useState(false)
+  const [isEmailPassword, setIsEmailPassword] = useState(false);
   return (
     <LoginCard inverse color="dark">
-      <CardBody>
-        {isEmailPassword ? (
-          <EmailPasswordForm
-            loginEmailPasswordUser={loginEmailPasswordUser}
-            setIsEmailPassword={setIsEmailPassword}
-          />
-        ) : (
+      {isEmailPassword ? (
+        <EmailPasswordForm
+          loginEmailPasswordUser={loginEmailPasswordUser}
+          setIsEmailPassword={setIsEmailPassword}
+        />
+      ) : (
+        <CardBody>
           <LoginButtons
             setIsEmailPassword={setIsEmailPassword}
             loginFacebookUser={loginFacebookUser}
             loginGoogleUser={loginGoogleUser}
           />
-        )}
-      </CardBody>
+        </CardBody>
+      )}
     </LoginCard>
+  );
+}
+
+export default function Login(props) {
+  return !props.isLoggedIn ? (
+    <ErrorBoundary>
+      <LoginLayout>
+        <Banner />
+        <LoginContent>
+          <LoginForm {...props} />
+        </LoginContent>
+      </LoginLayout>
+    </ErrorBoundary>
+  ) : (
+    <Redirect to="/app" noThrow />
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import app, {
   useStitchAuth,
@@ -6,44 +6,26 @@ import app, {
   loginFacebookUser,
   loginGoogleUser,
   logoutUser,
-  handleOAuthRedirects,
+  handleOAuthRedirects
 } from "./stitch";
 import Login, { ConfirmEmail, ResetPassword } from "./components/Login";
 import App from "./components/App";
-import { Router, Redirect, navigate } from "@reach/router"
+import { Router, Redirect } from "@reach/router";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles.css";
 
-import { Button, Input, Label, Form, FormGroup, Card, CardBody } from 'reactstrap'
-
 handleOAuthRedirects();
 
-function MyApp(props) {
-  const { hasLoggedInUser, currentUserProfile, updateCurrentUserProfile } = props;
-  return hasLoggedInUser ? (
-    <App
-      handleLogout={() => logoutUser(app.currentUser)}
-      currentUserProfile={currentUserProfile}
-      updateCurrentUserProfile={updateCurrentUserProfile}
-    />
-  ) : (
-    <Redirect to="/login" noThrow/>
-  );
+function NotFound() {
+  return <div>NOT FOUND</div>;
 }
 
-function NotFound(props) {
-  return (<div>NOT FOUND</div>)
-}
-
-function AppRouter(props) {
+function AppRouter() {
   const {
     hasLoggedInUser,
     currentUserProfile,
     updateCurrentUserProfile
   } = useStitchAuth();
-  if(!hasLoggedInUser) {
-    navigate("/login")
-  }
   return (
     <Router>
       <Login
@@ -53,14 +35,18 @@ function AppRouter(props) {
         loginFacebookUser={loginFacebookUser}
         loginGoogleUser={loginGoogleUser}
       />
-      <ConfirmEmail path="/confirmEmail" />
-      <ResetPassword path="/resetPassword" />
-      <App
-        path="/app"
-        handleLogout={() => logoutUser(app.currentUser)}
-        currentUserProfile={currentUserProfile}
-        updateCurrentUserProfile={updateCurrentUserProfile}
-      />
+      <ConfirmEmail path="/admin/confirmEmail" />
+      <ResetPassword path="/admin/resetPassword" />
+      {hasLoggedInUser ? (
+        <App
+          path="/app"
+          handleLogout={() => logoutUser(app.currentUser)}
+          currentUserProfile={currentUserProfile}
+          updateCurrentUserProfile={updateCurrentUserProfile}
+        />
+      ) : (
+        <Redirect from="/app" to="/login" noThrow />
+      )}
       <NotFound default />
     </Router>
   )
