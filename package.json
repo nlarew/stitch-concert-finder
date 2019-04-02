@@ -32,8 +32,6 @@
     "reactstrap": "7.1.0"
   },
   "devDependencies": {
-    "eslint": "^5.16.0",
-    "eslint-plugin-react": "^7.12.4",
     "typescript": "3.3.3"
   },
   "scripts": {
