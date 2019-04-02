@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { jsx, css } from "@emotion/core";
 import ErrorBoundary from "react-error-boundary";
@@ -18,11 +18,19 @@ import {
   createButton,
 } from "react-social-login-buttons";
 import Banner from "./Banner";
+import { Redirect } from "@reach/router"
+import {
+  confirmEmail,
+  sendPasswordResetEmail,
+  handlePasswordReset
+} from './../stitch'
+import { navigate } from "@reach/router"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 
 const EnvelopeIcon = () => <FontAwesomeIcon icon={faEnvelope} />;
+const UserPlusIcon = () => <FontAwesomeIcon icon={faUserPlus} />;
 
 const EmailPasswordLoginButton = createButton({
   text: "Login with Email/Password",
@@ -31,9 +39,17 @@ const EmailPasswordLoginButton = createButton({
   activeStyle: { background: "#108291" },
 });
 
+const EmailPasswordRegisterButton = createButton({
+  text: "Sign Up",
+  icon: UserPlusIcon,
+  style: { background: "#25a1b7" },
+  activeStyle: { background: "#108291" },
+});
+
 const socialButtonStyle = css`
   border-radius: 4px !important;
   padding: 0px 16px !important;
+  margin: 8 px 0 !important;
   > div {
     > div:last-child {
       text-align: center !important;
@@ -73,84 +89,147 @@ const LoginContent = styled.div`
 
 export default function Login(props) {
   return (
+    !props.isLoggedIn ? (
+      <ErrorBoundary>
+        <LoginLayout>
+          <Banner />
+          <LoginContent>
+            <LoginForm {...props} />
+          </LoginContent>
+        </LoginLayout>
+      </ErrorBoundary>
+    ) : (
+      <Redirect to="/app" noThrow />
+    )
+  );
+}
+
+export function ResetPassword() {
+  const [newPassword, setNewPassword] = React.useState("")
+  return (
     <ErrorBoundary>
       <LoginLayout>
         <Banner />
         <LoginContent>
-          <LoginForm {...props} />
+          <LoginCard inverse color="dark">
+            <CardBody>
+              <Form>
+                <FormGroup>
+                  <Label for="newPassword">New Password</Label>
+                  <Input
+                    type="password"
+                    name="password"
+                    id="newPassword"
+                    placeholder="Passw0rd"
+                    onChange={e => setNewPassword(e.currentTarget.value)}
+                  />
+                </FormGroup>
+                <Button onClick={() => handlePasswordReset(newPassword)}>Reset Password</Button>
+              </Form>
+            </CardBody>
+          </LoginCard>
         </LoginContent>
       </LoginLayout>
     </ErrorBoundary>
-  );
+  )
+}
+
+export function ConfirmEmail() {
+  const [confirming, setConfirming] = React.useState(true)
+  const [isConfirmed, setIsConfirmed] = React.useState(false)
+
+  useEffect(() => {
+    confirmEmail().then(() => {
+      setConfirming(false)
+      setIsConfirmed(true)
+      navigate("/login")
+    })
+  }, [])
 }
 
 const ButtonRow = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  width: 100%;
 `;
 
-export function LoginForm(props) {
-  const { loginEmailPasswordUser, loginFacebookUser, loginGoogleUser } = props;
+function EmailPasswordForm(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   return (
+    <>
+      <Form>
+        <FormGroup>
+          <Label for="loginEmail">Email</Label>
+          <Input
+            type="email"
+            name="email"
+            id="loginEmail"
+            placeholder="you@example.com"
+            onChange={e => setEmail(e.currentTarget.value)}
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label for="loginPassword">Password</Label>
+          <Input
+            type="password"
+            name="password"
+            id="loginPassword"
+            placeholder="Passw0rd"
+            onChange={e => setPassword(e.currentTarget.value)}
+          />
+        </FormGroup>
+        <ButtonRow>
+          <Button onClick={() => props.setIsEmailPassword(false)}>{"< Back"}</Button>
+          <EmailPasswordRegisterButton
+            css={socialButtonStyle}
+            onClick={() => props.loginEmailPasswordUser({ email, password })}
+          />
+        </ButtonRow>
+      </Form>
+      <LoginDivider />
+    </>
+  )
+}
+
+function LoginButtons(props) {
+  return (
+    <>
+      <EmailPasswordLoginButton
+        css={socialButtonStyle}
+        onClick={() => props.setIsEmailPassword(true)}
+      />
+      <FacebookLoginButton
+        css={socialButtonStyle}
+        onClick={() => props.loginFacebookUser()}
+      />
+      <GoogleLoginButton
+        css={socialButtonStyle}
+        onClick={() => props.loginGoogleUser()}
+      />
+    </>
+  )
+}
+
+export function LoginForm(props) {
+  const { loginEmailPasswordUser, loginFacebookUser, loginGoogleUser } = props;
+  const [isEmailPassword, setIsEmailPassword] = useState(false)
+  return (
     <LoginCard inverse color="dark">
       <CardBody>
-        <Form>
-          <FormGroup>
-            <Label for="loginEmail">Email</Label>
-            <Input
-              type="email"
-              name="email"
-              id="loginEmail"
-              placeholder="you@example.com"
-              onChange={e => setEmail(e.currentTarget.value)}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="loginPassword">Password</Label>
-            <Input
-              type="password"
-              name="password"
-              id="loginPassword"
-              placeholder="Passw0rd"
-              onChange={e => setPassword(e.currentTarget.value)}
-            />
-          </FormGroup>
-          <ButtonRow>
-            <Button
-              color="info"
-              onClick={() => loginEmailPasswordUser({ email, password })}
-            >
-              Log In
-            </Button>
-            <Button
-              color="warning"
-              onClick={() => {
-                loginEmailPasswordUser({
-                  email: "nick.larew@mongodb.com",
-                  password: "password",
-                });
-              }}
-            >
-              Log In as Nick
-            </Button>
-          </ButtonRow>
-          <LoginDivider />
-          <EmailPasswordLoginButton
-            css={socialButtonStyle}
-            onClick={() => loginEmailPasswordUser({ email, password })}
+        {isEmailPassword ? (
+          <EmailPasswordForm
+            loginEmailPasswordUser={loginEmailPasswordUser}
+            setIsEmailPassword={setIsEmailPassword}
           />
-          <FacebookLoginButton
-            css={socialButtonStyle}
-            onClick={() => loginFacebookUser()}
+        ) : (
+          <LoginButtons
+            setIsEmailPassword={setIsEmailPassword}
+            loginFacebookUser={loginFacebookUser}
+            loginGoogleUser={loginGoogleUser}
           />
-          <GoogleLoginButton
-            css={socialButtonStyle}
-            onClick={() => loginGoogleUser()}
-          />
-        </Form>
+        )}
       </CardBody>
     </LoginCard>
   );

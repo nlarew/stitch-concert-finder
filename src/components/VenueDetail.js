@@ -52,12 +52,14 @@ const FavoriteButton = ({ isFavorite, handleButtonClick }) => {
 
 const headerStyle = css`
   min-height: 165px;
+  padding-left: 0px;
+  padding-right: 0px;
 `
 
 function Venue({ venue, currentUserProfile, actions }) {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [settingFavorite, setSettingFavorite] = useState(false);
-  const isFavorite = currentUserProfile.favoriteVenues.includes(venue.id)
+  const isFavorite = currentUserProfile && currentUserProfile.favoriteVenues.includes(venue.id)
   return (
     <ContentCard inverse>
       <ErrorBoundary>
@@ -75,7 +77,7 @@ function Venue({ venue, currentUserProfile, actions }) {
               }}
             />
           </CardHeader>
-          {venue.description && <CardText>{venue.description}</CardText>}
+          {venue.description && <CardText dangerouslySetInnerHTML={{ __html: venue.description }} />}
           {venue.upcomingEvents && (
             <EventsList
               events={venue.upcomingEvents}

@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import Search, { useVenues } from "./Search";
 import List from "./List";
 import Venue from "./VenueDetail";
-import Event from "./EventDetail";
 import Banner from "./Banner";
 import Navbar from "./Navbar";
 import * as R from 'ramda'
@@ -20,6 +19,24 @@ const AppLayout = styled.div`
   min-height: 100vh;
   background: #1f2124;
 `;
+
+function useFavoritesFirst(currentUserProfile, venues) {
+  const [orderedVenues, setOrderedVenues] = useState(venues);
+  function favoritesFirst(a, b) {
+    const isFavorite = (venue) => currentUserProfile && R.includes(venue.id, currentUserProfile.favoriteVenues)
+    const aFav = isFavorite(a)
+    const bFav = isFavorite(b)
+    console.log(`a: ${aFav} b: ${bFav}`);
+    if (aFav && bFav) { return 0 }
+    if (!aFav && !bFav) { return 0 }
+    if (aFav && !bFav) { return 1 }
+    if (!aFav && bFav) { return -1 }
+  }
+  useEffect(() => {
+    setOrderedVenues(R.sort(favoritesFirst, venues));
+  }, [venues, currentUserProfile]);
+  return orderedVenues
+}
 
 export default function App(props) {
   const { currentUserProfile, updateCurrentUserProfile } = props;
@@ -51,12 +68,13 @@ export default function App(props) {
       setVenues(R.update(venueIndex, venue, venues))
     },
   }
+  // const orderedVenues = useFavoritesFirst(currentUserProfile, venues)
   return (
     <AppLayout>
       <Banner>
         <Navbar />
       </Banner>
-      <Search {...venueSearch} setCurrentVenue={setCurrentVenue} />
+      <Search {...venueSearch} setCurrentVenue={setCurrentVenue} currentUserProfile={currentUserProfile} />
       {venues.length > 0 && (
         <List
           listOf="venues"

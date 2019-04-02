@@ -3,6 +3,7 @@ import {
   UserPasswordCredential,
   FacebookRedirectCredential,
   GoogleRedirectCredential,
+  UserPasswordAuthProviderClient,
 } from "mongodb-stitch-browser-sdk";
 import app from "./app";
 import { getUserProfile } from "./mongodb";
@@ -131,4 +132,38 @@ export function useStitchAuth() {
   useEffect(checkForLoggedInUser);
 
   return { users, hasLoggedInUser, currentUserProfile, updateCurrentUserProfile };
+}
+
+function parseToken() {
+  // Parse the URL query parameters
+  const url = window.location.search;
+  const params = new URLSearchParams(url);
+  const token = params.get('token');
+  const tokenId = params.get('tokenId');
+  return { token, tokenId }
+}
+
+export function confirmEmail() {
+  // Confirm the user's email/password account
+  const { token, tokenId } = parseToken()
+  return app.auth
+    .getProviderClient(UserPasswordAuthProviderClient.factory)
+    .confirmUser(token, tokenId);
+}
+
+export function sendPasswordResetEmail(emailAddress) {
+  // Send a password reset email to the specified address
+  return app.auth
+    .getProviderClient(UserPasswordAuthProviderClient.factory)
+    .sendResetPasswordEmail(emailAddress)
+    .catch(e => { console.error("Error sending password reset email:", e) })
+}
+
+export function handlePasswordReset(newPassword) {
+  // Reset a user's password after they click the email link
+  const { token, tokenId } = parseToken()
+  return app.auth
+    .getProviderClient(UserPasswordAuthProviderClient.factory)
+    .resetPassword(token, tokenId, newPassword)
+    .catch(err => { console.error("Error resetting password:", err) })
 }

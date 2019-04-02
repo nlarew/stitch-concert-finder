@@ -9,6 +9,9 @@ import {
   getAllUsers,
   logoutUser,
   useStitchAuth,
+  confirmEmail,
+  sendPasswordResetEmail,
+  handlePasswordReset,
 } from "./authentication";
 
 export default app;
@@ -23,4 +26,7 @@ export {
   useStitchAuth,
   getLocationForAddress,
   searchNearAddress,
+  confirmEmail,
+  sendPasswordResetEmail,
+  handlePasswordReset,
 };

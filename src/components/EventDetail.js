@@ -3,15 +3,12 @@ import styled from "@emotion/styled";
 import ErrorBoundary from "react-error-boundary";
 import {
   Card,
-  CardImg,
   CardBody,
   CardTitle,
   CardSubtitle,
   CardText,
   Button,
 } from "reactstrap";
-import Navbar from "./Navbar";
-import Banner from "./Banner";
 
 const ContentCard = styled(Card)`
   grid-area: detail;

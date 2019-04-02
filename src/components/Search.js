@@ -16,6 +16,7 @@ import LeafMap from "./Map";
 import { searchNearAddress } from "./../stitch";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faSpinner } from "@fortawesome/free-solid-svg-icons";
+import * as R from 'ramda'
 
 import keapVenues from "./../stitch/services/stubs/487keapVenues.json";
 import keapLocation from "./../stitch/services/stubs/487keapLocation.json";
@@ -46,7 +47,7 @@ const SearchBarButton = props => {
   `;
   return (
     <InputGroupAddon addonType="append">
-      <Button color="info" onClick={handleSearch}>
+      <Button color="info" onClick={handleSearch} disabled={isSearching}>
         {isSearching ? (
           <Text>Searching <SpinnerIcon /></Text>
         ) : (
@@ -77,14 +78,21 @@ const SearchBar = React.memo(props => {
     setAddress,
   } = props;
   const handleSearch = () => {
-    searchFor(address);
+    if (!isSearching) { searchFor(address) }
   };
+  function handleKeyPress(e){
+    if(e.keyCode == 13){
+      handleSearch()
+    }
+  }
   return (
     <SearchBarContainer>
       <SearchBarInput
         onChange={onChange}
+        onKeyDown={handleKeyPress}
         value={address}
         placeholder="Enter your address..."
+        disabled={isSearching}
       />
       <Button
         onClick={() => {
@@ -95,7 +103,10 @@ const SearchBar = React.memo(props => {
       >
         Get Keap
       </Button>
-      <SearchBarButton handleSearch={handleSearch} isSearching={isSearching} />
+      <SearchBarButton
+        handleSearch={handleSearch}
+        isSearching={isSearching}
+      />
     </SearchBarContainer>
   );
 });
@@ -162,6 +173,8 @@ const ContentBody = styled(CardBody)`
 
 const headerStyle = css`
   min-height: 165px;
+  padding-left: 0px;
+  padding-right: 0px;
 `
 
 const Search = props => {
