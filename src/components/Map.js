@@ -7,23 +7,11 @@ import {
   Popup,
   Circle,
 } from "react-leaflet";
+import { divIcon } from "leaflet";
+import { renderToStaticMarkup } from 'react-dom/server'
 // import { Card, CardTitle, CardText, CardFooter } from "reactstrap";
 // import Control from "react-leaflet-control";
-import DivIcon from "react-leaflet-div-icon";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar, faHome } from "@fortawesome/free-solid-svg-icons";
-const HomeMarker = ({ position }) => (
-  <DivIcon position={position}>
-    <svg
-      className="user-location"
-      viewBox="0 0 120 120"
-      version="1.1"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <circle cx="60" cy="60" r="50" />
-    </svg>
-  </DivIcon>
-);
+import { HomeMarker, VenueMarker, FavoriteVenueMarker } from "./map-markers";
 
 const ConcertMapContainer = styled.div`
   height: 100%;
@@ -34,7 +22,7 @@ const ConcertMap = styled(Map)`
 `;
 
 export default React.memo(function LeafMap(props) {
-  const { venues, setCurrentVenue } = props;
+  const { venues, currentVenue, setCurrentVenue } = props;
   const mapRef = useRef();
 
   const renderEventMarkers = center => {
@@ -45,14 +33,21 @@ export default React.memo(function LeafMap(props) {
         const setAsCurrent = () => {
           setCurrentVenue(venue);
         };
+        const isCurrentVenue = currentVenue && currentVenue.id === venue.id;
+        const Marker = venue.isFavorite
+          ? FavoriteVenueMarker
+          : VenueMarker;
         return (
           <Marker
             key={venue.id}
-            position={[Number(venue.location.lat), Number(venue.location.lng)]}
+            position={[
+              Number(venue.location.lat),
+              Number(venue.location.lng)
+            ]}
             onClick={setAsCurrent}
           >
             <Popup>
-              <h2>{venue.name}</h2>
+              <h4>{venue.name}</h4>
             </Popup>
           </Marker>
         );
@@ -89,6 +84,7 @@ export default React.memo(function LeafMap(props) {
             <Circle center={center} fillColor="blue" radius={radius + 260} />
           </>
         )}
+        {props.center && <HomeMarker position={props.center} />}
         {renderEventMarkers(props.center)}
       </ConcertMap>
     </ConcertMapContainer>

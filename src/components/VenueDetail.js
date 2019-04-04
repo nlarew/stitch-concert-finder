@@ -60,6 +60,7 @@ function Venue({ venue, currentUserProfile, actions }) {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [settingFavorite, setSettingFavorite] = useState(false);
   const isFavorite = currentUserProfile && currentUserProfile.favoriteVenues.includes(venue.id)
+  console.log(venue)
   return (
     <ContentCard inverse>
       <ErrorBoundary>

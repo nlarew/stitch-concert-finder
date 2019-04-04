@@ -51,9 +51,7 @@ const SearchBarButton = props => {
         {isSearching ? (
           <Text>Searching <SpinnerIcon /></Text>
         ) : (
-          <>
-              <Text>Search <SearchIcon /></Text>
-          </>
+          <Text>Search <SearchIcon /></Text>
         )}
       </Button>
     </InputGroupAddon>
@@ -76,6 +74,7 @@ const SearchBar = React.memo(props => {
     setVenues,
     setAddressLocation,
     setAddress,
+    venuesError,
   } = props;
   const handleSearch = () => {
     if (!isSearching) { searchFor(address) }
@@ -93,6 +92,7 @@ const SearchBar = React.memo(props => {
         value={address}
         placeholder="Enter your address..."
         disabled={isSearching}
+        invalid={venuesError}
       />
       <Button
         onClick={() => {
@@ -118,6 +118,7 @@ export function useVenues() {
   const [searching, setSearching] = useState(false);
   const [events, setEvents] = useState([]);
   const [venues, setVenues] = useState([]);
+  const [venuesError, setVenuesError] = useState(null);
 
   const handleInputChange = e => {
     setAddressQuery(e.currentTarget.value);
@@ -126,11 +127,15 @@ export function useVenues() {
   const search = () => !searching && setSearching(true);
   async function handleSearch() {
     if (searching) {
-      const result = await searchNearAddress(addressQuery);
-      setAddress(result.location.formatted_address);
-      setAddressLocation(result.location);
-      setVenues(result.venues);
-      setEvents(result.events);
+      if (addressQuery) {
+        const result = await searchNearAddress(addressQuery);
+        setAddress(result.location.formatted_address);
+        setAddressLocation(result.location);
+        setVenues(result.venues);
+        setEvents(result.events);
+      } else {
+        setVenuesError("You must enter an address to search.")
+      }
       setSearching(false);
     }
   }
@@ -153,6 +158,7 @@ export function useVenues() {
     search,
     searching,
     handleInputChange,
+    venuesError,
   };
 }
 
@@ -186,9 +192,12 @@ const Search = props => {
     search,
     searching,
     handleInputChange,
+    currentVenue,
     setCurrentVenue,
     setAddress,
     setAddressLocation,
+    venuesError,
+    orderedVenues,
   } = props;
   const coords = addressLocation && addressLocation.geometry.location;
   return (
@@ -206,11 +215,13 @@ const Search = props => {
               setVenues={setVenues}
               setAddress={setAddress}
               setAddressLocation={setAddressLocation}
+              venuesError={venuesError}
             />
           </CardHeader>
           <LeafMap
-            venues={venues}
+            venues={orderedVenues}
             center={coords}
+            currentVenue={currentVenue}
             setCurrentVenue={setCurrentVenue}
             searching={searching}
           />

@@ -6178,10 +6178,9 @@ lcid@^2.0.0:
   dependencies:
     invert-kv "^2.0.0"
 
-leaflet.awesome-markers@2.0.5:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/leaflet.awesome-markers/-/leaflet.awesome-markers-2.0.5.tgz#b7b0210d87e2566359bf478c1ab3ab07c7246f30"
-  integrity sha512-Ne/xDjkGyaujwNVVkv2tyXQUV0ZW7gZ0Mo0FuQY4jp2qWrvXi0hwDBvmZyF/8YOvybyMabTMM/mFWCTd1jZIQA==
+leaflet.awesome-markers@lvoogdt/Leaflet.awesome-markers:
+  version "0.0.0"
+  resolved "https://codeload.github.com/lvoogdt/Leaflet.awesome-markers/tar.gz/734042aef260eb3d9b72bbac5db00dfc07dbc602"
 
 leaflet@1.4.0:
   version "1.4.0"
@@ -8506,10 +8505,9 @@ react-leaflet-control@2.1.1:
   resolved "https://registry.yarnpkg.com/react-leaflet-control/-/react-leaflet-control-2.1.1.tgz#ed90006c9d285872a2788fe15c11fc30ad14cdb0"
   integrity sha512-3fx4uSRFtDaFNa1yq62DCxdc9kR3Lk4V7R0lHqbKfPTEIOvPR7VFvk3xzcSnSB/0LAYO8R96Pwcs1c6knyL/Hw==
 
-react-leaflet-div-icon@1.1.0:
+react-leaflet-div-icon@daenub/react-leaflet-div-icon:
   version "1.1.0"
-  resolved "https://registry.yarnpkg.com/react-leaflet-div-icon/-/react-leaflet-div-icon-1.1.0.tgz#a31b7ecf3aff66f780f23d7e96ba9420cf072c70"
-  integrity sha512-S3UdDlyplQp7o1lQIdeIidoD2lOzc0x7t4y/bg+N2Ceyo//727Pdgr8+1LWpohGLPeUU0P4RbCCkgBCawIDFug==
+  resolved "https://codeload.github.com/daenub/react-leaflet-div-icon/tar.gz/67abfc4f01e426ad8c0e11c78f5f0708e2f0febf"
   dependencies:
     prop-types "^15.5.10"
 

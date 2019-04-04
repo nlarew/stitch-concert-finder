@@ -22,19 +22,26 @@ const AppLayout = styled.div`
 
 function useFavoritesFirst(currentUserProfile, venues) {
   const [orderedVenues, setOrderedVenues] = useState(venues);
+  const favoriteVenues = currentUserProfile ? currentUserProfile.favoriteVenues : []
+  const isFavorite = (venue) => currentUserProfile && R.includes(venue.id, currentUserProfile.favoriteVenues)
   function favoritesFirst(a, b) {
-    const isFavorite = (venue) => currentUserProfile && R.includes(venue.id, currentUserProfile.favoriteVenues)
-    const aFav = isFavorite(a)
-    const bFav = isFavorite(b)
-    console.log(`a: ${aFav} b: ${bFav}`);
+    const aFav = isFavorite(a);
+    const bFav = isFavorite(b);
     if (aFav && bFav) { return 0 }
     if (!aFav && !bFav) { return 0 }
-    if (aFav && !bFav) { return 1 }
-    if (!aFav && bFav) { return -1 }
+    if (aFav && !bFav) { return -1 }
+    if (!aFav && bFav) { return 1 }
   }
+  const orderByFavorites = () => {
+    const ordered = R.sort(favoritesFirst, venues.map(venue => ({
+      ...venue,
+      isFavorite: isFavorite(venue)
+    })))
+    setOrderedVenues(ordered);
+  };
   useEffect(() => {
-    setOrderedVenues(R.sort(favoritesFirst, venues));
-  }, [venues, currentUserProfile]);
+    orderByFavorites();
+  }, [favoriteVenues, venues]);
   return orderedVenues
 }
 
@@ -42,8 +49,8 @@ export default function App(props) {
   const { currentUserProfile, updateCurrentUserProfile } = props;
   const venueSearch = useVenues();
   const { venues, address, setVenues } = venueSearch;
-  const [currentEvent, setCurrentEvent] = useState(null);
   const [currentVenue, setCurrentVenue] = useState(null);
+  const orderedVenues = useFavoritesFirst(currentUserProfile, venues);
   const userActions = {
     addFavoriteVenue: async (venueId) => {
       console.log("addFavoriteVenue", venueId)
@@ -68,17 +75,21 @@ export default function App(props) {
       setVenues(R.update(venueIndex, venue, venues))
     },
   }
-  // const orderedVenues = useFavoritesFirst(currentUserProfile, venues)
   return (
     <AppLayout>
       <Banner>
         <Navbar />
       </Banner>
-      <Search {...venueSearch} setCurrentVenue={setCurrentVenue} currentUserProfile={currentUserProfile} />
+      <Search
+        {...venueSearch}
+        orderedVenues={orderedVenues}
+        currentVenue={currentVenue}
+        setCurrentVenue={setCurrentVenue}
+      />
       {venues.length > 0 && (
         <List
           listOf="venues"
-          venues={venues}
+          venues={orderedVenues}
           address={address}
           currentVenue={currentVenue}
           setCurrentVenue={setCurrentVenue}
@@ -86,7 +97,13 @@ export default function App(props) {
           currentUserProfile={currentUserProfile}
         />
       )}
-      {currentVenue && <Venue venue={currentVenue} actions={userActions} currentUserProfile={currentUserProfile} />}
+      {currentVenue && (
+        <Venue
+          venue={currentVenue}
+          actions={userActions}
+          currentUserProfile={currentUserProfile}
+        />
+      )}
     </AppLayout>
   );
 }

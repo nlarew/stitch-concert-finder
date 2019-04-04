@@ -14,7 +14,6 @@ import {
 } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import ReactTableContainer from "react-table-container";
 import * as R from "ramda";
 
 const StarIcon = () => (
@@ -100,70 +99,131 @@ const EventsList = props => {
 };
 
 function usePagination(list, config) {
-  // Parse configuration values
-  const {
-    numItemsPerPage=10,
-  } = config
-  // Pagination Metadata
-  const numItems = list.length
-  const [currentItems, setCurrentItems] = useState([])
-  const [numPages, setNumPages] = useState(Math.ceil(list.length / numItemsPerPage))
-  const [currentPage, setCurrentPage] = useState(1)
-  const metadata = { numItems, numPages, currentPage, numItemsPerPage };
-  useEffect(() => {
-    setNumPages(Math.ceil(list.length / numItemsPerPage));
-  }, [list, numItemsPerPage])
-  // Keep the current page in sync
-  useEffect(() => {
-    const firstIndex = numItemsPerPage * (currentPage - 1);
-    const possibleNextFirstIndex = firstIndex + numItemsPerPage;
-    const nextFirstIndex =
-      possibleNextFirstIndex <= numItems - 1
-        ? possibleNextFirstIndex
-        : numItems - 1;
-    setCurrentItems(R.slice(firstIndex, nextFirstIndex, list));
-  }, [currentPage, numItemsPerPage]);
-  // Switch between pages
-  function getNextPage() {
-    if (currentPage < numPages) {
-      setCurrentPage(currentPage + 1)
+  // Default Values
+  const numItems = list.length;
+  const numItemsPerPage = config.numItemsPerPage || 10;
+  const getDefaultState = () => ({
+    list,
+    numItems,
+    numItemsPerPage,
+    numPages: Math.ceil(numItems / numItemsPerPage),
+    currentPage: 1,
+    currentItems: R.slice(0, numItemsPerPage, list)
+  });
+  // Helpers
+  const getItemsForPage = pageNumber => {
+    const maxIndex = numItems - 1;
+    const firstIndex = numItemsPerPage * (pageNumber - 1);
+    const nextFirstIndex = Math.min(firstIndex + numItemsPerPage, maxIndex);
+    return R.slice(firstIndex, nextFirstIndex, list);
+  };
+  // Reducer
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case "updateList": {
+        const { list } = action.payload;
+        const isValid = list instanceof Array;
+        return isValid ? getDefaultState() : state;
+      }
+      case "getNextPage": {
+        const hasNext = state.currentPage < state.numPages;
+        if (hasNext) {
+          const nextPage = state.currentPage + 1;
+          return {
+            ...state,
+            currentPage: nextPage,
+            currentItems: getItemsForPage(nextPage)
+          };
+        } else {
+          return state;
+        }
+      }
+      case "getPrevPage": {
+        const hasPrev = state.currentPage > 1;
+        if (hasPrev) {
+          const prevPage = state.currentPage - 1;
+          return {
+            ...state,
+            currentPage: prevPage,
+            currentItems: getItemsForPage(prevPage)
+          };
+        } else {
+          return state;
+        }
+      }
+      case "getPage": {
+        const { pageNum } = action.payload;
+        const isValidPageNum = pageNum >= 1 && pageNum <= state.numPages;
+        if (isValidPageNum) {
+          return {
+            ...state,
+            currentPage: pageNum,
+            currentItems: getItemsForPage(pageNum)
+          };
+        } else {
+          return state;
+        }
+      }
+      default: {
+        throw new Error(`Invalid action type: "${action.type}"`);
+      }
     }
+  };
+  // Store
+  const [state, dispatch] = React.useReducer(reducer, getDefaultState());
+  // Actions
+  function getNextPage() {
+    dispatch({ type: "getNextPage" });
   }
   function getPrevPage() {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1)
-    }
+    dispatch({ type: "getPrevPage" });
   }
   function getPage(pageNum) {
-    if (pageNum >= 1 && pageNum <= numPages) {
-      setCurrentPage(pageNum);
-    }
+    dispatch({ type: "getPage", payload: { pageNum } });
   }
-  return { currentItems, getNextPage, getPrevPage, getPage, metadata };
+  // Effects
+  useEffect(() => {
+    if (list !== state.list || numItemsPerPage !== state.numItemsPerPage) {
+      dispatch({ type: "updateList", payload: { list } });
+    }
+  }, [list, config]);
+
+  return {
+    currentItems: state.currentItems,
+    currentPage: state.currentPage,
+    metadata: {
+      numItems: state.numItems,
+      numPages: state.numPages,
+      numItemsPerPage: state.numItemsPerPage
+    },
+    getNextPage,
+    getPrevPage,
+    getPage
+  };
 }
 
 const VenuesList = props => {
-  const { venues=[], currentVenue, setCurrentVenue, currentUserProfile } = props;
+  const { venues, currentVenue, setCurrentVenue, currentUserProfile } = props;
   const rowClickHandler = event => e => {
     setCurrentVenue(event);
   };
   const {
     currentItems: currentVenues,
+    currentPage,
     getNextPage,
     getPrevPage,
     getPage,
-    metadata: { numPages, currentPage }
+    metadata: { numPages }
   } = usePagination(venues, { numItemsPerPage: 12 });
 
   const renderVenueRows = () => {
+    // console.log('v', venues.map(v => `${v.id} - isFavorite: ${v.isFavorite}`))
+    console.log('v', currentVenues)
     return (
       currentVenues &&
       currentVenues
-        .filter((v, i) => i < 20)
         .map(venue => {
-          const isFavorite =
-            currentUserProfile &&
-            currentUserProfile.favoriteVenues.includes(venue.id);
+          const isFavorite = venue.isFavorite
           return (
             <tr
               css={tableStyle("row", {
@@ -185,7 +245,7 @@ const VenuesList = props => {
   };
 
   const PageSelector = props => {
-    const renderSpecificPageSelectors = (numPages) => {
+    const renderSpecificPageSelectors = (numPages, currentPage) => {
       return numPages && new Array(numPages).fill("").map((x, index) => {
         const pageNum = index + 1;
         return (
@@ -236,7 +296,7 @@ const headerStyle = css`
 `
 
 function List(props) {
-  const { address = "You", currentUserProfile } = props;
+  const { address = "You" } = props;
   return (
     <ContentCard inverse>
       <ErrorBoundary>
@@ -245,7 +305,7 @@ function List(props) {
             <h1>Venues Near...</h1>
             <h3 css={css`color: #25A1B7;`}>{address}</h3>
           </CardHeader>
-          <VenuesList {...props} currentUserProfile={currentUserProfile} />
+          <VenuesList {...props} />
         </CardBody>
       </ErrorBoundary>
     </ContentCard>
