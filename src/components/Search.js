@@ -16,6 +16,8 @@ import LeafMap from "./Map";
 import { searchNearAddress } from "./../stitch";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faSpinner } from "@fortawesome/free-solid-svg-icons";
+import * as mongodbActions from "./../stitch/mongodb";
+import * as R from 'ramda';
 
 import keapVenues from "./../stitch/services/stubs/487keapVenues.json";
 import keapLocation from "./../stitch/services/stubs/487keapLocation.json";
@@ -145,10 +147,38 @@ export function useVenues() {
     [searching],
   );
 
+  const getUserActions = ({ updateCurrentUserProfile }) => ({
+    addFavoriteVenue: async venueId => {
+      console.log("addFavoriteVenue", venueId);
+      const user = await mongodbActions.addFavoriteVenue({ venueId });
+      updateCurrentUserProfile(user);
+    },
+    removeFavoriteVenue: async venueId => {
+      console.log("removeFavoriteVenue", venueId);
+      const user = await mongodbActions.removeFavoriteVenue({ venueId });
+      updateCurrentUserProfile(user);
+    },
+    starEvent: async (venueId, eventId) => {
+      console.log("starEvent", venueId, eventId);
+      const venue = await mongodbActions.starEvent({ venueId, eventId });
+      const venueIndex = venues.findIndex(v => v.id === venueId);
+      setVenues(R.update(venueIndex, venue, venues));
+    },
+    unstarEvent: async (venueId, eventId) => {
+      console.log("unstarEvent", venueId, eventId);
+      const venue = await mongodbActions.unstarEvent({ venueId, eventId });
+      const venueIndex = venues.findIndex(v => v.id === venueId);
+      setVenues(R.update(venueIndex, venue, venues));
+    }
+  });
+  const [currentVenue, setCurrentVenue] = useState(null);
   return {
+    getUserActions,
     events,
     venues,
     setVenues,
+    currentVenue,
+    setCurrentVenue,
     setAddress,
     setAddressLocation,
     address,

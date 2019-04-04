@@ -202,7 +202,7 @@ function usePagination(list, config) {
   };
 }
 
-const VenuesList = props => {
+export const VenuesList = props => {
   const { venues, currentVenue, setCurrentVenue } = props;
   const rowClickHandler = event => e => {
     setCurrentVenue(event);
@@ -235,7 +235,7 @@ const VenuesList = props => {
               <td>
                 <div css={css`display: flex; flex-direction: row;`}>
                   <span>{venue.name}</span>
-                  <span css={css`margin-left: auto;`}>({venue.upcomingEvents.length} shows)</span>
+                  <span css={css`margin-left: auto;`}>({venue.upcomingEvents && venue.upcomingEvents.length || "NaN"} shows)</span>
                 </div>
               </td>
             </tr>
