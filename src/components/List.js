@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import { css, jsx } from "@emotion/core";
 import ErrorBoundary from "react-error-boundary";
@@ -203,7 +203,7 @@ function usePagination(list, config) {
 }
 
 const VenuesList = props => {
-  const { venues, currentVenue, setCurrentVenue, currentUserProfile } = props;
+  const { venues, currentVenue, setCurrentVenue } = props;
   const rowClickHandler = event => e => {
     setCurrentVenue(event);
   };
@@ -217,8 +217,6 @@ const VenuesList = props => {
   } = usePagination(venues, { numItemsPerPage: 12 });
 
   const renderVenueRows = () => {
-    // console.log('v', venues.map(v => `${v.id} - isFavorite: ${v.isFavorite}`))
-    console.log('v', currentVenues)
     return (
       currentVenues &&
       currentVenues

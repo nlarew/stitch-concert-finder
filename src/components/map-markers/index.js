@@ -21,30 +21,30 @@ const icons = {
     markerColor: "orange"
   })
 };
-export function HomeMarker({ children, position, address }) {
+export function HomeMarker({ children, position, address, ...props }) {
   return (
-    <Marker position={position} icon={icons.address}>
+    <Marker position={position} icon={icons.address} {...props}>
       <Popup>YOUR HOME BABY</Popup>
     </Marker>
   );
 };
-export function VenueMarker({ children, position, venue }) {
+export function VenueMarker({ children, position, ...props }) {
   return (
-    <Marker position={position} icon={icons.venue}>
+    <Marker position={position} icon={icons.venue} {...props}>
       {children}
     </Marker>
   );
 };
-export function CurrentVenueMarker({ children, position, venue }) {
+export function CurrentVenueMarker({ children, position, ...props }) {
   return (
-    <Marker position={position} icon={icons.venue}>
+    <Marker position={position} icon={icons.venue} {...props}>
       {children}
     </Marker>
   );
 };
-export function FavoriteVenueMarker({ children, position, venue }) {
+export function FavoriteVenueMarker({ children, position, ...props }) {
   return (
-    <Marker position={position} icon={icons.favorite}>
+    <Marker position={position} icon={icons.favorite} {...props}>
       {children}
     </Marker>
   );

@@ -32,8 +32,9 @@ export async function starEvent({ venueId, eventId }) {
   const userId = app.auth.user.id
   const venue = await venues.findOne({ id: venueId })
   const eventIndex = venue.upcomingEvents.findIndex(e => e.id === eventId)
-  const event = { ...venue.upcomingEvents[eventIndex], stars: R.append(userId, event.stars) }
-  const upcomingEvents = R.update(eventIndex, event, venue.upcomingEvents)
+  const event = venue.upcomingEvents[eventIndex]
+  const updatedEvent = { ...event, stars: R.append(userId, event.stars) }
+  const upcomingEvents = R.update(eventIndex, updatedEvent, venue.upcomingEvents)
   return await venues.findOneAndUpdate({ id: venueId }, { $set: { upcomingEvents } }, { returnNewDocument: true })
 }
 
@@ -41,7 +42,8 @@ export async function unstarEvent({ venueId, eventId }) {
   const userId = app.auth.user.id
   const venue = await venues.findOne({ id: venueId })
   const eventIndex = venue.upcomingEvents.findIndex(e => e.id === eventId)
-  const event = { ...venue.upcomingEvents[eventIndex], stars: R.without(userId, event.stars) }
-  const upcomingEvents = R.update(eventIndex, event, venue.upcomingEvents)
+  const event = venue.upcomingEvents[eventIndex]
+  const updatedEvent = { ...event, stars: R.without(userId, event.stars) }
+  const upcomingEvents = R.update(eventIndex, updatedEvent, venue.upcomingEvents)
   return await venues.findOneAndUpdate({ id: venueId }, { $set: { upcomingEvents } }, { returnNewDocument: true })
 }

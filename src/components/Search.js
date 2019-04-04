@@ -16,7 +16,6 @@ import LeafMap from "./Map";
 import { searchNearAddress } from "./../stitch";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faSpinner } from "@fortawesome/free-solid-svg-icons";
-import * as R from 'ramda'
 
 import keapVenues from "./../stitch/services/stubs/487keapVenues.json";
 import keapLocation from "./../stitch/services/stubs/487keapLocation.json";
@@ -80,7 +79,7 @@ const SearchBar = React.memo(props => {
     if (!isSearching) { searchFor(address) }
   };
   function handleKeyPress(e){
-    if(e.keyCode == 13){
+    if(e.keyCode === 13){
       handleSearch()
     }
   }
@@ -185,7 +184,6 @@ const headerStyle = css`
 
 const Search = props => {
   const {
-    venues,
     setVenues,
     addressQuery,
     addressLocation,

@@ -26,21 +26,18 @@ import {
   sendPasswordResetEmail,
   handlePasswordReset
 } from "./../stitch";
-import { navigate } from "@reach/router";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEnvelope,
   faUserPlus,
   faRedo,
-  faGuitar,
   faMusic
 } from "@fortawesome/free-solid-svg-icons";
 
 const EnvelopeIcon = () => <FontAwesomeIcon icon={faEnvelope} />;
 const UserPlusIcon = () => <FontAwesomeIcon icon={faUserPlus} />;
 const RedoIcon = () => <FontAwesomeIcon icon={faRedo} flip="horizontal" />;
-const GuitarIcon = () => <FontAwesomeIcon icon={faGuitar} />;
 const MusicIcon = () => <FontAwesomeIcon icon={faMusic} />;
 
 const EmailPasswordLoginButton = createButton({
@@ -146,24 +143,14 @@ export function ResetPassword() {
 
 export function ConfirmEmail() {
   const [isConfirming, setIsConfirming] = React.useState(true);
-  const [isConfirmed, setIsConfirmed] = React.useState(false);
   useEffect(() => {
     confirmEmail().then(() => {
       setIsConfirming(false);
-      setIsConfirmed(true);
-      navigate("/login");
     });
   }, []);
 
   return isConfirming ? "confirming" : <Redirect to="/login" noThrow />;
 }
-
-const ButtonRow = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-`;
 
 function EmailPasswordForm(props) {
   const [email, setEmail] = useState("");

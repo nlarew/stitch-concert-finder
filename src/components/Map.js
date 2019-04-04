@@ -3,14 +3,9 @@ import styled from "@emotion/styled";
 import {
   Map,
   TileLayer,
-  Marker,
   Popup,
   Circle,
 } from "react-leaflet";
-import { divIcon } from "leaflet";
-import { renderToStaticMarkup } from 'react-dom/server'
-// import { Card, CardTitle, CardText, CardFooter } from "reactstrap";
-// import Control from "react-leaflet-control";
 import { HomeMarker, VenueMarker, FavoriteVenueMarker } from "./map-markers";
 
 const ConcertMapContainer = styled.div`
@@ -31,9 +26,10 @@ export default React.memo(function LeafMap(props) {
       venues &&
       venues.map(venue => {
         const setAsCurrent = () => {
+          console.log('current')
           setCurrentVenue(venue);
         };
-        const isCurrentVenue = currentVenue && currentVenue.id === venue.id;
+        // const isCurrentVenue = currentVenue && currentVenue.id === venue.id;
         const Marker = venue.isFavorite
           ? FavoriteVenueMarker
           : VenueMarker;
@@ -68,12 +64,12 @@ export default React.memo(function LeafMap(props) {
     />
   );
 
-  const DefaultTileLayer = () => (
-    <TileLayer
-      attribution='Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-    />
-  );
+  // const DefaultTileLayer = () => (
+  //   <TileLayer
+  //     attribution='Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  //     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+  //   />
+  // );
 
   return (
     <ConcertMapContainer>
