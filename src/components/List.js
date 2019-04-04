@@ -233,17 +233,19 @@ const VenuesList = props => {
             >
               <td>{isFavorite && <StarIcon />}</td>
               <td>
-                <span>{venue.name}</span>
+                <div css={css`display: flex; flex-direction: row;`}>
+                  <span>{venue.name}</span>
+                  <span css={css`margin-left: auto;`}>({venue.upcomingEvents.length} shows)</span>
+                </div>
               </td>
-              <td>{venue.upcomingEvents.length} Shows</td>
             </tr>
           );
         })
     );
   };
 
-  const PageSelector = props => {
-    const renderSpecificPageSelectors = (numPages, currentPage) => {
+  const PageSelector = ({ numPages, currentPage }) => {
+    const renderSpecificPageSelectors = () => {
       return numPages && new Array(numPages).fill("").map((x, index) => {
         const pageNum = index + 1;
         return (
@@ -256,11 +258,11 @@ const VenuesList = props => {
       });
     }
     return (
-      <Pagination>
+      <Pagination css={css`> ul.pagination {margin-bottom: 0 !important};`}>
         <PaginationItem>
           <PaginationLink previous onClick={getPrevPage} />
         </PaginationItem>
-        {renderSpecificPageSelectors(numPages, currentPage)}
+        {renderSpecificPageSelectors()}
         <PaginationItem>
           <PaginationLink next onClick={getNextPage} />
         </PaginationItem>
@@ -270,18 +272,21 @@ const VenuesList = props => {
 
   return (
     <>
-      <PageSelector numPages={numPages} />
-      <Table dark>
+      <Table dark hover css={css`
+        table-layout: fixed;
+      `}>
         <thead>
           <tr>
-            <th />
-            <th>Venues</th>
-            <th />
+            <th css={css`width: 58px;`}><span css={css`white-space: nowrap;`}>Venues</span></th>
+            <th css={css``}>
+              <div css={css`display: flex; flex-direction: row;`}>
+                  <span css={css`margin-left: auto;`}><PageSelector numPages={numPages} currentPage={currentPage} /></span>
+                </div>
+            </th>
+            
           </tr>
         </thead>
-        <tbody css={tableStyle("body")}>
-          {renderVenueRows()}
-        </tbody>
+        <tbody css={tableStyle("body")}>{renderVenueRows()}</tbody>
       </Table>
     </>
   );

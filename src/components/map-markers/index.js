@@ -4,7 +4,7 @@ import L from "leaflet";
 import "leaflet.awesome-markers/dist/leaflet.awesome-markers.js";
 import "leaflet.awesome-markers/dist/leaflet.awesome-markers.css";
 
-const icons = {
+const getIcons = ({ isCurrentVenue }) => ({
   address: L.AwesomeMarkers.icon({
     prefix: "fa",
     icon: "home",
@@ -13,36 +13,41 @@ const icons = {
   venue: L.AwesomeMarkers.icon({
     prefix: "fa",
     icon: "guitar",
-    markerColor: "blue"
+    markerColor: isCurrentVenue ? "green" : "blue"
   }),
   favorite: L.AwesomeMarkers.icon({
     prefix: "fa",
     icon: "star",
-    markerColor: "orange"
+    markerColor: isCurrentVenue ? "green" : "orange"
   })
-};
-export function HomeMarker({ children, position, address, ...props }) {
+});
+
+export function HomeMarker({ children, position, address, isCurrentVenue, ...props }) {
+  const icons = getIcons({ isCurrentVenue })
   return (
     <Marker position={position} icon={icons.address} {...props}>
       <Popup>YOUR HOME BABY</Popup>
     </Marker>
   );
 };
-export function VenueMarker({ children, position, ...props }) {
+export function VenueMarker({ children, position, isCurrentVenue, ...props }) {
+  const icons = getIcons({ isCurrentVenue });
   return (
     <Marker position={position} icon={icons.venue} {...props}>
       {children}
     </Marker>
   );
 };
-export function CurrentVenueMarker({ children, position, ...props }) {
+export function CurrentVenueMarker({ children, position, isCurrentVenue, ...props }) {
+  const icons = getIcons({ isCurrentVenue });
   return (
     <Marker position={position} icon={icons.venue} {...props}>
       {children}
     </Marker>
   );
 };
-export function FavoriteVenueMarker({ children, position, ...props }) {
+export function FavoriteVenueMarker({ children, position, isCurrentVenue, ...props }) {
+  const icons = getIcons({ isCurrentVenue });
   return (
     <Marker position={position} icon={icons.favorite} {...props}>
       {children}

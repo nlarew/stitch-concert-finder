@@ -5,6 +5,7 @@ import {
   TileLayer,
   Popup,
   Circle,
+  LayerGroup,
 } from "react-leaflet";
 import { HomeMarker, VenueMarker, FavoriteVenueMarker } from "./map-markers";
 
@@ -20,42 +21,117 @@ export default React.memo(function LeafMap(props) {
   const { venues, currentVenue, setCurrentVenue } = props;
   const mapRef = useRef();
 
-  const renderEventMarkers = center => {
-    return (
-      center &&
-      venues &&
-      venues.map(venue => {
-        const setAsCurrent = () => {
-          console.log('current')
-          setCurrentVenue(venue);
-        };
-        // const isCurrentVenue = currentVenue && currentVenue.id === venue.id;
-        const Marker = venue.isFavorite
-          ? FavoriteVenueMarker
-          : VenueMarker;
-        return (
-          <Marker
-            key={venue.id}
-            position={[
-              Number(venue.location.lat),
-              Number(venue.location.lng)
-            ]}
-            onClick={setAsCurrent}
-          >
-            <Popup>
-              <h4>{venue.name}</h4>
-            </Popup>
-          </Marker>
-        );
-      })
-    );
-  };
-
   const center = (props.center && [props.center.lat, props.center.lng]) || [
     40.7133111,
     -73.9521927,
   ];
-  const radius = 2 * 1000; // 5 kilometers
+  const radius = 2 * 1000; // 2 kilometers
+
+  const renderEventMarkers = center => {
+    const render = (venues) => {
+      const favoriteVenues = []
+      const otherVenues = []
+      for (const venue of venues) {
+        if (venue.isFavorite) { favoriteVenues.push(venue) }
+        else { otherVenues.push(venue) }
+      }
+      const Markers = {
+        FavoriteVenues: () => (
+          <LayerGroup>
+            {favoriteVenues.map(venue => {
+              const isCurrentVenue = currentVenue && currentVenue.id === venue.id;
+              const setAsCurrent = () => {
+                setCurrentVenue(venue);
+              };
+              return (
+                <FavoriteVenueMarker
+                  key={venue.id}
+                  position={[
+                    Number(venue.location.lat),
+                    Number(venue.location.lng)
+                  ]}
+                  zIndexOffset={100}
+                  onClick={setAsCurrent}
+                  isCurrentVenue={isCurrentVenue}
+                  onMouseOver={e => {
+                    e.target.openPopup();
+                  }}
+                  onMouseOut={e => {
+                    e.target.closePopup();
+                  }}
+                >
+                  <Popup>
+                    <h4>{venue.name}</h4>
+                  </Popup>
+                </FavoriteVenueMarker>
+              );})}
+          </LayerGroup>
+        ),
+        OtherVenues: () => (
+          <LayerGroup>
+            {otherVenues.map(venue => {
+              const isCurrentVenue = currentVenue && currentVenue.id === venue.id;
+              const setAsCurrent = () => {
+                setCurrentVenue(venue);
+              };
+              return (
+                <VenueMarker
+                  key={venue.id}
+                  position={[
+                    Number(venue.location.lat),
+                    Number(venue.location.lng)
+                  ]}
+                  zIndexOffset={80}
+                  onClick={setAsCurrent}
+                  isCurrentVenue={isCurrentVenue}
+                  onMouseOver={e => {
+                    e.target.openPopup();
+                  }}
+                  onMouseOut={e => {
+                    e.target.closePopup();
+                  }}
+                >
+                  <Popup>
+                    <h4>{venue.name}</h4>
+                  </Popup>
+                </VenueMarker>
+              );
+            })}
+          </LayerGroup>
+        )
+      };
+      return <><Markers.FavoriteVenues /><Markers.OtherVenues /></>
+    }
+    return center && venues && render(venues)
+    // return (
+    //   center &&
+    //   venues &&
+    //   venues.map(venue => {
+    //     const setAsCurrent = () => {
+    //       setCurrentVenue(venue);
+    //     };
+    //     // const isCurrentVenue = currentVenue && currentVenue.id === venue.id;
+    //     const Marker = venue.isFavorite
+    //       ? FavoriteVenueMarker
+    //       : VenueMarker;
+    //     return (
+    //       <Marker
+    //         key={venue.id}
+    //         position={[
+    //           Number(venue.location.lat),
+    //           Number(venue.location.lng)
+    //         ]}
+    //         zIndexOffset={-10}
+    //         onClick={setAsCurrent}
+    //       >
+    //         <Popup>
+    //           <h4>{venue.name}</h4>
+    //         </Popup>
+    //       </Marker>
+    //     );
+    //   })
+    // );
+  };
 
   const StamenTonerTileLayer = () => (
     <TileLayer
@@ -76,9 +152,7 @@ export default React.memo(function LeafMap(props) {
       <ConcertMap center={center} zoom={12} ref={mapRef}>
         <StamenTonerTileLayer />
         {props.center && venues.length > 0 && (
-          <>
-            <Circle center={center} fillColor="blue" radius={radius + 260} />
-          </>
+          <Circle center={center} fillColor="blue" radius={radius + 260} />
         )}
         {props.center && <HomeMarker position={props.center} />}
         {renderEventMarkers(props.center)}
@@ -94,11 +168,3 @@ export default React.memo(function LeafMap(props) {
 //     <CardFooter>This is the footer</CardFooter>
 //   </Card>
 // </Control>
-
-// <HomeMarker position={{ lat: center[0], lng: center[1] }}>
-//   <Popup>
-//     <strong>Your Address:</strong>
-//     <br />
-//     {center}
-//   </Popup>
-// </HomeMarker>
