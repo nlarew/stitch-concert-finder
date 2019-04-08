@@ -2,17 +2,13 @@
 import React, { useState, useEffect } from "react";
 import { css, jsx } from "@emotion/core";
 import styled from "@emotion/styled";
-import Search, { useVenues } from "./Search";
-import List from "./List";
-import Venue from "./VenueDetail";
 import Banner from "./Banner";
 import { VenuesList } from "./List";
 import Navbar from "./Navbar";
-import { Card, CardBody, CardHeader } from 'reactstrap'
-import * as R from 'ramda'
+import { Button, Card, CardBody, CardHeader } from 'reactstrap'
 import ErrorBoundary from "react-error-boundary";
-
-import ReactJson from 'react-json-view'
+import { getVenuesById } from "./../stitch/mongodb"
+import { navigate } from "@reach/router"
 
 const ProfileLayout = styled.div`
   display: grid;
@@ -43,23 +39,26 @@ function ProfileContent(props) {
   const {
     currentUser,
     venueData: {
-      orderedVenues,
+      // orderedVenues,
       currentVenue,
       setCurrentVenue,
-      address,
-      userActions
+      // address,
+      // userActions
     }
   } = props;
-  console.log(currentUser);
-  // TODO: Watch for changes to user document and update accordingly
-  const isUserOfType = (type) => currentUser && R.find(R.propEq("provider_type", type))(currentUser.identities) !== undefined
-  const isEmailPasswordUser = isUserOfType("local-userpass")
-  const isFacebookUser = isUserOfType("oauth2-facebook")
-  const isGoogleUser = isUserOfType("oauth2-google")
-  // TODO: Hydrate venues array from venue ids
-  // - Do this from MongoDB
-  // - Watch for changes?
-  // Build out table that lists favorite venues
+  // const isUserOfType = (type) => currentUser && R.find(R.propEq("provider_type", type))(currentUser.identities) !== undefined
+  // const isEmailPasswordUser = isUserOfType("local-userpass")
+  // const isFacebookUser = isUserOfType("oauth2-facebook")
+  // const isGoogleUser = isUserOfType("oauth2-google")
+  const [favoriteVenues, setFavoriteVenues] = useState([])
+  const favoriteVenueIds = currentUser && currentUser.favoriteVenues;
+  useEffect(() => {
+    const updateVenues = async () => {
+      const venues = await getVenuesById(currentUser.favoriteVenues);
+      setFavoriteVenues(venues);
+    }
+    if (currentUser) { updateVenues() }
+  }, [currentUser, favoriteVenueIds])
   return currentUser ? (
     <ContentCard inverse>
       <ErrorBoundary>
@@ -67,11 +66,14 @@ function ProfileContent(props) {
           <CardHeader css={headerStyle}>
             <h1>{currentUser.data.name}</h1>
             <h2>{currentUser.id}</h2>
+            <Button onClick={() => { navigate("/profile/link") }}>Link another Account</Button>
           </CardHeader>
-          <div>isEmailPasswordUser: {isEmailPasswordUser ? "T" : "F"}</div>
-          <div>isFacebookUser: {isFacebookUser ? "T" : "F"}</div>
-          <div>isGoogleUser: {isGoogleUser ? "T" : "F"}</div>
-          <ReactJson src={currentUser} theme="monokai" />
+          <VenuesList
+            venues={favoriteVenues}
+            currentVenue={currentVenue}
+            setCurrentVenue={setCurrentVenue}
+            title="Favorite Venues"
+          />
         </CardBody>
       </ErrorBoundary>
     </ContentCard>
@@ -81,8 +83,8 @@ function ProfileContent(props) {
 }
 
 export default function Profile(props) {
-  const { currentUserProfile, updateCurrentUserProfile, venueData } = props;
-  venueData.userActions = venueData.getUserActions({ updateCurrentUserProfile })
+  const { currentUserProfile, venueData } = props;
+  venueData.userActions = venueData.getUserActions()
   return (
     <ProfileLayout>
       <Banner>

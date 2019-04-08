@@ -13,6 +13,9 @@ import {
   registerNewEmailUser,
   sendPasswordResetEmail,
   useStitchAuth,
+  linkEmailPasswordUser,
+  linkFacebookUser,
+  linkGoogleUser,
 } from "./authentication";
 
 export default app;
@@ -24,8 +27,11 @@ export {
   handlePasswordReset,
   hasLoggedInUser,
   loginEmailPasswordUser,
+  linkEmailPasswordUser,
   loginFacebookUser,
+  linkFacebookUser,
   loginGoogleUser,
+  linkGoogleUser,
   logoutUser,
   registerNewEmailUser,
   searchNearAddress,

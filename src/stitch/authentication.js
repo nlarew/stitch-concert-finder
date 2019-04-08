@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   UserPasswordCredential,
   FacebookRedirectCredential,
@@ -7,7 +7,7 @@ import {
   UserPasswordAuthProviderClient,
 } from "mongodb-stitch-browser-sdk";
 import app from "./app";
-import { getUserProfile } from "./mongodb";
+import { getUserProfile, useWatchUser } from "./mongodb";
 
 /* ## Authentication Functions
  *
@@ -30,6 +30,21 @@ export function loginGoogleUser() {
   return app.auth.loginWithRedirect(new GoogleRedirectCredential())
 }
 
+export function linkEmailPasswordUser({ email, password }) {
+  // Log in a user with the specified email and password
+  // Note: The user must already be registered with the Stitch app.
+  // See https://docs.mongodb.com/stitch/authentication/userpass/#create-a-new-user-account
+  return app.auth.user && app.auth.user.linkWithCredential(new UserPasswordCredential(email, password));
+}
+
+export function linkFacebookUser() {
+  return app.auth.user && app.auth.user.linkUserWithRedirect(new FacebookRedirectCredential())
+}
+
+export function linkGoogleUser() {
+  return app.auth.user && app.auth.user.linkUserWithRedirect(new GoogleRedirectCredential())
+}
+
 export function handleOAuthRedirects() {
   if (app.auth.hasRedirectResult()) {
     app.auth.handleRedirectResult()
@@ -43,6 +58,11 @@ export function hasLoggedInUser() {
 export function getAllUsers() {
   // Return a list of all users that are associated with the app
   return app.auth.listUsers();
+}
+
+export function getCurrentUser() {
+  // Return a list of all users that are associated with the app
+  return app.auth.isLoggedIn ? app.auth.user : false;
 }
 
 // export function removeUserFromApp(stitchUser) {
@@ -66,30 +86,40 @@ export function logoutUser(stitchUser) {
 //   return app.auth.currentUser && app.auth.currentUser.id === stitchUser.id;
 // }
 
+// export function useStitchAuthentication() {
+//   const isLoggedIn = app.auth.isLoggedIn
+//   const defaultAuthState = {
+//     isLoggedIn,
+//     currentUserProfile: isLoggedIn ? getUserProfile(getCurrentUser()) : null
+//   };
+//   const authReducer = (state, action) => {
+//     switch(action.type) {
+//       case "setLoggedInUser": {
+//         const { user } = action.payload
+//         return { isLoggedIn: true }
+//       }
+//       default: {}
+//     }
+//   }
+//   const [authState, dispatch] = React.useReducer(authReducer, defaultAuthState)
+//   return authState
+// }
+
 export function useStitchAuth() {
   // We'll store the list of users in state
-  const [users, setUsers] = useState([]);
-  const [currentUserProfile, setCurrentUserProfile] = useState(null)
-  async function updateCurrentUserProfile(userProfile) {
-    if (userProfile) {
-      setCurrentUserProfile(userProfile)
-    } else {
-      const profile = app.auth.user ? await getUserProfile(app.auth.user.id) : null
-      setCurrentUserProfile(profile)
-    }
-  }
-  useEffect(() => {
-    updateCurrentUserProfile()
-  }, [app.auth.user])
+  // const [users, setUsers] = useState(getAllUsers());
+  const [loggedInUser, setLoggedInUser] = useState(getCurrentUser());
+  const currentUserProfile = useWatchUser(loggedInUser);
+  console.log("currentUserProfile", loggedInUser, currentUserProfile);
   // Whenever some authentication event happens, we want to update our list of users in state.
   // We'll use a Stitch auth listener to call our update function whenever any type of auth event
   // is emitted. We only want to add this listener once (when the component first loads) so we pass
   // an empty dependency array.
   const updateUsers = () => {
     // We'll get a current list of users and update our state with a function
-    const appUsers = getAllUsers();
-    setUsers(appUsers);
-    updateCurrentUserProfile()
+    // setUsers(getAllUsers());
+    console.log("update")
+    setLoggedInUser(getCurrentUser());
   };
   useEffect(() => {
     const listener = {
@@ -105,17 +135,13 @@ export function useStitchAuth() {
     // React hooks can return a "cleanup" function that ties up any loose ends before
     // a component is unmounted. In this case, we want to remove the auth listener
     // we created to prevent a memory leak.
-    return () => app.auth.removeAuthListener(listener);
+    return () => {
+      console.log('removing auth event listener');
+      app.auth.removeAuthListener(listener)
+    };
   }, []);
 
-  // We also want a state variable that indicates if ANY user is currently logged in
-  const [hasLoggedInUser, setHasLoggedInUser] = useState(app.auth.isLoggedIn);
-  const checkForLoggedInUser = () => {
-    setHasLoggedInUser(app.auth.isLoggedIn);
-  };
-  useEffect(checkForLoggedInUser);
-
-  return { users, hasLoggedInUser, currentUserProfile, updateCurrentUserProfile };
+  return { currentUserProfile };
 }
 
 function parseToken() {

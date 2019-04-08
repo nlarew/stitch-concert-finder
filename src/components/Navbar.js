@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import app, { logoutUser } from "./../stitch";
-import { navigate } from "@reach/router";
+import { Link, navigate } from "@reach/router";
 import { Button } from "reactstrap";
 
 const NavbarContainer = styled.div`
@@ -13,11 +13,17 @@ const NavbarContainer = styled.div`
 `;
 
 const LogoutButton = () => (
-  <Button onClick={() => logoutUser(app.auth.user)}>Log Out</Button>
+  <Button onClick={() => {
+    console.log('logout')
+    logoutUser(app.auth.user)
+  }}>Log Out</Button>
 );
+// const LogoutButton = () => (
+//   <Button onClick={() => logoutUser(app.auth.user)}>Log Out</Button>
+// );
 
 const UserProfileButton = () => (
-  <Button onClick={() => navigate("/profile")}>User Profile</Button>
+  <Button><Link to="/profile">User Profile</Link></Button>
 );
 
 const AppButton = () => <Button onClick={() => navigate("/app")}>App</Button>;

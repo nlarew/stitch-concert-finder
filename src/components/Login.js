@@ -97,9 +97,6 @@ const LoginLayout = styled.div`
 
 const LoginCard = styled(Card)`
   width: 400px;
-  background-color: #383a3f !important;
-  background-color: #3e4348 !important;
-  background-color: #1f2124 !important;
   background-color: #011627 !important;
 `;
 
@@ -282,26 +279,26 @@ function EmailPasswordForm(props) {
   );
 }
 
-function LoginButtons(props) {
-  return (
-    <>
-      <EmailPasswordLoginButton
-        css={socialButtonStyle}
-        onClick={() => props.setIsEmailPassword(true)}
-      />
-      <FacebookLoginButton
-        css={socialButtonStyle}
-        onClick={() => props.loginFacebookUser()}
-      />
-      <GoogleLoginButton
-        css={socialButtonStyle}
-        onClick={() => props.loginGoogleUser()}
-      />
-    </>
-  );
-}
+// function LoginButtons(props) {
+//   return (
+//     <>
+//       <EmailPasswordLoginButton
+//         css={socialButtonStyle}
+//         onClick={() => props.setIsEmailPassword(true)}
+//       />
+//       <FacebookLoginButton
+//         css={socialButtonStyle}
+//         onClick={() => props.loginFacebookUser()}
+//       />
+//       <GoogleLoginButton
+//         css={socialButtonStyle}
+//         onClick={() => props.loginGoogleUser()}
+//       />
+//     </>
+//   );
+// }
 
-export function LoginForm(props) {
+export const LoginForm = React.memo(function(props) {
   const { loginEmailPasswordUser, loginFacebookUser, loginGoogleUser } = props;
   const [isEmailPassword, setIsEmailPassword] = useState(false);
   return (
@@ -313,18 +310,27 @@ export function LoginForm(props) {
         />
       ) : (
         <CardBody>
-          <LoginButtons
-            setIsEmailPassword={setIsEmailPassword}
-            loginFacebookUser={loginFacebookUser}
-            loginGoogleUser={loginGoogleUser}
-          />
+          <>
+            <EmailPasswordLoginButton
+              css={socialButtonStyle}
+              onClick={() => setIsEmailPassword(true)}
+            />
+            <FacebookLoginButton
+              css={socialButtonStyle}
+              onClick={() => loginFacebookUser()}
+            />
+            <GoogleLoginButton
+              css={socialButtonStyle}
+              onClick={() => loginGoogleUser()}
+            />
+          </>
         </CardBody>
       )}
     </LoginCard>
   );
-}
+})
 
-export default function Login(props) {
+export default React.memo(function(props) {
   return !props.isLoggedIn ? (
     <ErrorBoundary>
       <LoginLayout>
@@ -337,4 +343,17 @@ export default function Login(props) {
   ) : (
     <Redirect to="/app" noThrow />
   );
+})
+
+export function LinkLogin(props) {
+  return (
+    <ErrorBoundary>
+      <LoginLayout>
+        <Banner />
+        <LoginContent>
+          <LoginForm {...props} />
+        </LoginContent>
+      </LoginLayout>
+    </ErrorBoundary>
+  )
 }

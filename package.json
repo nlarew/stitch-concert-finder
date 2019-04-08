@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "keywords": [],
-  "homepage": "https://concerts.nlarew.com/",
   "main": "src/index.js",
   "dependencies": {
     "@emotion/core": "10.0.9",
@@ -30,8 +29,8 @@
     "react-scripts": "2.1.8",
     "react-social-login-buttons": "2.3.1",
     "react-table-container": "^2.0.2",
-    "react-use": "6.1.0",
-    "reactstrap": "7.1.0"
+    "reactstrap": "7.1.0",
+    "why-did-you-update": "^1.0.6"
   },
   "devDependencies": {
     "typescript": "3.3.3"

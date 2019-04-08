@@ -6,10 +6,14 @@ import app, {
   loginEmailPasswordUser,
   loginFacebookUser,
   loginGoogleUser,
+  linkEmailPasswordUser,
+  linkFacebookUser,
+  linkGoogleUser,
   logoutUser,
-  handleOAuthRedirects
+  handleOAuthRedirects,
+  getCurrentUser
 } from "./stitch";
-import Login, { ConfirmEmail, ResetPassword } from "./components/Login";
+import Login, { ConfirmEmail, ResetPassword, LinkLogin } from "./components/Login";
 import App from "./components/App";
 import Profile from "./components/Profile";
 import { useVenues } from "./components/Search";
@@ -32,28 +36,62 @@ function useFavoritesFirst(currentUserProfile, venues) {
     if (aFav && !bFav) { return -1 }
     if (!aFav && bFav) { return 1 }
   }
-  const orderByFavorites = () => {
-    const ordered = R.sort(favoritesFirst, venues.map(venue => ({
+  useEffect(() => {
+    const orderByFavorites = R.sort(favoritesFirst)
+    const ordered = orderByFavorites(venues.map(venue => ({
       ...venue,
       isFavorite: isFavorite(venue)
     })))
-    setOrderedVenues(ordered);
-  };
-  useEffect(() => {
-    orderByFavorites();
+    setOrderedVenues(ordered)
   }, [favoriteVenues, venues]);
   return orderedVenues
 }
 
-function AppRouter() {
-  const {
-    hasLoggedInUser,
-    currentUserProfile,
-    updateCurrentUserProfile
-  } = useStitchAuth();
+// class MyAppRouter extends React.Component {
+//   constructor(props) {
+//     super(props)
+//     this.state = {
+//       currentUserProfile: null
+//     }
+//     this.authListener = {
+//       onUserAdded: updateUsers,
+//       onUserLoggedIn: updateUsers,
+//       onActiveUserChanged: updateUsers,
+//       onUserLoggedOut: updateUsers,
+//       onUserRemoved: updateUsers,
+//       onUserLinked: updateUsers,
+//       onListenerRegistered: updateUsers,
+//     }
+//   }
 
-  const venueData = useVenues();
-  venueData.orderedVenues = useFavoritesFirst(currentUserProfile, venueData.venues);
+//   updateUser() {
+//     console.log("update");
+//     this.setState((state) => ({ ...state,  }))
+//     setLoggedInUser(getCurrentUser());
+//   }
+
+//   listenForAuth() {
+//     app.auth.addAuthListener(this.authListener);
+//   }
+//   cancelListenForAuth() {
+//     app.auth.removeAuthListener(this.authListener);
+//   }
+
+//   componentDidMount() {
+//     listenForAuth()
+//   }
+// }
+
+function AppRouter() {
+  const { currentUserProfile } = useStitchAuth();
+  const hasLoggedInUser = !!currentUserProfile
+
+  let venueData = useVenues();
+  const orderedVenues = useFavoritesFirst(currentUserProfile, venueData.venues);
+  venueData = {
+    ...venueData,
+    orderedVenues
+  };
 
   return (
     <Router>
@@ -71,7 +109,6 @@ function AppRouter() {
           path="/app"
           venueData={venueData}
           currentUserProfile={currentUserProfile}
-          updateCurrentUserProfile={updateCurrentUserProfile}
           handleLogout={() => logoutUser(app.currentUser)}
         />
       )}
@@ -80,8 +117,15 @@ function AppRouter() {
           path="/profile"
           venueData={venueData}
           currentUserProfile={currentUserProfile}
-          updateCurrentUserProfile={updateCurrentUserProfile}
           handleLogout={() => logoutUser(app.currentUser)}
+        />
+      )}
+      {hasLoggedInUser && (
+        <LinkLogin
+          path="/profile/link"
+          loginEmailPasswordUser={linkEmailPasswordUser}
+          loginFacebookUser={linkFacebookUser}
+          loginGoogleUser={linkGoogleUser}
         />
       )}
       <Redirect from="*" to="/login" noThrow default />

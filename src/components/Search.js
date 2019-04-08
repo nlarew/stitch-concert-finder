@@ -147,16 +147,14 @@ export function useVenues() {
     [searching],
   );
 
-  const getUserActions = ({ updateCurrentUserProfile }) => ({
+  const getUserActions = () => ({
     addFavoriteVenue: async venueId => {
       console.log("addFavoriteVenue", venueId);
-      const user = await mongodbActions.addFavoriteVenue({ venueId });
-      updateCurrentUserProfile(user);
+      await mongodbActions.addFavoriteVenue({ venueId });
     },
     removeFavoriteVenue: async venueId => {
       console.log("removeFavoriteVenue", venueId);
-      const user = await mongodbActions.removeFavoriteVenue({ venueId });
-      updateCurrentUserProfile(user);
+      await mongodbActions.removeFavoriteVenue({ venueId });
     },
     starEvent: async (venueId, eventId) => {
       console.log("starEvent", venueId, eventId);
@@ -251,7 +249,7 @@ const Search = props => {
             center={coords}
             currentVenue={currentVenue}
             setCurrentVenue={setCurrentVenue}
-            searching={searching}
+            isSearching={searching}
           />
         </ContentBody>
       </ErrorBoundary>
