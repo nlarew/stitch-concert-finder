@@ -19,10 +19,10 @@ const AppLayout = styled.div`
 `;
 
 export default function App(props) {
-  const { currentUserProfile, venueData } = props;
+  const { currentUserProfile, setCurrentUserProfile, venueData } = props;
   const { venues, address, getUserActions } = venueData;
   const { orderedVenues, currentVenue, setCurrentVenue } = venueData;
-  const userActions = getUserActions()
+  const userActions = getUserActions({ setCurrentUserProfile });
   return (
     <AppLayout>
       <Banner>

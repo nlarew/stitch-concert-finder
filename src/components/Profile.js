@@ -83,8 +83,9 @@ function ProfileContent(props) {
 }
 
 export default function Profile(props) {
-  const { currentUserProfile, venueData } = props;
-  venueData.userActions = venueData.getUserActions()
+  const { currentUserProfile, setCurrentUserProfile, venueData } = props;
+  venueData.userActions = venueData.getUserActions({ setCurrentUserProfile})
+  console.log("currentUserProfile", currentUserProfile);
   return (
     <ProfileLayout>
       <Banner>

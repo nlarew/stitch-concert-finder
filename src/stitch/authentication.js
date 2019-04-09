@@ -9,6 +9,41 @@ import {
 import app from "./app";
 import { getUserProfile, useWatchUser } from "./mongodb";
 
+export function useStitchAuth() {
+  const [currentUserProfile, setCurrentUserProfile] = useState(null);
+  const [isLoadingAuth, setIsLoadingAuth] = useState(true);
+  const updateUsers = async () => {
+    const currentUser = getCurrentUser()
+    const profile = currentUser && await getUserProfile(currentUser.id)
+    setCurrentUserProfile(profile)
+    if (isLoadingAuth) { setIsLoadingAuth(false) }
+  };
+  useEffect(() => {
+    const listener = {
+      onUserAdded: updateUsers,
+      onUserLoggedIn: updateUsers,
+      onActiveUserChanged: updateUsers,
+      onUserLoggedOut: updateUsers,
+      onUserRemoved: updateUsers,
+      onUserLinked: updateUsers,
+      onListenerRegistered: updateUsers,
+    };
+    app.auth.addAuthListener(listener);
+    return () => { app.auth.removeAuthListener(listener) };
+  }, []);
+
+  return {
+    currentUserProfile,
+    setCurrentUserProfile,
+    isLoadingAuth,
+    actions: {
+      loginEmailPasswordUser,
+      loginFacebookUser,
+      loginGoogleUser
+    }
+  };
+}
+
 /* ## Authentication Functions
  *
  * The functions in this section are wrappers that call authentication methods from the
@@ -65,93 +100,10 @@ export function getCurrentUser() {
   return app.auth.isLoggedIn ? app.auth.user : false;
 }
 
-// export function removeUserFromApp(stitchUser) {
-//   // Remove a user from the app (and log them out automatically, if necessary)
-//   return app.auth.removeUserWithId(stitchUser.id);
-// }
-
-// export function switchToUser(stitchUser) {
-//   // Set another logged-in user as the active user
-//   return app.auth.switchToUserWithId(stitchUser.id);
-// }
-
 export function logoutUser(stitchUser) {
   // Log a user out of the app. Logged out users are still associated with
   // the app and will appear in the result of app.auth.listUsers()
   return app.auth.logoutUserWithId(stitchUser.id);
-}
-
-// export function isActiveUser(stitchUser) {
-//   // Return true if the specified user is logged in and currently active
-//   return app.auth.currentUser && app.auth.currentUser.id === stitchUser.id;
-// }
-
-// export function useStitchAuthentication() {
-//   const isLoggedIn = app.auth.isLoggedIn
-//   const defaultAuthState = {
-//     isLoggedIn,
-//     currentUserProfile: isLoggedIn ? getUserProfile(getCurrentUser()) : null
-//   };
-//   const authReducer = (state, action) => {
-//     switch(action.type) {
-//       case "setLoggedInUser": {
-//         const { user } = action.payload
-//         return { isLoggedIn: true }
-//       }
-//       default: {}
-//     }
-//   }
-//   const [authState, dispatch] = React.useReducer(authReducer, defaultAuthState)
-//   return authState
-// }
-
-export function useStitchAuth() {
-  // We'll store the list of users in state
-  // const [users, setUsers] = useState(getAllUsers());
-  const [loggedInUser, setLoggedInUser] = useState(getCurrentUser());
-  const currentUserProfile = useWatchUser(loggedInUser);
-  console.log("currentUserProfile", loggedInUser, currentUserProfile);
-  // Whenever some authentication event happens, we want to update our list of users in state.
-  // We'll use a Stitch auth listener to call our update function whenever any type of auth event
-  // is emitted. We only want to add this listener once (when the component first loads) so we pass
-  // an empty dependency array.
-  const updateUsers = () => {
-    // We'll get a current list of users and update our state with a function
-    // setUsers(getAllUsers());
-    console.log("update")
-    setLoggedInUser(getCurrentUser());
-  };
-  useEffect(() => {
-    const listener = {
-      onUserAdded: updateUsers,
-      onUserLoggedIn: updateUsers,
-      onActiveUserChanged: updateUsers,
-      onUserLoggedOut: updateUsers,
-      onUserRemoved: updateUsers,
-      onUserLinked: updateUsers,
-      onListenerRegistered: updateUsers,
-    };
-    app.auth.addAuthListener(listener);
-    // React hooks can return a "cleanup" function that ties up any loose ends before
-    // a component is unmounted. In this case, we want to remove the auth listener
-    // we created to prevent a memory leak.
-    return () => {
-      console.log('removing auth event listener');
-      app.auth.removeAuthListener(listener)
-    };
-  }, []);
-
-  return { currentUserProfile };
-}
-
-function parseToken() {
-  // Parse the URL query parameters
-  const url = window.location.search;
-  const params = new URLSearchParams(url);
-  const token = params.get('token');
-  const tokenId = params.get('tokenId');
-  console.log("t", token, tokenId, window.location);
-  return { token, tokenId }
 }
 
 export function registerNewEmailUser(email, password) {
@@ -172,9 +124,18 @@ export function registerNewEmailUser(email, password) {
     });
 }
 
-export function confirmEmail() {
+function parseToken(url) {
+  // Parse the URL query parameters
+  const params = new URLSearchParams(url);
+  const token = params.get("token");
+  const tokenId = params.get("tokenId");
+  console.log("t", token, tokenId);
+  return { token, tokenId };
+}
+
+export function confirmEmail(location) {
   // Confirm the user's email/password account
-  const { token, tokenId } = parseToken()
+  const { token, tokenId } = parseToken(location.search);
   return app.auth
     .getProviderClient(UserPasswordAuthProviderClient.factory)
     .confirmUser(token, tokenId)
@@ -190,9 +151,9 @@ export function sendPasswordResetEmail(emailAddress) {
     .catch(e => console.error("Error sending password reset email:", e));
 }
 
-export function handlePasswordReset(newPassword) {
+export function handlePasswordReset(newPassword, location) {
   // Reset a user's password after they click the email link
-  const { token, tokenId } = parseToken()
+  const { token, tokenId } = parseToken(location.search)
   return app.auth
     .getProviderClient(UserPasswordAuthProviderClient.factory)
     .resetPassword(token, tokenId, newPassword)

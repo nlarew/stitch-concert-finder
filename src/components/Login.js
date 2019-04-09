@@ -13,6 +13,7 @@ import {
   Label,
   Input,
 } from "reactstrap";
+import { Location } from "@reach/router"
 import {
   FacebookLoginButton,
   GoogleLoginButton,
@@ -106,7 +107,7 @@ const LoginContent = styled.div`
   top: -30vh;
 `;
 
-export function ResetPassword() {
+export function ResetPassword(props) {
   const [newPassword, setNewPassword] = React.useState("");
   return (
     <ErrorBoundary>
@@ -126,7 +127,7 @@ export function ResetPassword() {
                     onChange={e => setNewPassword(e.currentTarget.value)}
                   />
                 </FormGroup>
-                <Button onClick={() => handlePasswordReset(newPassword)}>
+                <Button onClick={() => handlePasswordReset(newPassword, props.location)}>
                   Reset Password
                 </Button>
               </Form>
@@ -138,14 +139,14 @@ export function ResetPassword() {
   );
 }
 
-export function ConfirmEmail() {
+export function ConfirmEmail(props) {
+  const { location } = props
   const [isConfirming, setIsConfirming] = React.useState(true);
   useEffect(() => {
-    confirmEmail().then(() => {
+    confirmEmail(location).then(() => {
       setIsConfirming(false);
     });
   }, []);
-
   return isConfirming ? "confirming" : <Redirect to="/login" noThrow />;
 }
 
@@ -301,6 +302,7 @@ function EmailPasswordForm(props) {
 export const LoginForm = React.memo(function(props) {
   const { loginEmailPasswordUser, loginFacebookUser, loginGoogleUser } = props;
   const [isEmailPassword, setIsEmailPassword] = useState(false);
+  const setToEmailPassword = () => setIsEmailPassword(true);
   return (
     <LoginCard inverse color="dark">
       {isEmailPassword ? (
@@ -313,15 +315,15 @@ export const LoginForm = React.memo(function(props) {
           <>
             <EmailPasswordLoginButton
               css={socialButtonStyle}
-              onClick={() => setIsEmailPassword(true)}
+              onClick={setToEmailPassword}
             />
             <FacebookLoginButton
               css={socialButtonStyle}
-              onClick={() => loginFacebookUser()}
+              onClick={loginFacebookUser}
             />
             <GoogleLoginButton
               css={socialButtonStyle}
-              onClick={() => loginGoogleUser()}
+              onClick={loginGoogleUser}
             />
           </>
         </CardBody>

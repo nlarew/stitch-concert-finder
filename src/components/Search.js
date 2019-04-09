@@ -147,14 +147,16 @@ export function useVenues() {
     [searching],
   );
 
-  const getUserActions = () => ({
+  const getUserActions = ({ setCurrentUserProfile }) => ({
     addFavoriteVenue: async venueId => {
       console.log("addFavoriteVenue", venueId);
-      await mongodbActions.addFavoriteVenue({ venueId });
+      const user = await mongodbActions.addFavoriteVenue({ venueId });
+      setCurrentUserProfile(user);
     },
     removeFavoriteVenue: async venueId => {
       console.log("removeFavoriteVenue", venueId);
-      await mongodbActions.removeFavoriteVenue({ venueId });
+      const user = await mongodbActions.removeFavoriteVenue({ venueId });
+      setCurrentUserProfile(user);
     },
     starEvent: async (venueId, eventId) => {
       console.log("starEvent", venueId, eventId);

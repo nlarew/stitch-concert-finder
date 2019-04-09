@@ -7,26 +7,34 @@ const mongoClient = app.getServiceClient(RemoteMongoClient.factory, "mongodb-atl
 const users = mongoClient.db("concertmap").collection("users");
 const venues = mongoClient.db("concertmap").collection("venues");
 
-export async function getUserProfile(userId) {
+export async function getUserProfile(userId, iteration=0) {
   // We need to wait for the trigger to create this profile if it's a new account
-  const isLoggedIn = app.auth.isLoggedIn
-  if (!isLoggedIn) {
-    return null
-  } else {
-    console.error('getUserProfile', 'begin')
-    const user = await users.findOne({ id: userId })
-    if (user) {
-      return user
-    } else {
-      console.error('getUserProfile', 'failed')
-      const delay = (fn) => new Promise((resolve) => {
-        console.error('getUserProfile', 'retrying')
-        setTimeout(() => resolve(fn()), 1000)
-      })
-      return user || delay(() => getUserProfile(userId))
-    }
-  }
+  if (iteration > 20) { throw new Error("fuck") }
+  const delay = (fn) => new Promise((resolve) => { setTimeout(() => resolve(fn()), 1000) })
+  const userProfile = await users.findOne({ id: userId }) || await delay(() => getUserProfile(userId, iteration+1))
+  return userProfile
 }
+
+// export async function getUserProfile(userId) {
+//   // We need to wait for the trigger to create this profile if it's a new account
+//   const isLoggedIn = app.auth.isLoggedIn
+//   if (!isLoggedIn) {
+//     return null
+//   } else {
+//     console.error('getUserProfile', 'begin')
+//     const user = await users.findOne({ id: userId })
+//     if (user) {
+//       return user
+//     } else {
+//       console.error('getUserProfile', 'failed')
+//       const delay = (fn) => new Promise((resolve) => {
+//         console.error('getUserProfile', 'retrying')
+//         setTimeout(() => resolve(fn()), 1000)
+//       })
+//       return user || delay(() => getUserProfile(userId))
+//     }
+//   }
+// }
 // export async function getUserProfile(userId) {
 //   // We need to wait for the trigger to create this profile if it's a new account
 //   const doTheThing = new Promise((resolve, reject) => {

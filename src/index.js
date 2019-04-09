@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import * as R from 'ramda'
 import ReactDOM from "react-dom";
+import styled from '@emotion/styled'
 import app, {
   useStitchAuth,
-  loginEmailPasswordUser,
-  loginFacebookUser,
-  loginGoogleUser,
+  // loginEmailPasswordUser,
+  // loginFacebookUser,
+  // loginGoogleUser,
   linkEmailPasswordUser,
   linkFacebookUser,
   linkGoogleUser,
@@ -15,6 +16,7 @@ import app, {
 } from "./stitch";
 import Login, { ConfirmEmail, ResetPassword, LinkLogin } from "./components/Login";
 import App from "./components/App";
+import Loading from "./components/Loading";
 import Profile from "./components/Profile";
 import { useVenues } from "./components/Search";
 import { Router, Redirect } from "@reach/router";
@@ -47,44 +49,15 @@ function useFavoritesFirst(currentUserProfile, venues) {
   return orderedVenues
 }
 
-// class MyAppRouter extends React.Component {
-//   constructor(props) {
-//     super(props)
-//     this.state = {
-//       currentUserProfile: null
-//     }
-//     this.authListener = {
-//       onUserAdded: updateUsers,
-//       onUserLoggedIn: updateUsers,
-//       onActiveUserChanged: updateUsers,
-//       onUserLoggedOut: updateUsers,
-//       onUserRemoved: updateUsers,
-//       onUserLinked: updateUsers,
-//       onListenerRegistered: updateUsers,
-//     }
-//   }
-
-//   updateUser() {
-//     console.log("update");
-//     this.setState((state) => ({ ...state,  }))
-//     setLoggedInUser(getCurrentUser());
-//   }
-
-//   listenForAuth() {
-//     app.auth.addAuthListener(this.authListener);
-//   }
-//   cancelListenForAuth() {
-//     app.auth.removeAuthListener(this.authListener);
-//   }
-
-//   componentDidMount() {
-//     listenForAuth()
-//   }
-// }
-
 function AppRouter() {
-  const { currentUserProfile } = useStitchAuth();
+  const {
+    currentUserProfile,
+    setCurrentUserProfile,
+    isLoadingAuth,
+    actions: { loginEmailPasswordUser, loginFacebookUser, loginGoogleUser }
+  } = useStitchAuth();
   const hasLoggedInUser = !!currentUserProfile
+  console.log(hasLoggedInUser && currentUserProfile);
 
   let venueData = useVenues();
   const orderedVenues = useFavoritesFirst(currentUserProfile, venueData.venues);
@@ -94,6 +67,7 @@ function AppRouter() {
   };
 
   return (
+    isLoadingAuth ? <Loading /> : (
     <Router>
       <Login
         path="/login"
@@ -109,6 +83,7 @@ function AppRouter() {
           path="/app"
           venueData={venueData}
           currentUserProfile={currentUserProfile}
+          setCurrentUserProfile={setCurrentUserProfile}
           handleLogout={() => logoutUser(app.currentUser)}
         />
       )}
@@ -117,6 +92,7 @@ function AppRouter() {
           path="/profile"
           venueData={venueData}
           currentUserProfile={currentUserProfile}
+          setCurrentUserProfile={setCurrentUserProfile}
           handleLogout={() => logoutUser(app.currentUser)}
         />
       )}
@@ -130,7 +106,7 @@ function AppRouter() {
       )}
       <Redirect from="*" to="/login" noThrow default />
     </Router>
-  );
+  ));
 }
 
 const rootElement = document.getElementById("root");
