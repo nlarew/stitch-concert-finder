@@ -9,8 +9,11 @@ const venues = mongoClient.db("concertmap").collection("venues");
 
 export async function getUserProfile(userId, iteration=0) {
   // We need to wait for the trigger to create this profile if it's a new account
-  if (iteration > 20) { throw new Error("fuck") }
+  if (iteration > 20) { throw new Error("uh-oh") }
   const delay = (fn) => new Promise((resolve) => { setTimeout(() => resolve(fn()), 1000) })
+  console.log(`${iteration} - ${userId}`)
+  const p = await users.findOne({ id: userId });
+  console.log(p)
   const userProfile = await users.findOne({ id: userId }) || await delay(() => getUserProfile(userId, iteration+1))
   return userProfile
 }
@@ -60,18 +63,18 @@ export function getVenuesById(venueIds) {
   return venues.find({ id: { $in: venueIds } }).toArray()
 }
 
-export function useWatchUser(stitchUser) {
+export function useWatchUser(stitchUserId) {
   const [watchedUser, setWatchedUser] = useState(null);
-  const isUser = !!stitchUser;
+  const isUser = !!stitchUserId;
   // debugger
   useEffect(() => {
     // debugger
     console.log("useWatchUser - effect called");
-    const isWatchableUser = !!stitchUser;
+    const isWatchableUser = !!stitchUserId;
     const isWatchingUser = !!watchedUser;
     const isFirstWatchedUser = isWatchableUser && !isWatchingUser;
     const isDifferentUser =
-      isWatchableUser && isWatchingUser && watchedUser.id !== stitchUser.id;
+      isWatchableUser && isWatchingUser && watchedUser.id !== stitchUserId;
     const isRemovingUser = !isWatchableUser && isWatchingUser;
     console.log(`
          isWatchableUser: ${isWatchableUser}
@@ -84,7 +87,7 @@ export function useWatchUser(stitchUser) {
       // debugger;
       console.log(`useWatchUser - effect created stream`);
       async function openChangeStream() {
-        const userProfile = await getUserProfile(stitchUser.id);
+        const userProfile = await getUserProfile(stitchUserId);
         if (userProfile) {
           console.log(`useWatchUser - got userProfile`, userProfile);
           setWatchedUser(userProfile);
@@ -108,7 +111,7 @@ export function useWatchUser(stitchUser) {
     } else if (isRemovingUser) {
       setWatchedUser(null);
     }
-  }, [stitchUser, isUser]);
+  }, [stitchUserId, isUser]);
   return watchedUser;
 }
 

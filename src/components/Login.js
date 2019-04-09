@@ -33,13 +33,15 @@ import {
   faEnvelope,
   faUserPlus,
   faRedo,
-  faMusic
+  faMusic,
+  faUserSecret,
 } from "@fortawesome/free-solid-svg-icons";
 
 const EnvelopeIcon = () => <FontAwesomeIcon icon={faEnvelope} />;
 const UserPlusIcon = () => <FontAwesomeIcon icon={faUserPlus} />;
 const RedoIcon = () => <FontAwesomeIcon icon={faRedo} flip="horizontal" />;
 const MusicIcon = () => <FontAwesomeIcon icon={faMusic} />;
+const GuestIcon = () => <FontAwesomeIcon icon={faUserSecret} />;
 
 const EmailPasswordLoginButton = createButton({
   text: "Login with Email/Password",
@@ -58,6 +60,13 @@ const ResetPasswordButton = createButton({
 const EmailPasswordLoginActionButton = createButton({
   text: "Log In",
   icon: MusicIcon,
+  style: { background: "#596267" },
+  activeStyle: { background: "#108291" }
+});
+
+const GuestLoginButton = createButton({
+  text: "Log In as a Guest",
+  icon: GuestIcon,
   style: { background: "#596267" },
   activeStyle: { background: "#108291" }
 });
@@ -300,7 +309,7 @@ function EmailPasswordForm(props) {
 // }
 
 export const LoginForm = React.memo(function(props) {
-  const { loginEmailPasswordUser, loginFacebookUser, loginGoogleUser } = props;
+  const { loginEmailPasswordUser, loginFacebookUser, loginGoogleUser, loginGuestUser } = props;
   const [isEmailPassword, setIsEmailPassword] = useState(false);
   const setToEmailPassword = () => setIsEmailPassword(true);
   return (
@@ -324,6 +333,10 @@ export const LoginForm = React.memo(function(props) {
             <GoogleLoginButton
               css={socialButtonStyle}
               onClick={loginGoogleUser}
+            />
+            <GuestLoginButton
+              css={socialButtonStyle}
+              onClick={loginGuestUser}
             />
           </>
         </CardBody>

@@ -16,18 +16,22 @@ import {
   linkEmailPasswordUser,
   linkFacebookUser,
   linkGoogleUser,
+  getCurrentUser,
+  loginGuestUser
 } from "./authentication";
 
 export default app;
 export {
   confirmEmail,
   getAllUsers,
+  getCurrentUser,
   getLocationForAddress,
   handleOAuthRedirects,
   handlePasswordReset,
   hasLoggedInUser,
   loginEmailPasswordUser,
   linkEmailPasswordUser,
+  loginGuestUser,
   loginFacebookUser,
   linkFacebookUser,
   loginGoogleUser,

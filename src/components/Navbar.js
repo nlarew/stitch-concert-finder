@@ -1,6 +1,8 @@
+/** @jsx jsx */
 import React from "react";
+import { css, jsx } from "@emotion/core";
 import styled from "@emotion/styled";
-import app, { logoutUser } from "./../stitch";
+import app, { logoutUser, getCurrentUser } from "./../stitch";
 import { Link, navigate } from "@reach/router";
 import { Button } from "reactstrap";
 
@@ -13,31 +15,26 @@ const NavbarContainer = styled.div`
 `;
 
 const LogoutButton = () => (
-  <Button onClick={() => {
-    console.log('logout')
-    logoutUser(app.auth.user)
-  }}>Log Out</Button>
-);
-// const LogoutButton = () => (
-//   <Button onClick={() => logoutUser(app.auth.user)}>Log Out</Button>
-// );
-
-const UserProfileButton = () => (
-  <Button><Link to="/profile">User Profile</Link></Button>
+  <Button
+    onClick={() => { logoutUser(app.auth.user) }}
+    color="info"
+    css={css`
+      margin-left: 10px;
+    `}
+  >
+    Log Out
+  </Button>
 );
 
-const AppButton = () => <Button onClick={() => navigate("/app")}>App</Button>;
+const UserProfileButton = ({userId}) => (
+  <Button onClick={() => navigate(`/profile/${userId}`)}>Your Profile</Button>
+)
 
 function Navbar(props) {
-  const { currentView="app" } = props
-  const ViewShift = ({
-    "app": UserProfileButton,
-    "profile": AppButton,
-  })[currentView]
   return (
     <NavbarContainer>
       <LogoutButton />
-      <ViewShift />
+      <UserProfileButton userId={app.auth.user.id} />
     </NavbarContainer>
   );
 }

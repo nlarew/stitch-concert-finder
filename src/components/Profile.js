@@ -7,7 +7,7 @@ import { VenuesList } from "./List";
 import Navbar from "./Navbar";
 import { Button, Card, CardBody, CardHeader } from 'reactstrap'
 import ErrorBoundary from "react-error-boundary";
-import { getVenuesById } from "./../stitch/mongodb"
+import { getVenuesById, useWatchUser } from "./../stitch/mongodb";
 import { navigate } from "@reach/router"
 
 const ProfileLayout = styled.div`
@@ -35,25 +35,24 @@ const headerStyle = css`
   padding-right: 0px;
 `;
 
+const AppButton = props => (
+  <Button onClick={() => navigate("/app")}>{props.children}</Button>
+);
+
 function ProfileContent(props) {
-  const {
-    currentUser,
-    venueData: {
-      // orderedVenues,
-      currentVenue,
-      setCurrentVenue,
-      // address,
-      // userActions
-    }
-  } = props;
+  const { currentUserProfile, userId } = props;
   // const isUserOfType = (type) => currentUser && R.find(R.propEq("provider_type", type))(currentUser.identities) !== undefined
   // const isEmailPasswordUser = isUserOfType("local-userpass")
   // const isFacebookUser = isUserOfType("oauth2-facebook")
   // const isGoogleUser = isUserOfType("oauth2-google")
+  const [currentVenue, setCurrentVenue] = useState(null);
+  const currentUser = useWatchUser(userId);
+  console.log('p', userId, currentUser)
   const [favoriteVenues, setFavoriteVenues] = useState([])
   const favoriteVenueIds = currentUser && currentUser.favoriteVenues;
   useEffect(() => {
     const updateVenues = async () => {
+      console.log('updating venues')
       const venues = await getVenuesById(currentUser.favoriteVenues);
       setFavoriteVenues(venues);
     }
@@ -62,11 +61,22 @@ function ProfileContent(props) {
   return currentUser ? (
     <ContentCard inverse>
       <ErrorBoundary>
-        <CardBody>
+        <CardHeader css={css`padding-bottom: 0;`}>
+          <AppButton>{"< Back to the app"}</AppButton>
+        </CardHeader>
+        <CardBody css={css`padding-top: 0;`}>
           <CardHeader css={headerStyle}>
-            <h1>{currentUser.data.name}</h1>
+            <h1>{currentUser.data.name || currentUser.data.email}</h1>
             <h2>{currentUser.id}</h2>
-            <Button onClick={() => { navigate("/profile/link") }}>Link another Account</Button>
+            {currentUser.id === currentUserProfile.id && (
+              <Button
+                onClick={() => {
+                  navigate("/profile/link");
+                }}
+              >
+                Link another Account
+              </Button>
+            )}
           </CardHeader>
           <VenuesList
             venues={favoriteVenues}
@@ -83,17 +93,18 @@ function ProfileContent(props) {
 }
 
 export default function Profile(props) {
-  const { currentUserProfile, setCurrentUserProfile, venueData } = props;
+  const { currentUserProfile, setCurrentUserProfile, venueData, userId } = props;
+  console.log("userId", userId);
   venueData.userActions = venueData.getUserActions({ setCurrentUserProfile})
-  console.log("currentUserProfile", currentUserProfile);
+  
   return (
     <ProfileLayout>
       <Banner>
         <Navbar currentView="profile" />
       </Banner>
       <ProfileContent
-        currentUser={currentUserProfile}
-        venueData={venueData}
+        currentUserProfile={currentUserProfile}
+        userId={userId}
       />
     </ProfileLayout>
   );

@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import React, { useState, useEffect } from "react";
 import {
+  AnonymousCredential,
   UserPasswordCredential,
   FacebookRedirectCredential,
   GoogleRedirectCredential,
@@ -16,7 +17,9 @@ export function useStitchAuth() {
     const currentUser = getCurrentUser()
     const profile = currentUser && await getUserProfile(currentUser.id)
     setCurrentUserProfile(profile)
-    if (isLoadingAuth) { setIsLoadingAuth(false) }
+    if (isLoadingAuth) {
+      setIsLoadingAuth(false)
+    }
   };
   useEffect(() => {
     const listener = {
@@ -55,6 +58,10 @@ export function loginEmailPasswordUser({ email, password }) {
   // Note: The user must already be registered with the Stitch app.
   // See https://docs.mongodb.com/stitch/authentication/userpass/#create-a-new-user-account
   return app.auth.loginWithCredential(new UserPasswordCredential(email, password))
+}
+
+export function loginGuestUser() {
+  return app.auth.loginWithCredential(new AnonymousCredential());
 }
 
 export function loginFacebookUser() {

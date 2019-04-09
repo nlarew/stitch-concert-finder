@@ -95,15 +95,6 @@ const SearchBar = React.memo(props => {
         disabled={isSearching}
         invalid={venuesError}
       />
-      <Button
-        onClick={() => {
-          setVenues(keapVenues);
-          setAddress(keapLocation.formatted_address);
-          setAddressLocation(keapLocation);
-        }}
-      >
-        Get Keap
-      </Button>
       <SearchBarButton
         handleSearch={handleSearch}
         isSearching={isSearching}
