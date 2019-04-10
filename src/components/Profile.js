@@ -1,14 +1,14 @@
 /** @jsx jsx */
 import React, { useState, useEffect } from "react";
-import { css, jsx } from "@emotion/core";
-import styled from "@emotion/styled";
-import Banner from "./Banner";
-import { VenuesList } from "./List";
-import Navbar from "./Navbar";
-import { Button, Card, CardBody, CardHeader } from 'reactstrap'
 import ErrorBoundary from "react-error-boundary";
+import styled from "@emotion/styled";
+import { css, jsx } from "@emotion/core";
+import { VenuesList } from "./List";
+import { Button, Card, CardBody, CardHeader } from 'reactstrap'
 import { getVenuesById, useWatchUser } from "./../stitch/mongodb";
 import { navigate } from "@reach/router"
+import Navbar from "./Navbar";
+import Banner from "./Banner";
 
 const ProfileLayout = styled.div`
   display: grid;
@@ -40,19 +40,13 @@ const AppButton = props => (
 );
 
 function ProfileContent(props) {
-  const { currentUserProfile, userId } = props;
-  // const isUserOfType = (type) => currentUser && R.find(R.propEq("provider_type", type))(currentUser.identities) !== undefined
-  // const isEmailPasswordUser = isUserOfType("local-userpass")
-  // const isFacebookUser = isUserOfType("oauth2-facebook")
-  // const isGoogleUser = isUserOfType("oauth2-google")
   const [currentVenue, setCurrentVenue] = useState(null);
-  const currentUser = useWatchUser(userId);
-  console.log('p', userId, currentUser)
   const [favoriteVenues, setFavoriteVenues] = useState([])
+  const { currentUserProfile, userId } = props;
+  const currentUser = useWatchUser(userId);
   const favoriteVenueIds = currentUser && currentUser.favoriteVenues;
   useEffect(() => {
     const updateVenues = async () => {
-      console.log('updating venues')
       const venues = await getVenuesById(currentUser.favoriteVenues);
       setFavoriteVenues(venues);
     }
@@ -68,15 +62,6 @@ function ProfileContent(props) {
           <CardHeader css={headerStyle}>
             <h1>{currentUser.data.name || currentUser.data.email}</h1>
             <h2>{currentUser.id}</h2>
-            {currentUser.id === currentUserProfile.id && (
-              <Button
-                onClick={() => {
-                  navigate("/profile/link");
-                }}
-              >
-                Link another Account
-              </Button>
-            )}
           </CardHeader>
           <VenuesList
             venues={favoriteVenues}
@@ -100,7 +85,10 @@ export default function Profile(props) {
   return (
     <ProfileLayout>
       <Banner>
-        <Navbar currentView="profile" />
+        <Navbar
+          currentView="profile"
+          currentUserProfile={currentUserProfile}
+        />
       </Banner>
       <ProfileContent
         currentUserProfile={currentUserProfile}

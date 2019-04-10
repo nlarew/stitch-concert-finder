@@ -30,11 +30,20 @@ const UserProfileButton = ({userId}) => (
   <Button onClick={() => navigate(`/profile/${userId}`)}>Your Profile</Button>
 )
 
+const GuestUserButton = () => (
+  <Button disabled>Guest User</Button>
+)
+
 function Navbar(props) {
+  const { currentUserProfile } = props;
   return (
     <NavbarContainer>
       <LogoutButton />
-      <UserProfileButton userId={app.auth.user.id} />
+      {currentUserProfile && !currentUserProfile.isGuest ? (
+        <UserProfileButton userId={app.auth.user.id} />
+      ) : (
+        <GuestUserButton />
+      )}
     </NavbarContainer>
   );
 }

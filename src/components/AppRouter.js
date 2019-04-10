@@ -7,7 +7,7 @@ import app, {
   // loginEmailPasswordUser,
   // loginFacebookUser,
   // loginGoogleUser,
-  loginGuestUser,
+  // loginGuestUser,
   linkEmailPasswordUser,
   linkFacebookUser,
   linkGoogleUser,
@@ -68,10 +68,14 @@ export default function AppRouter() {
     currentUserProfile,
     setCurrentUserProfile,
     isLoadingAuth,
-    actions: { loginEmailPasswordUser, loginFacebookUser, loginGoogleUser }
+    actions: {
+      loginEmailPasswordUser,
+      loginFacebookUser,
+      loginGoogleUser,
+      loginGuestUser
+    }
   } = useStitchAuth();
   const hasLoggedInUser = !!currentUserProfile;
-  console.log(hasLoggedInUser && currentUserProfile);
 
   let venueData = useVenues();
   const orderedVenues = useFavoritesFirst(currentUserProfile, venueData.venues);

@@ -5,5 +5,5 @@ export async function getLocationForAddress(address) {
 }
 
 export async function searchNearAddress(address) {
-  return await app.callFunction("new_searchNearAddress", [address]);
+  return await app.callFunction("searchNearAddress", [address]);
 }

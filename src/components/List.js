@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import { css, jsx } from "@emotion/core";
 import ErrorBoundary from "react-error-boundary";
+import { format } from 'date-fns';
 import {
   Button,
   Card,
@@ -73,14 +74,15 @@ const EventsList = props => {
     }
   };
   const renderEventRows = () => {
+    console.log("currentEvents", currentEvents);
     return (
       currentEvents &&
       currentEvents.map(event => (
         <tr
+          key={event.id}
           css={tableStyle("row", {
             isCurrent: currentEvent && currentEvent.id === event.id
           })}
-          key={event.id}
           onClick={rowClickHandler(event)}
         >
           <td>
@@ -88,8 +90,10 @@ const EventsList = props => {
             <Collapse isOpen={currentEvent && currentEvent.id === event.id}>
               <Card inverse css={css`background-color: #1f2124 !important;`}>
                 <CardBody>
-                  <Button tag="a" href={event.url}>Eventful Link</Button>
-                  <CardText>{event.time.start}</CardText>
+                  <div css={css`display: flex; flex-direction: row; justify-content: space-between;`}>
+                    <CardText css={css`line-height: 40px; margin-bottom: 0;`}>{format(new Date(event.time.start), "MMM DD")}</CardText>
+                    <Button tag="a" href={event.url}>Eventful Page</Button>
+                  </div>
                 </CardBody>
               </Card>
             </Collapse>

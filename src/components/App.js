@@ -18,15 +18,16 @@ const AppLayout = styled.div`
   background: #1f2124;
 `;
 
-export default function App(props) {
+export default React.memo(function (props) {
   const { currentUserProfile, setCurrentUserProfile, venueData } = props;
   const { venues, address, getUserActions } = venueData;
   const { orderedVenues, currentVenue, setCurrentVenue } = venueData;
   const userActions = getUserActions({ setCurrentUserProfile });
+  console.log('currentUserProfile', currentUserProfile)
   return (
     <AppLayout>
       <Banner>
-        <Navbar />
+        <Navbar currentUserProfile={currentUserProfile} />
       </Banner>
       <Search
         {...venueData}
@@ -54,4 +55,4 @@ export default function App(props) {
       )}
     </AppLayout>
   );
-}
+})

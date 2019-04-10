@@ -42,7 +42,8 @@ export function useStitchAuth() {
     actions: {
       loginEmailPasswordUser,
       loginFacebookUser,
-      loginGoogleUser
+      loginGoogleUser,
+      loginGuestUser
     }
   };
 }
@@ -123,10 +124,10 @@ export function registerNewEmailUser(email, password) {
         e.name === "StitchServiceError" &&
         e.message === "name already in use"
       ) {
-        console.log("StitchServiceError ~owo~ name already in use", e);
+        console.log("Sending another email confirmation...");
         return emailProvider.resendConfirmationEmail(email);
       } else {
-        console.error("Error sending password reset email:", e);
+        console.error("Error sending account confirmationn email:", e);
       }
     });
 }
@@ -136,7 +137,6 @@ function parseToken(url) {
   const params = new URLSearchParams(url);
   const token = params.get("token");
   const tokenId = params.get("tokenId");
-  console.log("t", token, tokenId);
   return { token, tokenId };
 }
 
@@ -147,7 +147,7 @@ export function confirmEmail(location) {
     .getProviderClient(UserPasswordAuthProviderClient.factory)
     .confirmUser(token, tokenId)
     .then(() => console.log('confirmed!'))
-    .catch(() => console.log('not so confirmed!'))
+    .catch(() => console.log('did not confirm!'))
 }
 
 export function sendPasswordResetEmail(emailAddress) {

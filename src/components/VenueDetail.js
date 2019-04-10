@@ -9,6 +9,8 @@ import {
   CardHeader,
   CardText,
   Button,
+  Tooltip,
+  UncontrolledTooltip,
 } from "reactstrap";
 import { EventsList } from "./List";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -33,19 +35,24 @@ const ContentCard = styled(Card)`
   top: -70px;
 `;
 
-const FavoriteButton = ({ isFavorite, handleButtonClick }) => {
-  const buttonStyle = css`
-    margin: auto 4px;
-  `;
+const FavoriteButton = ({ isFavorite, handleButtonClick, isGuest }) => {
   return (
     <Button
-      css={buttonStyle}
+      css={css`margin: auto 4px;`}
       outline={!isFavorite}
       color="warning"
       onClick={handleButtonClick}
+      disabled={isGuest}
     >
       <StarIcon />
-      <span>{isFavorite ? "Favorited" : "Add to Favorites"}</span>
+      <span id="addFavoriteVenu">
+        {isFavorite ? "Favorited" : "Add to Favorites"}
+      </span>
+      {isGuest && (
+        <UncontrolledTooltip placement="bottom" target="addFavoriteVenu" >
+          Must log in to add a favorite!
+        </UncontrolledTooltip>
+      )}
     </Button>
   );
 };
@@ -56,10 +63,11 @@ const headerStyle = css`
   padding-right: 0px;
 `
 
-function Venue({ venue, currentUserProfile, actions }) {
+export default React.memo(function({ venue, currentUserProfile, actions }) {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [settingFavorite, setSettingFavorite] = useState(false);
   const isFavorite = currentUserProfile && currentUserProfile.favoriteVenues.includes(venue.id)
+  venue.upcomingEvents && console.log(venue.upcomingEvents, [... new Set(venue.upcomingEvents)]);
   return (
     <ContentCard inverse>
       <ErrorBoundary>
@@ -69,6 +77,7 @@ function Venue({ venue, currentUserProfile, actions }) {
             <FavoriteButton
               isFavorite={isFavorite}
               disabled={settingFavorite}
+              isGuest={currentUserProfile && currentUserProfile.isGuest}
               handleButtonClick={() => {
                 setSettingFavorite(true)
                 const { addFavoriteVenue, removeFavoriteVenue } = actions
@@ -89,5 +98,4 @@ function Venue({ venue, currentUserProfile, actions }) {
       </ErrorBoundary>
     </ContentCard>
   );
-}
-export default Venue;
+})
