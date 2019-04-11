@@ -40,9 +40,9 @@ const AppButton = props => (
 );
 
 function ProfileContent(props) {
+  const { userId } = props;
   const [currentVenue, setCurrentVenue] = useState(null);
   const [favoriteVenues, setFavoriteVenues] = useState([])
-  const { currentUserProfile, userId } = props;
   const currentUser = useWatchUser(userId);
   const favoriteVenueIds = currentUser && currentUser.favoriteVenues;
   useEffect(() => {
@@ -79,7 +79,6 @@ function ProfileContent(props) {
 
 export default function Profile(props) {
   const { currentUserProfile, setCurrentUserProfile, venueData, userId } = props;
-  console.log("userId", userId);
   venueData.userActions = venueData.getUserActions({ setCurrentUserProfile})
   
   return (

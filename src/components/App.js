@@ -20,10 +20,14 @@ const AppLayout = styled.div`
 
 export default React.memo(function (props) {
   const { currentUserProfile, setCurrentUserProfile, venueData } = props;
-  const { venues, address, getUserActions } = venueData;
-  const { orderedVenues, currentVenue, setCurrentVenue } = venueData;
+  const {
+    address,
+    getUserActions,
+    orderedVenues,
+    currentVenue,
+    setCurrentVenue
+  } = venueData;
   const userActions = getUserActions({ setCurrentUserProfile });
-  console.log('currentUserProfile', currentUserProfile)
   return (
     <AppLayout>
       <Banner>
@@ -31,12 +35,11 @@ export default React.memo(function (props) {
       </Banner>
       <Search
         {...venueData}
-        venues={venues}
         orderedVenues={orderedVenues}
         currentVenue={currentVenue}
         setCurrentVenue={setCurrentVenue}
       />
-      {venues.length > 0 && (
+      {orderedVenues.length > 0 && (
         <List
           venues={orderedVenues}
           address={address}

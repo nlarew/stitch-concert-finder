@@ -9,7 +9,6 @@ import {
   CardHeader,
   CardText,
   Button,
-  Tooltip,
   UncontrolledTooltip,
 } from "reactstrap";
 import { EventsList } from "./List";
@@ -67,7 +66,6 @@ export default React.memo(function({ venue, currentUserProfile, actions }) {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [settingFavorite, setSettingFavorite] = useState(false);
   const isFavorite = currentUserProfile && currentUserProfile.favoriteVenues.includes(venue.id)
-  venue.upcomingEvents && console.log(venue.upcomingEvents, [... new Set(venue.upcomingEvents)]);
   return (
     <ContentCard inverse>
       <ErrorBoundary>

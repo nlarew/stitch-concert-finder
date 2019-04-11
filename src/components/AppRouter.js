@@ -1,19 +1,11 @@
 import React, { useState, useEffect } from "react";
 import * as R from "ramda";
-import ReactDOM from "react-dom";
-import styled from "@emotion/styled";
 import app, {
   useStitchAuth,
-  // loginEmailPasswordUser,
-  // loginFacebookUser,
-  // loginGoogleUser,
-  // loginGuestUser,
   linkEmailPasswordUser,
   linkFacebookUser,
   linkGoogleUser,
   logoutUser,
-  handleOAuthRedirects,
-  getCurrentUser
 } from "./../stitch";
 import Login, {
   ConfirmEmail,

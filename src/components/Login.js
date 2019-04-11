@@ -13,7 +13,6 @@ import {
   Label,
   Input,
 } from "reactstrap";
-import { Location } from "@reach/router"
 import {
   FacebookLoginButton,
   GoogleLoginButton,

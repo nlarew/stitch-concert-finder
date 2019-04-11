@@ -19,9 +19,6 @@ import { faSearch, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import * as mongodbActions from "./../stitch/mongodb";
 import * as R from 'ramda';
 
-import keapVenues from "./../stitch/services/stubs/487keapVenues.json";
-import keapLocation from "./../stitch/services/stubs/487keapLocation.json";
-
 const SearchIcon = () => (
   <FontAwesomeIcon
     icon={faSearch}
@@ -72,9 +69,6 @@ const SearchBar = React.memo(props => {
     searchFor,
     onChange,
     isSearching,
-    setVenues,
-    setAddressLocation,
-    setAddress,
     venuesError,
   } = props;
   const handleSearch = () => {

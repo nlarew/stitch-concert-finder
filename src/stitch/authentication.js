@@ -8,7 +8,7 @@ import {
   UserPasswordAuthProviderClient,
 } from "mongodb-stitch-browser-sdk";
 import app from "./app";
-import { getUserProfile, useWatchUser } from "./mongodb";
+import { getUserProfile } from "./mongodb";
 
 export function useStitchAuth() {
   const [currentUserProfile, setCurrentUserProfile] = useState(null);

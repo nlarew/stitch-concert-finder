@@ -2,8 +2,8 @@
 import React from "react";
 import { css, jsx } from "@emotion/core";
 import styled from "@emotion/styled";
-import app, { logoutUser, getCurrentUser } from "./../stitch";
-import { Link, navigate } from "@reach/router";
+import app, { logoutUser } from "./../stitch";
+import { navigate } from "@reach/router";
 import { Button } from "reactstrap";
 
 const NavbarContainer = styled.div`
