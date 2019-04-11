@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { useState, useEffect } from "react";
 import {
   AnonymousCredential,
@@ -14,11 +13,11 @@ export function useStitchAuth() {
   const [currentUserProfile, setCurrentUserProfile] = useState(null);
   const [isLoadingAuth, setIsLoadingAuth] = useState(true);
   const updateUsers = async () => {
-    const currentUser = getCurrentUser()
-    const profile = currentUser && await getUserProfile(currentUser.id)
-    setCurrentUserProfile(profile)
+    const currentUser = getCurrentUser();
+    const profile = currentUser && (await getUserProfile(currentUser.id));
+    setCurrentUserProfile(profile);
     if (isLoadingAuth) {
-      setIsLoadingAuth(false)
+      setIsLoadingAuth(false);
     }
   };
   useEffect(() => {
@@ -29,10 +28,12 @@ export function useStitchAuth() {
       onUserLoggedOut: updateUsers,
       onUserRemoved: updateUsers,
       onUserLinked: updateUsers,
-      onListenerRegistered: updateUsers,
+      onListenerRegistered: updateUsers
     };
     app.auth.addAuthListener(listener);
-    return () => { app.auth.removeAuthListener(listener) };
+    return () => {
+      app.auth.removeAuthListener(listener);
+    };
   }, []);
 
   return {
@@ -74,9 +75,6 @@ export function loginGoogleUser() {
 }
 
 export function linkEmailPasswordUser({ email, password }) {
-  // Log in a user with the specified email and password
-  // Note: The user must already be registered with the Stitch app.
-  // See https://docs.mongodb.com/stitch/authentication/userpass/#create-a-new-user-account
   return app.auth.user && app.auth.user.linkWithCredential(new UserPasswordCredential(email, password));
 }
 

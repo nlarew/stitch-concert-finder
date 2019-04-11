@@ -7,112 +7,8 @@ const mongoClient = app.getServiceClient(RemoteMongoClient.factory, "mongodb-atl
 const users = mongoClient.db("concertmap").collection("users");
 const venues = mongoClient.db("concertmap").collection("venues");
 
-export async function getUserProfile(userId, iteration=0) {
-  // We need to wait for the trigger to create this profile if it's a new account
-  if (iteration > 20) { throw new Error("uh-oh") }
-  const delay = (fn) => new Promise((resolve) => { setTimeout(() => resolve(fn()), 1000) })
-  console.log(`${iteration} - ${userId}`)
-  const p = await users.findOne({ id: userId });
-  console.log(p)
-  const userProfile = await users.findOne({ id: userId }) || await delay(() => getUserProfile(userId, iteration+1))
-  return userProfile
-}
-
-// export async function getUserProfile(userId) {
-//   // We need to wait for the trigger to create this profile if it's a new account
-//   const isLoggedIn = app.auth.isLoggedIn
-//   if (!isLoggedIn) {
-//     return null
-//   } else {
-//     console.error('getUserProfile', 'begin')
-//     const user = await users.findOne({ id: userId })
-//     if (user) {
-//       return user
-//     } else {
-//       console.error('getUserProfile', 'failed')
-//       const delay = (fn) => new Promise((resolve) => {
-//         console.error('getUserProfile', 'retrying')
-//         setTimeout(() => resolve(fn()), 1000)
-//       })
-//       return user || delay(() => getUserProfile(userId))
-//     }
-//   }
-// }
-// export async function getUserProfile(userId) {
-//   // We need to wait for the trigger to create this profile if it's a new account
-//   const doTheThing = new Promise((resolve, reject) => {
-//     setTimeout(() => {
-
-//       if(!userId) { console.error('hi'); resolve(null) }
-//       console.error('getUserProfile', 'begin')
-//       const userProfile = users.findOne({ id: userId }).then(user => {
-//         console.error('getUserProfile', 'failed')
-//         const delay = (fn) => new Promise((resolve) => {
-//           console.error('getUserProfile', 'retrying')
-//             setTimeout(() => resolve(fn()), 1000)
-//           })
-//           resolve(user || delay(getUserProfile(userId)))
-//       })
-//     }, 3000)
-//     // return await userProfile
-//   })
-//   return await doTheThing()
-// }
-
 export function getVenuesById(venueIds) {
   return venues.find({ id: { $in: venueIds } }).toArray()
-}
-
-export function useWatchUser(stitchUserId) {
-  const [watchedUser, setWatchedUser] = useState(null);
-  const isUser = !!stitchUserId;
-  // debugger
-  useEffect(() => {
-    // debugger
-    console.log("useWatchUser - effect called");
-    const isWatchableUser = !!stitchUserId;
-    const isWatchingUser = !!watchedUser;
-    const isFirstWatchedUser = isWatchableUser && !isWatchingUser;
-    const isDifferentUser =
-      isWatchableUser && isWatchingUser && watchedUser.id !== stitchUserId;
-    const isRemovingUser = !isWatchableUser && isWatchingUser;
-    console.log(`
-         isWatchableUser: ${isWatchableUser}
-          isWatchingUser: ${isWatchingUser}
-      isFirstWatchedUser: ${isFirstWatchedUser}
-         isDifferentUser: ${isDifferentUser}
-          isRemovingUser: ${isRemovingUser}
-    `);
-    if (isFirstWatchedUser || isDifferentUser) {
-      // debugger;
-      console.log(`useWatchUser - effect created stream`);
-      async function openChangeStream() {
-        const userProfile = await getUserProfile(stitchUserId);
-        if (userProfile) {
-          console.log(`useWatchUser - got userProfile`, userProfile);
-          setWatchedUser(userProfile);
-          const stream = await users.watch([userProfile._id]);
-          stream.onNext(changeEvent => {
-            console.log(`useWatchUser - next`);
-            if(changeEvent.fullDocument) {
-              setWatchedUser(changeEvent.fullDocument);
-            }
-          });
-          return stream;
-        }
-      }
-      const getStream = openChangeStream();
-      return () => {
-        getStream && getStream.then(stream => {
-          console.log('closing stream')
-          stream.close()
-        });
-      };
-    } else if (isRemovingUser) {
-      setWatchedUser(null);
-    }
-  }, [stitchUserId, isUser]);
-  return watchedUser;
 }
 
 export function addFavoriteVenue({ venueId }) {
@@ -151,4 +47,59 @@ export async function unstarEvent({ venueId, eventId }) {
   const updatedEvent = { ...event, stars: R.without(userId, event.stars) }
   const upcomingEvents = R.update(eventIndex, updatedEvent, venue.upcomingEvents)
   return await venues.findOneAndUpdate({ id: venueId }, { $set: { upcomingEvents } }, { returnNewDocument: true })
+}
+
+export async function getUserProfile(userId, iteration=0) {
+  // We need to wait for the trigger to create this profile if it's a new account
+  if (iteration > 20) { throw new Error("uh-oh") }
+  const delay = (fn) => new Promise((resolve) => { setTimeout(() => resolve(fn()), 1000) })
+  const p = await users.findOne({ id: userId });
+  const userProfile = await users.findOne({ id: userId }) || await delay(() => getUserProfile(userId, iteration+1))
+  return userProfile
+}
+
+export function useWatchUser(stitchUserId) {
+  const [watchedUser, setWatchedUser] = useState(null);
+  const isUser = !!stitchUserId;
+  useEffect(() => {
+    console.log("useWatchUser - effect called");
+    const isWatchableUser = !!stitchUserId;
+    const isWatchingUser = !!watchedUser;
+    const isFirstWatchedUser = isWatchableUser && !isWatchingUser;
+    const isDifferentUser =
+      isWatchableUser && isWatchingUser && watchedUser.id !== stitchUserId;
+    const isRemovingUser = !isWatchableUser && isWatchingUser;
+    console.log(`
+         isWatchableUser: ${isWatchableUser}
+          isWatchingUser: ${isWatchingUser}
+      isFirstWatchedUser: ${isFirstWatchedUser}
+         isDifferentUser: ${isDifferentUser}
+          isRemovingUser: ${isRemovingUser}
+    `);
+    if (isFirstWatchedUser || isDifferentUser) {
+      async function openChangeStream() {
+        const userProfile = await getUserProfile(stitchUserId);
+        if (userProfile) {
+          setWatchedUser(userProfile);
+          const stream = await users.watch([userProfile._id]);
+          stream.onNext(changeEvent => {
+            if(changeEvent.fullDocument) {
+              setWatchedUser(changeEvent.fullDocument);
+            }
+          });
+          return stream;
+        }
+      }
+      const getStream = openChangeStream();
+      return () => {
+        getStream && getStream.then(stream => {
+          console.log('closing stream')
+          stream.close()
+        });
+      };
+    } else if (isRemovingUser) {
+      setWatchedUser(null);
+    }
+  }, [stitchUserId, isUser]);
+  return watchedUser;
 }

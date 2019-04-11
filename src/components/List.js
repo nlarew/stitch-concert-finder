@@ -259,13 +259,8 @@ export const VenuesList = props => {
   };
   const {
     currentItems: currentVenues,
-    // currentPage,
-    // getNextPage,
-    // getPrevPage,
-    // getPage,
-    // metadata: { numPages },
     PageSelector,
-  } = usePagination(venues, { numItemsPerPage: 12 });
+  } = usePagination(venues, { numItemsPerPage: 9 });
 
   const renderVenueRows = () => {
     return (
