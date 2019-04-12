@@ -22,10 +22,10 @@ class EventfulResult {
   getPageHandler(cursorType) {
     const handlers = {
       "events/search": (page) => {
-        return page.events.event;
+        return page ? page.events.event : null;
       },
       "venues/search": (page) => {
-        return page.venues.venue;
+        return page ? page.venues.venue : null;
       },
     };
     return handlers[cursorType];
@@ -137,6 +137,7 @@ class Eventful {
         units: ["km"],
         page_size: [50],
         page_number: [page_number],
+        mature: ["normal"],
       },
     })
       .then(result => EJSON.parse(result.body.text()))

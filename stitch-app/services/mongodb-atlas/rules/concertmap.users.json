@@ -8,35 +8,34 @@
                 "id": "%%user.id"
             },
             "fields": {
-                "displayName": {},
-                "favoriteVenues": {}
+                "data": {},
+                "favoriteVenues": {
+                    "write": true
+                },
+                "id": {},
+                "identities": {}
             },
-            "write": true,
+            "read": true,
             "insert": true,
             "delete": true,
-            "additional_fields": {}
+            "additional_fields": {
+                "write": true
+            }
         },
         {
             "name": "isOtherUser",
             "apply_when": {},
             "fields": {
-                "displayName": {
+                "data": {
                     "read": true
                 },
                 "favoriteVenues": {
                     "read": true
-                }
-            },
-            "insert": false,
-            "delete": false,
-            "additional_fields": {}
-        },
-        {
-            "name": "isGuestUser",
-            "apply_when": {},
-            "fields": {
-                "displayName": {},
-                "favoriteVenues": {}
+                },
+                "id": {
+                    "read": true
+                },
+                "identities": {}
             },
             "insert": false,
             "delete": false,

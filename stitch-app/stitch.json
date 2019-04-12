@@ -3,8 +3,13 @@
     "name": "ConcertMap",
     "location": "US-VA",
     "deployment_model": "GLOBAL",
-    "security": {},
+    "security": {
+        "allowed_request_origins": [
+            "https://concerts.nlarew.com"
+        ]
+    },
     "hosting": {
-        "enabled": true
+        "enabled": false,
+        "default_error_path": "/index.html"
     }
 }

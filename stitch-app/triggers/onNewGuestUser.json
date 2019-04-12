@@ -1,0 +1,12 @@
+{
+    "name": "onNewGuestUser",
+    "type": "AUTHENTICATION",
+    "config": {
+        "operation_type": "LOGIN",
+        "providers": [
+            "anon-user"
+        ]
+    },
+    "function_name": "handleNewGuestUser",
+    "disabled": false
+}

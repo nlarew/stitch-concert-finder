@@ -31,6 +31,6 @@
         }
     ],
     "redirect_uris": [
-        "https://jj12jyymz9.codesandbox.io/"
+        "https://concerts.nlarew.com/login"
     ]
 }

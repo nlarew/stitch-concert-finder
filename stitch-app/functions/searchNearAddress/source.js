@@ -40,6 +40,7 @@ async function getVenuesForEvents(events, eventful) {
 
 class Event {
   constructor(eventfulEvent) {
+    this._eventfulEvent = eventfulEvent
     this.id = eventfulEvent.id
     this.url = eventfulEvent.url
     this.name = eventfulEvent.title
@@ -55,8 +56,8 @@ class Event {
   }
   
   toJson() {
-    const  { id, url, name, description, location, time } = this
-    return { id, url, name, description, location, time }
+    const  { id, url, name, description, location, time, _eventfulEvent } = this
+    return { id, url, name, description, location, time, _eventfulEvent }
   }
 }
 

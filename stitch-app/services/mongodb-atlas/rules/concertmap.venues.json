@@ -3,11 +3,11 @@
     "collection": "venues",
     "roles": [
         {
-            "name": "user",
+            "name": "isUser",
             "apply_when": {},
             "write": true,
             "insert": true,
-            "delete": true,
+            "delete": false,
             "additional_fields": {}
         }
     ],

@@ -31,8 +31,6 @@
         }
     ],
     "redirect_uris": [
-        "https://jj12jyymz9.codesandbox.io/",
-        "https://jj12jyymz9.codesandbox.io/",
-        "http://localhost:3000/"
+        "https://concerts.nlarew.com/login"
     ]
 }

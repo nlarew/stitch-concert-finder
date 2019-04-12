@@ -1,6 +1,6 @@
 exports = async function(authEvent) {
   const isGuest = authEvent.providers[0] === "anon-user";
-  
+  console.log('asdf', isGuest, EJSON.stringify(authEvent))
   const applicationUsers = context.services
     .get("mongodb-atlas")
     .db("concertmap")

@@ -1,0 +1,15 @@
+{
+    "name": "onUserDeletion",
+    "type": "AUTHENTICATION",
+    "config": {
+        "operation_type": "DELETE",
+        "providers": [
+            "oauth2-facebook",
+            "oauth2-google",
+            "local-userpass",
+            "anon-user"
+        ]
+    },
+    "function_name": "handleUserDeletion",
+    "disabled": false
+}

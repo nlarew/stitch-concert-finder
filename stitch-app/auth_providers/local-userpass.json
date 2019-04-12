@@ -3,9 +3,9 @@
     "type": "local-userpass",
     "config": {
         "confirmEmailSubject": "nick.larew@10gen.com",
-        "emailConfirmationUrl": "https://shows.nlarew.com/admin/confirmEmail",
+        "emailConfirmationUrl": "https://bea9bd92.ngrok.io/admin/confirmEmail",
         "resetPasswordSubject": "Reset Your Password",
-        "resetPasswordUrl": "https://shows.nlarew.com/admin/resetPassword"
+        "resetPasswordUrl": "https://bea9bd92.ngrok.io/admin/resetPassword"
     },
     "disabled": false
 }
