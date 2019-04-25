@@ -1,31 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext, createContext } from "react";
 import { searchNearAddress } from "./../stitch";
 
-export default function useSearch() {
-  const defaultData = {
+// Export a hook that lets us access Search data anywhere inside of SearchProvider
+const SearchContext = createContext();
+const useSearch = () => useContext(SearchContext);
+export default useSearch;
+
+// Search data is accessible anywhere inside of this component
+export const SearchProvider = ({ children }) => {
+  // Search state
+  const nothingSearched = {
     location: null,
     events: [],
     venues: []
   };
-  const [data, setData] = useState(defaultData);
   const [isSearching, setIsSearching] = useState(false);
-  
-  const handleSearch = async address => {
-    setIsSearching(true);
-    const searchResult = await searchNearAddress(address);
-    setData(searchResult);
-    setIsSearching(false);
-  };
-  const clearData = () => {
-    setData(defaultData);
-  };
+  const [data, setData] = useState(nothingSearched);
 
-  return {
-    data,
-    isSearching,
-    actions: {
-      handleSearch,
-      clearData,
+  // Search actions
+  const actions = {
+    handleSearch: async (address) => {
+      setIsSearching(true);
+      const searchResult = await searchNearAddress(address);
+      setData(searchResult);
+      setIsSearching(false);
+    },
+    clearData: () => {
+      setData(nothingSearched)
     },
   };
-}
+  
+  // Wrap all children in the React Context provider
+  return (
+    <SearchContext.Provider value={{ isSearching, data, actions }}>
+      {children}
+    </SearchContext.Provider>
+  );
+};

@@ -6,18 +6,20 @@ import { handleOAuthRedirects } from "./stitch";
 import AppRouter from './components/AppRouter'
 
 import { StitchAuthProvider } from "./hooks/useAuth";
+import { SearchProvider } from "./hooks/useSearch";
 import NewMap from './components/NewMap'
 
 handleOAuthRedirects();
 
 const rootElement = document.getElementById("root");
 
-const AppContext = () => {
-  return (
-    <StitchAuthProvider>
-      <AppRouter />
-    </StitchAuthProvider>
-  );
-}
+const withAppContext = Component => props => (
+  <StitchAuthProvider>
+    <SearchProvider>
+      <Component {...props} />
+    </SearchProvider>
+  </StitchAuthProvider>
+)
 
-ReactDOM.render(<AppContext />, rootElement);
+const App = withAppContext(AppRouter);
+ReactDOM.render(<App />, rootElement);

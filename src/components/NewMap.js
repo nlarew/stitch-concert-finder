@@ -99,7 +99,7 @@ const ControlCard = props => {
     actions: { handleSearch, clearData },
   } = useSearch();
 
-  console.log("data", { location, events, venues });
+  // console.log("data", { location, events, venues });
 
   return (
     <Card css={cardStyle} inverse>

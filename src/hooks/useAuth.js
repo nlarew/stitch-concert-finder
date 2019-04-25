@@ -27,6 +27,7 @@ export const StitchAuthProvider = ({ children }) => {
     loginGoogleUser,
     loginGuestUser
   };
+  
   // Update auth state whenever a Stitch auth event occurs
   useStitchAuthListener(async () => {
     const { user, isLoggedIn } = app.auth;
@@ -36,6 +37,7 @@ export const StitchAuthProvider = ({ children }) => {
       setIsLoading(false);
     }
   });
+
   // Wrap all children in the React Context provider
   return (
     <StitchAuthContext.Provider value={{ isLoading, data, actions }}>
