@@ -26,6 +26,7 @@ import {
   sendPasswordResetEmail,
   handlePasswordReset
 } from "./../stitch";
+import useStitchAuth from "./../hooks/useAuth";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -325,20 +326,23 @@ export const LoginForm = React.memo(function(props) {
   );
 })
 
-export default React.memo(function(props) {
-  return !props.isLoggedIn ? (
+const Login = (props) => {
+  const { actions, data: { isLoggedIn } } = useStitchAuth();
+  return isLoggedIn ? (
+    <Redirect to="/app" noThrow />
+  ) : (
     <ErrorBoundary>
       <LoginLayout>
         <Banner />
         <LoginContent>
-          <LoginForm {...props} />
+          <LoginForm actions={actions} />
         </LoginContent>
       </LoginLayout>
     </ErrorBoundary>
-  ) : (
-    <Redirect to="/app" noThrow />
   );
-})
+}
+export default React.memo(Login)
+
 
 export function LinkLogin(props) {
   return (

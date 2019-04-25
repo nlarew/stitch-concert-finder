@@ -19,6 +19,12 @@ import Profile from "./Profile";
 import NewMap from "./NewMap";
 import { Router, Redirect } from "@reach/router";
 
+const RequiresAuthentication = ({ isAuthenticated, children }) => {
+  return isAuthenticated
+    ? <>{children}</>
+    : <Redirect to="/login" noThrow />;
+}
+
 function useFavoritesFirst(currentUserProfile, venues) {
   const [orderedVenues, setOrderedVenues] = useState(venues);
   const favoriteVenues = currentUserProfile
@@ -42,34 +48,19 @@ function useFavoritesFirst(currentUserProfile, venues) {
 }
 
 export default function AppRouter() {
-  const {
-    isLoading,
-    data: { isLoggedIn, currentUserProfile },
-    actions: {
-      loginEmailPasswordUser,
-      loginFacebookUser,
-      loginGoogleUser,
-      loginGuestUser
-    }
-  } = useStitchAuth();
-  const setCurrentUserProfile = () => { /*This is a hack*/ }
+  const { isLoading, data: { isLoggedIn } } = useStitchAuth();
 
   return isLoading ? (
     <Loading />
   ) : (
     <Router>
-      <Login
-        path="/login"
-        isLoggedIn={isLoggedIn}
-        loginEmailPasswordUser={loginEmailPasswordUser}
-        loginFacebookUser={loginFacebookUser}
-        loginGoogleUser={loginGoogleUser}
-        loginGuestUser={loginGuestUser}
-      />
+      <Login path="/login" />
       <ConfirmEmail path="/admin/confirmEmail" />
       <ResetPassword path="/admin/resetPassword" />
-      {isLoggedIn && <NewMap path="/app" />}
-      <Redirect from="*" to="/login" noThrow default />
+      <RequiresAuthentication path="/app" isAuthenticated={isLoggedIn}>
+        <NewMap path="/" />
+      </RequiresAuthentication>
+      <Redirect from="*" to="/app" noThrow default />
     </Router>
   );
 }
