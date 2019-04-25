@@ -5,13 +5,19 @@ import "./styles.css";
 import { handleOAuthRedirects } from "./stitch";
 import AppRouter from './components/AppRouter'
 
-import useAuth from "./hooks/useAuth";
+import { StitchAuthProvider } from "./hooks/useAuth";
 import NewMap from './components/NewMap'
 
 handleOAuthRedirects();
 
 const rootElement = document.getElementById("root");
 
+const AppContext = () => {
+  return (
+    <StitchAuthProvider>
+      <AppRouter />
+    </StitchAuthProvider>
+  );
+}
 
-
-ReactDOM.render(<AppRouter />, rootElement);
+ReactDOM.render(<AppContext />, rootElement);

@@ -13,7 +13,7 @@ import Login, {
 } from "./Login";
 import App from "./App";
 import Loading from "./Loading";
-import useAuth from "./../hooks/useAuth";
+import useStitchAuth from "./../hooks/useAuth";
 import useSearch from "./../hooks/useSearch";
 import Profile from "./Profile";
 import NewMap from "./NewMap";
@@ -51,7 +51,7 @@ export default function AppRouter() {
       loginGoogleUser,
       loginGuestUser
     }
-  } = useAuth(app.auth);
+  } = useStitchAuth();
   const setCurrentUserProfile = () => { /*This is a hack*/ }
 
   return isLoading ? (

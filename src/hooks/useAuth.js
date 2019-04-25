@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext, createContext } from 'react';
+import app from "./../stitch/app";
 import { getUserProfile } from "./../stitch/mongodb";
 import {
   loginEmailPasswordUser,
@@ -7,23 +8,44 @@ import {
   loginGuestUser
 } from "./../stitch/authentication";
 
-export default function useAuth(stitchAuth) {
+// Export a hook that lets us access Stitch auth state anywhere inside of StitchAuthProvider
+const StitchAuthContext = createContext();
+const useStitchAuth = () => useContext(StitchAuthContext);
+export default useStitchAuth;
+
+// Stitch auth state is accessible anywhere inside of this component
+export const StitchAuthProvider = ({ children }) => {
+  // Declare auth state and actions
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState({
     isLoggedIn: null,
     currentUserProfile: null
   });
-
-  const update = async () => {
-    const { user, isLoggedIn } = stitchAuth;
+  const actions = {
+    loginEmailPasswordUser,
+    loginFacebookUser,
+    loginGoogleUser,
+    loginGuestUser
+  };
+  // Update auth state whenever a Stitch auth event occurs
+  useStitchAuthListener(async () => {
+    const { user, isLoggedIn } = app.auth;
     const currentUserProfile = isLoggedIn ? await getUserProfile(user.id) : null;
     setData({ isLoggedIn, currentUserProfile });
-    if(isLoading) {
-      setIsLoading(false)
+    if (isLoading) {
+      setIsLoading(false);
     }
-  };
+  });
+  // Wrap all children in the React Context provider
+  return (
+    <StitchAuthContext.Provider value={{ isLoading, data, actions }}>
+      {children}
+    </StitchAuthContext.Provider>
+  );
+};
 
-  useEffect(() => {
+function useStitchAuthListener(update) {
+  const updateOnAuthEvents = () => {
     const listener = {
       onUserAdded: update,
       onUserLoggedIn: update,
@@ -31,20 +53,10 @@ export default function useAuth(stitchAuth) {
       onUserLinked: update,
       onListenerRegistered: update
     };
-    stitchAuth.addAuthListener(listener);
+    app.auth.addAuthListener(listener);
     return () => {
-      stitchAuth.removeAuthListener(listener);
+      app.auth.removeAuthListener(listener);
     };
-  }, []);
-
-  return {
-    data,
-    isLoading,
-    actions: {
-      loginEmailPasswordUser,
-      loginFacebookUser,
-      loginGoogleUser,
-      loginGuestUser
-    }
   };
+  useEffect(updateOnAuthEvents, []);
 }

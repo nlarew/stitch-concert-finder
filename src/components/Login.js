@@ -288,25 +288,6 @@ function EmailPasswordForm(props) {
   );
 }
 
-// function LoginButtons(props) {
-//   return (
-//     <>
-//       <EmailPasswordLoginButton
-//         css={socialButtonStyle}
-//         onClick={() => props.setIsEmailPassword(true)}
-//       />
-//       <FacebookLoginButton
-//         css={socialButtonStyle}
-//         onClick={() => props.loginFacebookUser()}
-//       />
-//       <GoogleLoginButton
-//         css={socialButtonStyle}
-//         onClick={() => props.loginGoogleUser()}
-//       />
-//     </>
-//   );
-// }
-
 export const LoginForm = React.memo(function(props) {
   const { loginEmailPasswordUser, loginFacebookUser, loginGoogleUser, loginGuestUser } = props;
   const [isEmailPassword, setIsEmailPassword] = useState(false);
