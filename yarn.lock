@@ -1051,6 +1051,13 @@
     react-lifecycles-compat "^3.0.4"
     warning "^3.0.0"
 
+"@rehooks/window-size@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@rehooks/window-size/-/window-size-1.0.2.tgz#24583dda021969e7b7166b923b055a47cca4e4b5"
+  integrity sha512-sqPpGM4kivmOFHG+UKqmJbVDBSLOpjMZgqnCNzpzXRZey8R84LL3MaYiE5hulAAosiOh3UJopvJhgUauccaoeA==
+  dependencies:
+    react "^16.7.0-alpha.0"
+
 "@rooks/use-timeout@1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@rooks/use-timeout/-/use-timeout-1.2.0.tgz#bc9a64f393049f5dced0775d196c8690a591ad2a"
@@ -8674,6 +8681,16 @@ react@16.8.3:
     prop-types "^15.6.2"
     scheduler "^0.13.3"
 
+react@^16.7.0-alpha.0:
+  version "16.8.6"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.8.6.tgz#ad6c3a9614fd3a4e9ef51117f54d888da01f2bbe"
+  integrity sha512-pC0uMkhLaHm11ZSJULfOBqV4tIZkx87ZLvbbQYunNixAAvjnC+snJCg0XQXn9VIsttVsbZP/H/ewzgsd5fxKXw==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
+    scheduler "^0.13.6"
+
 reactstrap@7.1.0:
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/reactstrap/-/reactstrap-7.1.0.tgz#fd7125901737a3001c8564c0f8b40e319eec23b2"
@@ -9134,7 +9151,7 @@ sax@^1.2.4, sax@~1.2.4:
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
   integrity sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
 
-scheduler@^0.13.3:
+scheduler@^0.13.3, scheduler@^0.13.6:
   version "0.13.6"
   resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.13.6.tgz#466a4ec332467b31a91b9bf74e5347072e4cd889"
   integrity sha512-IWnObHt413ucAYKsD9J1QShUKkbKLQQHdxRyw73sw4FN26iWr3DY/H34xGPe4nmL1DwXyWmSWmMrA9TfQbE/XQ==

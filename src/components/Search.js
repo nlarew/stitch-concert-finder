@@ -37,24 +37,22 @@ const SpinnerIcon = () => (
 const SearchBarContainer = styled(InputGroup)`
   width: 100%;
 `;
-const SearchBarButton = props => {
-  const { handleSearch, isSearching } = props;
-  const Text = styled.div`
-    margin-right: 8px;
-    margin-left: 8px;
-  `;
+const SearchBarButton = ({ onButtonPress, isSearching }) => {
   return (
     <InputGroupAddon addonType="append">
-      <Button color="info" onClick={handleSearch} disabled={isSearching}>
-        {isSearching ? (
-          <Text>Searching <SpinnerIcon /></Text>
-        ) : (
-          <Text>Search <SearchIcon /></Text>
-        )}
+      <Button color="info" onClick={onButtonPress} disabled={isSearching}>
+        <div css={css`
+          margin-right: 8px;
+          margin-left: 8px;
+        `}>
+          {isSearching ? "Searching"     : "Search"}
+          {isSearching ? <SpinnerIcon /> : <SearchIcon />}
+        </div>
       </Button>
     </InputGroupAddon>
   );
 };
+
 const SearchBarInput = styled(Input)`
   height: 70px !important;
   background-color: white;
@@ -63,118 +61,28 @@ const SearchBarInput = styled(Input)`
   padding-right: 20px;
   line-height: 40px;
 `;
-const SearchBar = React.memo(props => {
-  const {
-    address,
-    searchFor,
-    onChange,
-    isSearching,
-    venuesError,
-  } = props;
-  const handleSearch = () => {
-    if (!isSearching) { searchFor(address) }
-  };
-  function handleKeyPress(e){
-    if(e.keyCode === 13){
-      handleSearch()
-    }
-  }
+
+export const SearchBar = React.memo(props => {
+  const { handleSearch, isSearching } = props;
+  const [searchString, setSearchString] = useState("");
+  const handleInputChange = e => setSearchString(e.currentTarget.value)
+  const search = () => handleSearch(searchString);
+  const handleKeyPress = e => e.keyCode === 13 && search();
+
   return (
     <SearchBarContainer>
       <SearchBarInput
-        onChange={onChange}
-        onKeyDown={handleKeyPress}
-        value={address}
-        placeholder="Enter your address..."
+        onChange={handleInputChange}
+        invalid={false /*venuesError*/}
         disabled={isSearching}
-        invalid={venuesError}
+        onKeyDown={handleKeyPress}
+        value={searchString}
+        placeholder="123 Cherry Lane"
       />
-      <SearchBarButton
-        handleSearch={handleSearch}
-        isSearching={isSearching}
-      />
+      <SearchBarButton onButtonPress={search} isSearching={isSearching} />
     </SearchBarContainer>
   );
 });
-
-export function useVenues() {
-  const [address, setAddress] = useState("");
-  const [addressQuery, setAddressQuery] = useState("");
-  const [addressLocation, setAddressLocation] = useState(null);
-  const [searching, setSearching] = useState(false);
-  const [events, setEvents] = useState([]);
-  const [venues, setVenues] = useState([]);
-  const [venuesError, setVenuesError] = useState(null);
-
-  const handleInputChange = e => {
-    setAddressQuery(e.currentTarget.value);
-  };
-
-  const search = () => !searching && setSearching(true);
-  async function handleSearch() {
-    if (searching) {
-      if (addressQuery) {
-        const result = await searchNearAddress(addressQuery);
-        setAddress(result.location.formatted_address);
-        setAddressLocation(result.location);
-        setVenues(result.venues);
-        setEvents(result.events);
-      } else {
-        setVenuesError("You must enter an address to search.")
-      }
-      setSearching(false);
-    }
-  }
-  useEffect(
-    () => {
-      handleSearch();
-    },
-    [searching],
-  );
-
-  const getUserActions = ({ setCurrentUserProfile }) => ({
-    addFavoriteVenue: async venueId => {
-      console.log("addFavoriteVenue", venueId);
-      const user = await mongodbActions.addFavoriteVenue({ venueId });
-      setCurrentUserProfile(user);
-    },
-    removeFavoriteVenue: async venueId => {
-      console.log("removeFavoriteVenue", venueId);
-      const user = await mongodbActions.removeFavoriteVenue({ venueId });
-      setCurrentUserProfile(user);
-    },
-    starEvent: async (venueId, eventId) => {
-      console.log("starEvent", venueId, eventId);
-      const venue = await mongodbActions.starEvent({ venueId, eventId });
-      const venueIndex = venues.findIndex(v => v.id === venueId);
-      setVenues(R.update(venueIndex, venue, venues));
-    },
-    unstarEvent: async (venueId, eventId) => {
-      console.log("unstarEvent", venueId, eventId);
-      const venue = await mongodbActions.unstarEvent({ venueId, eventId });
-      const venueIndex = venues.findIndex(v => v.id === venueId);
-      setVenues(R.update(venueIndex, venue, venues));
-    }
-  });
-  const [currentVenue, setCurrentVenue] = useState(null);
-  return {
-    getUserActions,
-    events,
-    venues,
-    setVenues,
-    currentVenue,
-    setCurrentVenue,
-    setAddress,
-    setAddressLocation,
-    address,
-    addressQuery,
-    addressLocation,
-    search,
-    searching,
-    handleInputChange,
-    venuesError,
-  };
-}
 
 const ContentCard = styled(Card)`
   grid-area: search;

@@ -25,7 +25,7 @@ const getIcons = ({ isCurrentVenue }) => ({
 export function HomeMarker({ children, position, address, isCurrentVenue, ...props }) {
   const icons = getIcons({ isCurrentVenue })
   return (
-    <Marker position={position} icon={icons.address} {...props}>
+    <Marker position={position} icon={icons.address} {...props} id="asdfasdf">
       <Popup>YOUR HOME BABY</Popup>
     </Marker>
   );

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as R from "ramda";
 import app, {
-  useStitchAuth,
   linkEmailPasswordUser,
   linkFacebookUser,
   linkGoogleUser,
@@ -14,8 +13,10 @@ import Login, {
 } from "./Login";
 import App from "./App";
 import Loading from "./Loading";
+import useAuth from "./../hooks/useAuth";
+import useSearch from "./../hooks/useSearch";
 import Profile from "./Profile";
-import { useVenues } from "./Search";
+import NewMap from "./NewMap";
 import { Router, Redirect } from "@reach/router";
 
 function useFavoritesFirst(currentUserProfile, venues) {
@@ -26,22 +27,7 @@ function useFavoritesFirst(currentUserProfile, venues) {
   const isFavorite = venue =>
     currentUserProfile &&
     R.includes(venue.id, currentUserProfile.favoriteVenues);
-  function favoritesFirst(a, b) {
-    const aFav = isFavorite(a);
-    const bFav = isFavorite(b);
-    if (aFav && bFav) {
-      return 0;
-    }
-    if (!aFav && !bFav) {
-      return 0;
-    }
-    if (aFav && !bFav) {
-      return -1;
-    }
-    if (!aFav && bFav) {
-      return 1;
-    }
-  }
+  const favoritesFirst = (a, b) => (isFavorite(a) * -1) + (isFavorite(b) * 1)
   useEffect(() => {
     const orderByFavorites = R.sort(favoritesFirst);
     const ordered = orderByFavorites(
@@ -57,32 +43,24 @@ function useFavoritesFirst(currentUserProfile, venues) {
 
 export default function AppRouter() {
   const {
-    currentUserProfile,
-    setCurrentUserProfile,
-    isLoadingAuth,
+    isLoading,
+    data: { isLoggedIn, currentUserProfile },
     actions: {
       loginEmailPasswordUser,
       loginFacebookUser,
       loginGoogleUser,
       loginGuestUser
     }
-  } = useStitchAuth();
-  const hasLoggedInUser = !!currentUserProfile;
+  } = useAuth(app.auth);
+  const setCurrentUserProfile = () => { /*This is a hack*/ }
 
-  let venueData = useVenues();
-  const orderedVenues = useFavoritesFirst(currentUserProfile, venueData.venues);
-  venueData = {
-    ...venueData,
-    orderedVenues
-  };
-
-  return isLoadingAuth ? (
+  return isLoading ? (
     <Loading />
   ) : (
     <Router>
       <Login
         path="/login"
-        isLoggedIn={hasLoggedInUser}
+        isLoggedIn={isLoggedIn}
         loginEmailPasswordUser={loginEmailPasswordUser}
         loginFacebookUser={loginFacebookUser}
         loginGoogleUser={loginGoogleUser}
@@ -90,32 +68,7 @@ export default function AppRouter() {
       />
       <ConfirmEmail path="/admin/confirmEmail" />
       <ResetPassword path="/admin/resetPassword" />
-      {hasLoggedInUser && (
-        <App
-          path="/app"
-          venueData={venueData}
-          currentUserProfile={currentUserProfile}
-          setCurrentUserProfile={setCurrentUserProfile}
-          handleLogout={() => logoutUser(app.currentUser)}
-        />
-      )}
-      {hasLoggedInUser && (
-        <Profile
-          path="/profile/:userId"
-          venueData={venueData}
-          currentUserProfile={currentUserProfile}
-          setCurrentUserProfile={setCurrentUserProfile}
-          handleLogout={() => logoutUser(app.currentUser)}
-        />
-      )}
-      {hasLoggedInUser && (
-        <LinkLogin
-          path="/profile/link"
-          loginEmailPasswordUser={linkEmailPasswordUser}
-          loginFacebookUser={linkFacebookUser}
-          loginGoogleUser={linkGoogleUser}
-        />
-      )}
+      {isLoggedIn && <NewMap path="/app" />}
       <Redirect from="*" to="/login" noThrow default />
     </Router>
   );
