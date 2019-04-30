@@ -2,7 +2,7 @@
 import { css, jsx } from "@emotion/core";
 import React, { useRef, useState, useEffect } from "react";
 import styled from "@emotion/styled";
-import { Map, TileLayer } from "react-leaflet";
+import { Map, Popup, TileLayer, LayerGroup } from "react-leaflet";
 import {
   Card,
   CardHeader,
@@ -18,6 +18,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import * as mongodbActions from "./../stitch/mongodb";
 import * as R from "ramda";
+import L from 'leaflet'
 
 const StamenTonerTileLayer = () => (
   <TileLayer
@@ -84,9 +85,10 @@ const SearchResults = props => {
 const ControlCard = props => {
   const cardStyle = css`
     background-color: #383b3f !important;
-    height: calc(100vh - 40px);
+    height: calc(100% - 40px - 40px);
     min-width: 30vw;
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+      0 10px 10px rgba(0, 0, 0, 0.22);
   `;
   const cardHeaderStyle = css`
     padding-left: 12px;
@@ -141,51 +143,121 @@ function useWindowSize() {
   return windowSize;
 }
 
-export default React.memo(function LeafMap(props) {
-  const mapRef = useRef();
-  const MapContainer = styled.div`
-    height: 100vh;
-    height: 100vw;
-    box-sizing: border-box;
-  `;
-  const mapStyle = css`
-    height: 100vh;
-  `;
+const MapAppLayout = styled.div`
+  height: 100vh;
+  height: 100vw;
+  min-height: 100vh;
+  max-height: 100vh;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-areas:
+    "navbar navbar navbar"
+    "map    map    map";
+  grid-template-rows: 40px 1fr;
+`;
+const NavbarContainer = styled.div`
+  grid-area: navbar;
+  box-sizing: border-box;
+`
+const MapContainer = styled.div`
+  grid-area: map;
+  box-sizing: border-box;
+`;
+const mapStyle = css`
+  height: 100%;
+`;
 
-  const center = { lat: 40.7133111, lng: -73.9521927 }
-  const radius = 2 * 1000; // 2 kilometers
+const VenueMarkers = ({ venues }) => venues.map(venue => (
+  <FavoriteVenueMarker
+    key={venue.id}
+    isCurrentVenue={false}
+    position={[Number(venue.location.lat), Number(venue.location.lng)]}
+    zIndexOffset={-100}
+    onClick={() => console.log(`clicked ${venue.id}`)}
+    onMouseOver={e => { e.target.openPopup() }}
+    onMouseOut={e => { e.target.closePopup() }}
+  >
+    <Popup>
+      <h4>{venue.name}</h4>
+    </Popup>
+  </FavoriteVenueMarker>
+))
 
-  const [userHasPannedMap, setUserHasPannedMap] = useState(false);
+function useMapCenter(mapRef, initialCenter) {
   const windowSize = useWindowSize();
-  // const windowSize = window
-  useEffect(() => {
-    console.log('foo')
-    if(!userHasPannedMap) {
-      console.log('bar')
-      const point = mapRef.current.leafletElement.layerPointToLatLng({
-        x: windowSize.innerWidth * 0.65,
-        y: windowSize.innerHeight * 0.5
-      });
-      mapRef.current.leafletElement.panTo(point);
+  const [center, setCenter] = useState(initialCenter);
+  const [windowRecentlyResized, setWindowRecentlyResized] = useState(false);
+  const map = mapRef.current && mapRef.current.leafletElement;
+  const { x: width, y: height } = map && map.getSize() || { x: null, y: null };
+  const centerMap = () => {
+    if(map) {
+      const flyToTrueCenter = function() {
+        map.panTo(center, map.getZoom(), { animate: false });
+        map.once("moveend", () => {
+          console.log('movedonce')
+          // map.panBy(new L.point(width * 0.15, 0), { animate: false });
+          // console.log('movedtwice')
+        });
+      }
+      flyToTrueCenter()
+      // map.panBy(new L.point(width * 0.15, 0), { animate: false });
     }
-  }, [windowSize.innerWidth]);
-  
+    // map.flyTo(center, map.getZoom(), { animate: true });
+  };
+  useEffect(() => {
+    if (windowRecentlyResized) {
+      const timeout = setTimeout(() => {
+        centerMap();
+        setWindowRecentlyResized(false);
+      }, 400);
+      return () => clearTimeout(timeout);
+    } else {
+      setWindowRecentlyResized(true);
+    }
+  }, [width, height]);
+}
+
+export default function LeafMap(props) {
+  const mapRef = useRef();
+
+  const {
+    // isSearching,
+    data: { location, venues },
+  } = useSearch();
+  const searchedCoordinates = location && location.geometry.location
+  console.log("NewMap", venues);
+
+  const center = searchedCoordinates || { lat: 40.7133111, lng: -73.9521927 };
+  const radius = 2 * 1000; // 2 kilometers
+  useMapCenter(mapRef, center);
   
   return (
-    <MapContainer>
-      <Map
-        css={mapStyle}
-        center={center}
-        zoom={12}
-        ref={ref => (mapRef.current = ref)}
-      >
-        <StamenTonerTileLayer />
-        <Control position="topright">
-          <ControlCard />
-        </Control>
-
-        <HomeMarker position={center} />
-      </Map>
-    </MapContainer>
+    <MapAppLayout>
+      <NavbarContainer>
+        <div
+          css={css`
+            background-color: #383b3f !important;
+            width: 100%;
+            height: 100%;
+          `}
+        />
+      </NavbarContainer>
+      <MapContainer>
+        <Map
+          css={mapStyle}
+          center={center}
+          zoom={12}
+          ref={ref => (mapRef.current = ref)}
+        >
+          <StamenTonerTileLayer />
+          <Control position="topright">
+            <ControlCard />
+          </Control>
+          {location && <HomeMarker position={center} />}
+          {!location && <VenueMarker position={center} />}
+          {venues.length > 0 && <VenueMarkers venues={venues} />}
+        </Map>
+      </MapContainer>
+    </MapAppLayout>
   );
-});
+};
