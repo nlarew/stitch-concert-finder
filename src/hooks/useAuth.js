@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useContext, createContext } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useMemo,
+  createContext,
+} from "react";
 import app from "./../stitch/app";
 import { getUserProfile } from "./../stitch/mongodb";
 import {
@@ -39,8 +45,13 @@ export const StitchAuthProvider = ({ children }) => {
   });
 
   // Wrap all children in the React Context provider
+  const value = useMemo(() => ({isLoading, data, actions }), [
+    isLoading,
+    data.isLoggedIn,
+    data.currentUserProfile
+  ]);
   return (
-    <StitchAuthContext.Provider value={{ isLoading, data, actions }}>
+    <StitchAuthContext.Provider value={value}>
       {children}
     </StitchAuthContext.Provider>
   );

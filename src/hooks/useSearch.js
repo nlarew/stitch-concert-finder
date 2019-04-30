@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useContext, createContext } from "react";
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useMemo,
+  createContext,
+} from "react";
 import { searchNearAddress } from "./../stitch";
 
 // Export a hook that lets us access Search data anywhere inside of SearchProvider
@@ -31,8 +37,12 @@ export const SearchProvider = ({ children }) => {
   };
   
   // Wrap all children in the React Context provider
+  const value = useMemo(() => ({ isSearching, data, actions }), [
+    isSearching,
+    data.location
+  ]);
   return (
-    <SearchContext.Provider value={{ isSearching, data, actions }}>
+    <SearchContext.Provider value={value}>
       {children}
     </SearchContext.Provider>
   );
