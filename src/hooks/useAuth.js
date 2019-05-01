@@ -14,13 +14,19 @@ import {
   loginGuestUser
 } from "./../stitch/authentication";
 
-// Export a hook that lets us access Stitch auth state anywhere inside of StitchAuthProvider
 const StitchAuthContext = createContext();
-const useStitchAuth = () => useContext(StitchAuthContext);
-export default useStitchAuth;
+
+// Export a hook that lets us access Stitch auth state anywhere inside of StitchAuthProvider
+function useStitchAuth() {
+  const context = useContext(StitchAuthContext);
+  if (!context) {
+    throw new Error(`useStitchAuth must be used within a StitchAuthProvider`);
+  }
+  return context;
+}
 
 // Stitch auth state is accessible anywhere inside of this component
-export const StitchAuthProvider = ({ children }) => {
+function StitchAuthProvider(props) {
   // Declare auth state and actions
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState({
@@ -52,7 +58,7 @@ export const StitchAuthProvider = ({ children }) => {
   ]);
   return (
     <StitchAuthContext.Provider value={value}>
-      {children}
+      {props.children}
     </StitchAuthContext.Provider>
   );
 };
@@ -73,3 +79,5 @@ function useStitchAuthListener(update) {
   };
   useEffect(updateOnAuthEvents, []);
 }
+
+export { StitchAuthProvider, useStitchAuth }

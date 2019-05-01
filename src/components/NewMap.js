@@ -12,7 +12,7 @@ import {
 } from "reactstrap";
 import Control from "react-leaflet-control";
 import { HomeMarker, VenueMarker, FavoriteVenueMarker } from "./map-markers";
-import useSearch from "./../hooks/useSearch";
+import { useSearch } from "./../hooks/useSearch";
 import { SearchBar } from "./Search";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
@@ -168,7 +168,7 @@ const mapStyle = css`
 `;
 
 const VenueMarkers = ({ venues }) => venues.map(venue => (
-  <FavoriteVenueMarker
+  <VenueMarker
     key={venue.id}
     isCurrentVenue={false}
     position={[Number(venue.location.lat), Number(venue.location.lng)]}
@@ -180,7 +180,7 @@ const VenueMarkers = ({ venues }) => venues.map(venue => (
     <Popup>
       <h4>{venue.name}</h4>
     </Popup>
-  </FavoriteVenueMarker>
+  </VenueMarker>
 ))
 
 function useMapCenter(mapRef, initialCenter) {
@@ -254,7 +254,7 @@ export default function LeafMap(props) {
             <ControlCard />
           </Control>
           {location && <HomeMarker position={center} />}
-          {!location && <VenueMarker position={center} />}
+          {!location && <FavoriteVenueMarker position={center} />}
           {venues.length > 0 && <VenueMarkers venues={venues} />}
         </Map>
       </MapContainer>

@@ -26,7 +26,7 @@ import {
   sendPasswordResetEmail,
   handlePasswordReset
 } from "./../stitch";
-import useStitchAuth from "./../hooks/useAuth";
+import { useStitchAuth } from "./../hooks/useAuth";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {

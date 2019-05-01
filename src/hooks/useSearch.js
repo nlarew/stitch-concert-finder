@@ -7,13 +7,19 @@ import React, {
 } from "react";
 import { searchNearAddress } from "./../stitch";
 
-// Export a hook that lets us access Search data anywhere inside of SearchProvider
 const SearchContext = createContext();
-const useSearch = () => useContext(SearchContext);
-export default useSearch;
+
+// Export a hook that lets us access Search data anywhere inside of SearchProvider
+function useSearch() {
+  const context = useContext(SearchContext);
+  if (!context) {
+    throw new Error(`useSearch must be used within a SearchProvider`);
+  }
+  return context;
+}
 
 // Search data is accessible anywhere inside of this component
-export const SearchProvider = ({ children }) => {
+function SearchProvider(props) {
   // Search state
   const nothingSearched = {
     location: null,
@@ -37,13 +43,12 @@ export const SearchProvider = ({ children }) => {
   };
   
   // Wrap all children in the React Context provider
-  const value = useMemo(() => ({ isSearching, data, actions }), [
-    isSearching,
-    data.location
-  ]);
+  const value = useMemo(() => ({ isSearching, data, actions }), [isSearching]);
   return (
     <SearchContext.Provider value={value}>
-      {children}
+      {props.children}
     </SearchContext.Provider>
   );
 };
+
+export { SearchProvider, useSearch }
