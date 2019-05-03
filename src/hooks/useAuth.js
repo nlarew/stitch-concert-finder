@@ -33,12 +33,12 @@ function StitchAuthProvider(props) {
     isLoggedIn: null,
     currentUserProfile: null
   });
-  const actions = {
+  const actions = useMemo(() => ({
     loginEmailPasswordUser,
     loginFacebookUser,
     loginGoogleUser,
     loginGuestUser
-  };
+  }), []);
   
   // Update auth state whenever a Stitch auth event occurs
   useStitchAuthListener(async () => {
@@ -54,7 +54,8 @@ function StitchAuthProvider(props) {
   const value = useMemo(() => ({isLoading, data, actions }), [
     isLoading,
     data.isLoggedIn,
-    data.currentUserProfile
+    data.currentUserProfile,
+    actions
   ]);
   return (
     <StitchAuthContext.Provider value={value}>

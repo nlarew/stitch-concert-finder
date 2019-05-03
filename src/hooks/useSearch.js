@@ -3,6 +3,7 @@ import React, {
   useEffect,
   useContext,
   useMemo,
+  useCallback,
   createContext,
 } from "react";
 import { searchNearAddress } from "./../stitch";
@@ -30,17 +31,16 @@ function SearchProvider(props) {
   const [data, setData] = useState(nothingSearched);
 
   // Search actions
-  const actions = {
-    handleSearch: async (address) => {
-      setIsSearching(true);
-      const searchResult = await searchNearAddress(address);
-      setData(searchResult);
-      setIsSearching(false);
-    },
-    clearData: () => {
-      setData(nothingSearched)
-    },
-  };
+  const handleSearch = useCallback(async (address) => {
+    setIsSearching(true);
+    const searchResult = await searchNearAddress(address);
+    setData(searchResult);
+    setIsSearching(false);
+  }, [])
+  const clearData = useCallback(() => {
+    setData(nothingSearched)
+  }, [])
+  const actions = useMemo(() => ({ handleSearch, clearData }), []);
   
   // Wrap all children in the React Context provider
   const value = useMemo(() => ({ isSearching, data, actions }), [isSearching]);
